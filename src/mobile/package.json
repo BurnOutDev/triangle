@@ -1,15 +1,16 @@
 {
-  "name": "mobile",
+  "name": "reservemobile",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "start": "react-native start",
+    "start": "react-native run-android",
     "test": "jest",
     "lint": "eslint ."
   },
   "dependencies": {
+    "instabug-reactnative": "^9.1.0",
     "react": "16.11.0",
     "react-native": "0.62.0"
   },
