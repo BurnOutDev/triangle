@@ -6,31 +6,44 @@ const StarIcon = (props) => (
     <Icon {...props} name='arrow-forward-outline' />
 );
 
-const SignIn = () => {
+const GoogleIcon = (props) => (
+    <Icon {...props} name='google' />
+);
+
+const FacebookIcon = (props) => (
+    <Icon {...props} name='facebook' />
+);
+
+const SignUp = () => {
 
     const [value, setValue] = React.useState('');
 
     return (
         <ImageBackground resizeMode='cover' source={require('../../assets/LoginBg.png')} style={styles.imageBg}>
-            <Text category='h1' style={styles.headerText}>Sign In</Text>
-            <ImageBackground resizeMode='cover' source={require('../../assets/LoginBgInner.png')} style={styles.innerContainer} imageStyle={styles.imageBgInner}>
-                {/* <Image style={styles.imageBgInner} source={require('../../assets/LoginBgInner.png')} /> */}
-                <Text category='h2'>Welcome Back</Text>
-                <Text category='s2'>We Love to see you again</Text>
+            <Text category='h1' style={styles.headerText}>Sign Up</Text>
+            <View style={styles.innerContainer}>
+                <Text category='h2'>Join Us</Text>
+                <Text category='s2'>We would love you to join us</Text>
+                <View style={styles.socialButtonsContainer}>
+                    <Button appearance='outline' status='danger' icon={GoogleIcon} size='small' />
+                    <Button appearance='outline' icon={FacebookIcon} size='small' />
+                </View>
+                <Text style={styles.textUnderSocials} category='s2'>We have multiple options for you to join us</Text>
 
                 <View style={styles.inputsConteiner}>
-                    <Input size='small' placeholder='Username Or Email Address' value={value} onChangeText={nextValue => setValue(nextValue)} />
+                    <Input size='small' placeholder='Name Or Username' value={value} onChangeText={nextValue => setValue(nextValue)} />
+                    <Input size='small' placeholder='Email' value={value} onChangeText={nextValue => setValue(nextValue)} />
                     <Input size='small' placeholder='*****************' value={value} onChangeText={nextValue => setValue(nextValue)} />
                 </View>
 
                 <Button style={styles.enterButton} size='small' icon={StarIcon} />
-            </ImageBackground>
+            </View>
             <View style={abstractStyles.top}></View>
             <View style={abstractStyles.bottom}></View>
 
             <View style={styles.buttonsContainer}>
-                <Button style={styles.button} size='large'>Sign In</Button>
-                <Button style={styles.button} status='basic' size='large'>Sign Up</Button>
+                <Button style={styles.button} status='basic' size='large'>Sign In</Button>
+                <Button style={styles.button} size='large'>Sign Up</Button>
             </View>
         </ImageBackground>
     )
@@ -39,7 +52,7 @@ const SignIn = () => {
 const styles = StyleSheet.create({
     innerContainer: {
         alignItems: 'center',
-        paddingTop: 170,
+        paddingTop: 25,
         paddingBottom: 25,
         backgroundColor: 'white',
         borderRadius: 25,
@@ -75,6 +88,15 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         margin: 0
     },
+    socialButtonsContainer: {
+        flexDirection: 'row',
+        justifyContent: "space-evenly",
+        marginTop: 20,
+        minWidth: 200
+    },
+    textUnderSocials: {
+        marginTop: 15
+    },
     enterButton: {
         paddingLeft: 20,
         paddingRight: 20
@@ -100,4 +122,4 @@ const abstractStyles = StyleSheet.create({
     }
 })
 
-export default SignIn
+export default SignUp

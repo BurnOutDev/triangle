@@ -19,12 +19,13 @@ import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 import { mapping, light as lightTheme } from '@eva-design/eva';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import SignIn from './screens/Authentication/SignIn';
+import SignUp from './screens/Authentication/SignUp';
 
 const App: () => React$Node = () => {
   return (<>
     <IconRegistry icons={EvaIconsPack} />
     <ApplicationProvider mapping={mapping} theme={lightTheme}>
-      <SignIn />
+      <SignUp />
     </ApplicationProvider>
   </>);
 };
