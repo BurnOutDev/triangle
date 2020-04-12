@@ -10,9 +10,13 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@eva-design/eva": "^1.4.0",
+    "@ui-kitten/components": "^4.4.1",
+    "@ui-kitten/eva-icons": "^5.0.0-alpha.1",
     "instabug-reactnative": "^9.1.0",
     "react": "16.11.0",
-    "react-native": "0.62.0"
+    "react-native": "0.62.0",
+    "react-native-svg": "^12.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
