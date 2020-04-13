@@ -11,7 +11,7 @@ const Authentication = () => {
     const [value, setValue] = React.useState('');
 
     return (
-        <ImageBackground resizeMode='cover' source={require('../../assets/LoginBg.png')} style={styles.imageBg}>
+        <ImageBackground resizeMode='cover' source={require('../../assets/background.jpg')} style={styles.imageBg}>
 
             <View>
                 <Button style={{ flexDirection: 'row-reverse', alignSelf: 'flex-end' }} appearance='ghost' status='basic'>Log in</Button>
@@ -71,25 +71,6 @@ const styles = StyleSheet.create({
     enterButton: {
         paddingLeft: 20,
         paddingRight: 20
-    }
-})
-
-const abstractStyles = StyleSheet.create({
-    top: {
-        height: 10,
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20,
-        backgroundColor: 'rgba(255,255,255,0.8)',
-        marginLeft: 20,
-        marginRight: 20
-    },
-    bottom: {
-        height: 10,
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20,
-        backgroundColor: 'rgba(255,255,255,0.5)',
-        marginLeft: 40,
-        marginRight: 40
     }
 })
 
