@@ -20,12 +20,13 @@ import { mapping, light as lightTheme } from '@eva-design/eva';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import SignIn from './screens/Authentication/SignIn';
 import SignUp from './screens/Authentication/SignUp';
+import AppNavigator from './screens/AppNavigator';
 
 const App: () => React$Node = () => {
   return (<>
     <IconRegistry icons={EvaIconsPack} />
     <ApplicationProvider mapping={mapping} theme={lightTheme}>
-      <SignUp />
+      <AppNavigator />
     </ApplicationProvider>
   </>);
 };
