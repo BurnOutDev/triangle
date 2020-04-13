@@ -21,6 +21,7 @@ import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import LogIn from './screens/Authentication/LogIn';
 import AppNavigator from './screens/AppNavigator';
 import Authentication from './screens/Authentication/Authentication';
+import SignUp from './screens/Authentication/SignUp';
 
 const App: () => React$Node = () => {
   return (<>

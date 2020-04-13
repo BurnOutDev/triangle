@@ -1,30 +1,31 @@
 import React, { useState } from 'react';
 import { StyleSheet, StatusBar, View, SafeAreaView, ImageBackground, Image } from 'react-native';
 import { Text, Card, Layout, Input, Icon, Button, Divider } from '@ui-kitten/components';
+import { BlurView } from '@react-native-community/blur';
 
 const ArrowIcon = (props) => (
     <Icon {...props} name='arrow-back' />
 );
 
-const SignIn = () => {
+const LogIn = () => {
 
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
 
     return (
         <ImageBackground resizeMode='cover' source={require('../../assets/background.jpg')} style={styles.imageBg}>
-            <View>
+            <BlurView blurAmount={10} style={styles.absolute}>
                 <Button style={{ alignSelf: 'flex-start' }} appearance='ghost' status='basic' icon={ArrowIcon} />
-            </View>
 
-            <Text category='h1' style={{color: 'white', marginBottom: 30}}>Welcome back</Text>
+                <Text category='h1' style={{ color: 'white', marginBottom: 30 }}>Welcome back</Text>
 
-            <View style={styles.buttonsContainer}>
-                <Input style={styles.input} placeholder='Email' value={email} onChangeText={nextValue => setEmail(nextValue)} />
-                <Input style={styles.input} placeholder='Password' value={password} onChangeText={nextValue => setPassword(nextValue)} />
-                <Button style={styles.button} status='success' size='medium'>Log in</Button>
-            </View>
-        </ImageBackground>
+                <View style={styles.buttonsContainer}>
+                    <Input style={styles.input} placeholder='Email' value={email} onChangeText={nextValue => setEmail(nextValue)} />
+                    <Input style={styles.input} placeholder='Password' value={password} onChangeText={nextValue => setPassword(nextValue)} />
+                    <Button style={styles.button} status='success' size='medium'>Log in</Button>
+                </View>
+            </BlurView>
+        </ImageBackground >
     )
 }
 
@@ -32,7 +33,6 @@ const styles = StyleSheet.create({
     imageBg: {
         flex: 1,
         resizeMode: 'cover',
-        padding: 25
     },
     headerText: {
         color: 'white',
@@ -59,7 +59,15 @@ const styles = StyleSheet.create({
     },
     input: {
         marginBottom: 10
+    },
+    absolute: {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        padding: 25
     }
 })
 
-export default SignIn
+export default LogIn

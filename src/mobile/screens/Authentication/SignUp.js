@@ -1,84 +1,50 @@
 import React, { useState } from 'react';
 import { StyleSheet, StatusBar, View, SafeAreaView, ImageBackground, Image } from 'react-native';
 import { Text, Card, Layout, Input, Icon, Button, Divider } from '@ui-kitten/components';
+import { BlurView } from "@react-native-community/blur";
 
-const StarIcon = (props) => (
-    <Icon {...props} name='arrow-forward-outline' />
-);
-
-const GoogleIcon = (props) => (
-    <Icon {...props} name='google' />
-);
-
-const FacebookIcon = (props) => (
-    <Icon {...props} name='facebook' />
+const ArrowIcon = (props) => (
+    <Icon {...props} name='arrow-back' />
 );
 
 const SignUp = () => {
 
-    const [value, setValue] = React.useState('');
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
 
     return (
-        <ImageBackground resizeMode='cover' source={require('../../assets/LoginBg.png')} style={styles.imageBg}>
-            <Text category='h1' style={styles.headerText}>Sign Up</Text>
-            <View style={styles.innerContainer}>
-                <Text category='h2'>Join Us</Text>
-                <Text category='s2'>We would love you to join us</Text>
-                <View style={styles.socialButtonsContainer}>
-                    <Button appearance='outline' status='danger' icon={GoogleIcon} size='small' />
-                    <Button appearance='outline' icon={FacebookIcon} size='small' />
+        <ImageBackground resizeMode='cover' source={require('../../assets/background.jpg')} style={styles.imageBg}>
+            <BlurView blurAmount={10} style={styles.absolute}>
+                <Button style={{ alignSelf: 'flex-start' }} appearance='ghost' status='basic' icon={ArrowIcon} />
+
+                <Text category='h1' style={{ color: 'white', marginBottom: 30 }}>Sign up</Text>
+
+                <View style={styles.buttonsContainer}>
+                    <Input style={styles.input} placeholder='First Name' value={email} onChangeText={nextValue => setEmail(nextValue)} />
+                    <Input style={styles.input} placeholder='Last Name' value={email} onChangeText={nextValue => setEmail(nextValue)} />
+                    <Input style={styles.input} placeholder='Email' value={email} onChangeText={nextValue => setEmail(nextValue)} />
+                    <Input style={styles.input} placeholder='Phone Number' value={email} onChangeText={nextValue => setEmail(nextValue)} />
+                    <Input style={styles.input} placeholder='Password' value={password} onChangeText={nextValue => setPassword(nextValue)} />
+                    <Button style={styles.button} status='success' size='medium'>Sign up</Button>
                 </View>
-                <Text style={styles.textUnderSocials} category='s2'>We have multiple options for you to join us</Text>
-
-                <View style={styles.inputsConteiner}>
-                    <Input size='small' placeholder='Name Or Username' value={value} onChangeText={nextValue => setValue(nextValue)} />
-                    <Input size='small' placeholder='Email' value={value} onChangeText={nextValue => setValue(nextValue)} />
-                    <Input size='small' placeholder='*****************' value={value} onChangeText={nextValue => setValue(nextValue)} />
-                </View>
-
-                <Button style={styles.enterButton} size='small' icon={StarIcon} />
-            </View>
-            <View style={abstractStyles.top}></View>
-            <View style={abstractStyles.bottom}></View>
-
-            <View style={styles.buttonsContainer}>
-                <Button style={styles.button} status='basic' size='large'>Sign In</Button>
-                <Button style={styles.button} size='large'>Sign Up</Button>
-            </View>
+            </BlurView>
         </ImageBackground>
     )
 }
 
 const styles = StyleSheet.create({
-    innerContainer: {
-        alignItems: 'center',
-        paddingTop: 25,
-        paddingBottom: 25,
-        backgroundColor: 'white',
-        borderRadius: 25,
-    },
-    inputsConteiner: {
-        marginTop: 10,
-        marginBottom: 10,
-        minWidth: 220
-    },
     imageBg: {
         flex: 1,
-        resizeMode: 'cover',
-        paddingLeft: 25,
-        paddingRight: 25,
-        paddingTop: 80
-    },
-    imageBgInner: {
-        borderRadius: 25
+        resizeMode: 'cover'
     },
     headerText: {
         color: 'white',
         fontWeight: 'bold',
-        marginBottom: 10
+        marginBottom: 10,
+        alignSelf: 'flex-start',
     },
-    buttonsContainer: {
-        flexDirection: 'row',
+    inputsContainer: {
+        flexDirection: 'column',
         justifyContent: "space-between",
         marginTop: 20,
     },
@@ -86,39 +52,24 @@ const styles = StyleSheet.create({
         paddingLeft: 30,
         paddingRight: 30,
         borderRadius: 12,
-        margin: 0
-    },
-    socialButtonsContainer: {
-        flexDirection: 'row',
-        justifyContent: "space-evenly",
-        marginTop: 20,
-        minWidth: 200
-    },
-    textUnderSocials: {
-        marginTop: 15
+        margin: 0,
+        marginBottom: 10,
+        marginTop: 10
     },
     enterButton: {
         paddingLeft: 20,
         paddingRight: 20
-    }
-})
-
-const abstractStyles = StyleSheet.create({
-    top: {
-        height: 10,
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20,
-        backgroundColor: 'rgba(255,255,255,0.8)',
-        marginLeft: 20,
-        marginRight: 20
     },
-    bottom: {
-        height: 10,
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20,
-        backgroundColor: 'rgba(255,255,255,0.5)',
-        marginLeft: 40,
-        marginRight: 40
+    input: {
+        marginBottom: 10
+    },
+    absolute: {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        padding: 25
     }
 })
 
