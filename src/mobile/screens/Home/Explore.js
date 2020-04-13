@@ -2,34 +2,6 @@ import React, { useState } from 'react'
 import { Layout, Text, Input, Button, List, ListItem, Card, Icon, useStyleSheet, StyleService } from '@ui-kitten/components'
 import { ImageBackground, StyleSheet, View, Dimensions } from 'react-native'
 
-const styles2 = StyleService.create({
-    container: {
-      flex: 1,
-      backgroundColor: 'background-basic-color-2',
-    },
-    productList: {
-      paddingHorizontal: 8,
-      paddingVertical: 16,
-    },
-    productItem: {
-      flex: 1,
-      margin: 8,
-      maxWidth: Dimensions.get('window').width / 2 - 24,
-      backgroundColor: 'background-basic-color-1',
-    },
-    itemHeader: {
-      height: 140,
-    },
-    itemFooter: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-    },
-    iconButton: {
-      paddingHorizontal: 0,
-    },
-  });
-
 const Header = () => (
     <ImageBackground style={styles.headerContainer} resizeMode='cover' source={require('../../assets/HomeHeaderBg.png')} style={styles.imageBg}>
         <Text style={styles.headerText} category='h1'>Home</Text>
@@ -37,9 +9,7 @@ const Header = () => (
     </ImageBackground>
 )
 
-const CartIcon = (style) => (
-    <Icon {...style} name='shopping-cart'/>
-  );
+
 
 const Filter = () => {
     const [value, setValue] = React.useState('');
