@@ -29,7 +29,7 @@ const App: () => React$Node = () => {
   return (<>
     <IconRegistry icons={EvaIconsPack} />
     <ApplicationProvider mapping={mapping} theme={lightTheme}>
-      <Explore />
+      <AppNavigator />
     </ApplicationProvider>
   </>);
 };
