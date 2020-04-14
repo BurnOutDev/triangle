@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
 import { Layout, Text, Input, Button, List, ListItem, Card, Icon, useStyleSheet, StyleService } from '@ui-kitten/components'
-import { ImageBackground, StyleSheet, View, Dimensions } from 'react-native'
+import { ImageBackground, StyleSheet, View, Dimensions, StatusBar } from 'react-native'
+import RestaurantsList from './RestaurantList'
 
-const Header = () => (
-    <ImageBackground style={styles.headerContainer} resizeMode='cover' source={require('../../assets/HomeHeaderBg.png')} style={styles.imageBg}>
-        <Text style={styles.headerText} category='h1'>Home</Text>
-        <Text style={styles.headerText} category='h5'>Where would you like to reserve your table ?</Text>
-    </ImageBackground>
-)
+const green = '#277e6d'
 
+const LocationIcon = (style) => (
+    <Icon {...style} width='16' height='16' fill='green' name='pin-outline' />
+);
 
+const ArrowRightIcon = (style) => (
+    <Icon {...style} width='16' height='16' fill='green' name='chevron-right' />
+);
 
 const Filter = () => {
     const [value, setValue] = React.useState('');
@@ -18,154 +20,43 @@ const Filter = () => {
         <View style={styles.filterContainer}>
             <Input
                 size='small'
-                placeholder='Search Restaurant'
+                placeholder='Cuisine, restaurant name...'
                 value={value}
                 onChangeText={nextValue => setValue(nextValue)}
             />
-            <View style={styles.filterButtonsContainer}>
-                <Button style={styles.filterButton} size='small' appearance='filled'>All</Button>
-                <Button style={styles.filterButton} size='small' appearance='ghost'>Polular</Button>
-                <Button style={styles.filterButton} size='small' appearance='ghost'>Near by</Button>
-                <Button style={styles.filterButton} size='small' appearance='ghost'>Recent</Button>
-            </View>
         </View>
     )
 }
 
-const data = new Array(8).fill({
-    title: 'Item',
-});
-
-const renderItem = ({ item, index }) => (
-    <ListItem title={`${item.title} ${index + 1}`} />
-);
-
-/////////////////////////
-
-const renderItemFooter = (info) => (
-    <View style={styles2.itemFooter}>
-        <Text category='s1'>
-            {info.item.formattedPrice}
-        </Text>
-        <Button
-            style={styles2.iconButton}
-            size='small'
-            icon={CartIcon}
-        />
+const Address = () => (
+    <View style={{padding: 15}}>
+        <Text category='h1'>Current</Text>
+        <View style={{flexDirection: 'row'}}>
+            <LocationIcon />
+            <Text style={{color: green, lineHeight: 18, paddingLeft: 4}}>Unit 10, 2F, 123 York Street</Text>
+            <ArrowRightIcon />
+        </View>
     </View>
-);
+)
 
-const renderItemHeader = (info) => (
-    <ImageBackground
-        style={styles2.itemHeader}
-        source={info.item.image}
-    />
-);
-
-const renderProductItem = (info) => (
-    <Card
-        style={styles2.productItem}
-        header={() => renderItemHeader(info)}
-        footer={() => renderItemFooter(info)}
-        onPress={() => onItemPress(info.index)}>
-        <Text category='s1'>
-            {info.item.title}
-        </Text>
-        <Text
-            appearance='hint'
-            category='c1'>
-            {info.item.category}
-        </Text>
-    </Card>
-);
-
-const products = [
-    {
-        title: 'Pink Chair',
-        category: 'Furniture',
-        image: require('../../assets/image-product-1.png'),
-        price: 130,
-        amount: 1
-    },
-    {
-        title: 'Pink Chair',
-        category: 'Furniture',
-        image: require('../../assets/image-product-1.png'),
-        price: 130,
-        amount: 1
-    },
-    {
-        title: 'Pink Chair',
-        category: 'Furniture',
-        image: require('../../assets/image-product-1.png'),
-        price: 130,
-        amount: 1
-    },
-    {
-        title: 'Pink Chair',
-        category: 'Furniture',
-        image: require('../../assets/image-product-1.png'),
-        price: 130,
-        amount: 1
-    },
-    {
-        title: 'Pink Chair',
-        category: 'Furniture',
-        image: require('../../assets/image-product-1.png'),
-        price: 130,
-        amount: 1
-    },
-    {
-        title: 'Pink Chair',
-        category: 'Furniture',
-        image: require('../../assets/image-product-1.png'),
-        price: 130,
-        amount: 1
-    },
-    {
-        title: 'Pink Chair',
-        category: 'Furniture',
-        image: require('../../assets/image-product-1.png'),
-        price: 130,
-        amount: 1
-    },
-    {
-        title: 'Pink Chair',
-        category: 'Furniture',
-        image: require('../../assets/image-product-1.png'),
-        price: 130,
-        amount: 1
-    },
-    {
-        title: 'Pink Chair',
-        category: 'Furniture',
-        image: require('../../assets/image-product-1.png'),
-        price: 130,
-        amount: 1
-    }
-];
-
-const displayProducts = products
-
-/////////////////////////
-
-const RestaurantsList = () => (
-    <List
-        contentContainerStyle={styles.productList}
-        data={displayProducts.length && displayProducts || products}
-        numColumns={2}
-        renderItem={renderProductItem}
-    />
+const Promo = () => (
+    <View style={{marginLeft: 15, marginRight: 15, backgroundColor: green, borderRadius: 10 }}>
+        <Text category='h4' style={{color: 'white', padding: 30, textAlign: 'center' }}>Get 50% Off Food Discount</Text>
+    </View>
 )
 
 const Explore = () => {
 
     return (
-        <Layout>
-            <Header />
-            <Filter />
-            <RestaurantsList />
-        </Layout>
+        <>
+            <StatusBar backgroundColor={green} />
+            <Layout>
+                <Filter />
+                <Address />
+                <Promo />
+                {/* <RestaurantsList /> */}
+            </Layout>
+        </>
     )
 }
 
@@ -190,7 +81,7 @@ const styles = StyleSheet.create({
     },
     filterContainer: {
         padding: 15,
-        marginTop: -30
+        backgroundColor: green
     },
     filterButtonsContainer: {
         flexDirection: 'row',

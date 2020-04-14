@@ -22,12 +22,14 @@ import LogIn from './screens/Authentication/LogIn';
 import AppNavigator from './screens/AppNavigator';
 import Authentication from './screens/Authentication/Authentication';
 import SignUp from './screens/Authentication/SignUp';
+import IntroLayout from './screens/Intro/IntroLayout';
+import Explore from './screens/Home/Explore';
 
 const App: () => React$Node = () => {
   return (<>
     <IconRegistry icons={EvaIconsPack} />
     <ApplicationProvider mapping={mapping} theme={lightTheme}>
-      <LogIn />
+      <Explore />
     </ApplicationProvider>
   </>);
 };
