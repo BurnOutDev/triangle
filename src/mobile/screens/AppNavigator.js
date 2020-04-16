@@ -6,6 +6,7 @@ import Explore from './Home/Explore';
 import SignUp from './Authentication/SignUp';
 import LogIn from './Authentication/LogIn';
 import Authentication from './Authentication/Authentication';
+import Cuisine from './Home/Cuisine';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -37,8 +38,8 @@ const BottomTabBar = ({ navigation, state }) => (
 
 const TabNavigator = () => (
   <Navigator tabBar={props => <BottomTabBar {...props} />}>
-    <Screen name='Users' component={Explore} />
-    <Screen name='Authentication' component={Authentication} />
+    <Screen name='Users' component={Cuisine} />
+    <Screen name='Authentication' component={Explore} />
     <Screen name='LogIn' component={LogIn} />
     <Screen name='SignUp' component={SignUp} />
   </Navigator>

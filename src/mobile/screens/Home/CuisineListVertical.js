@@ -47,11 +47,11 @@ const renderCuisineItem = (info) => (
     </View>
 );
 
-const CuisineList = () => (
+const CuisineListVertical = () => (
     <List
+        numColumns={2}
         contentContainerStyle={styles.cuisineList}
         data={displayCuisine.length && displayCuisine || cuisine}
-        horizontal
         renderItem={renderCuisineItem}
     />
 )
@@ -102,4 +102,4 @@ const styles = StyleService.create({
     }
 });
 
-export default CuisineList
+export default CuisineListVertical
