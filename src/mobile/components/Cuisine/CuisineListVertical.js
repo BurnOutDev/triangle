@@ -6,18 +6,6 @@ import { Layout, Text, Input, Button, List, ListItem, Card, Icon, useStyleSheet,
 import { ImageBackground, StyleSheet, View, Dimensions } from 'react-native'
 import { colors } from '../../variables/colors';
 
-const AvailableIcon = (style) => (
-    <Icon {...style} name='bookmark-outline' />
-);
-
-const NotAvailableIcon = (style) => (
-    <Icon {...style} name='bookmark' />
-);
-
-const StarIcon = (style) => (
-    <Icon {...style} name='star' fill='#FFB700' />
-);
-
 const displayCuisine = cuisines
 
 const renderItemHeader = (info) => (
@@ -57,9 +45,6 @@ const CuisineListVertical = () => (
 )
 
 const styles = StyleService.create({
-    container: {
-        flex: 1,
-    },
     cuisineList: {
         paddingVertical: 16,
         marginBottom: 40,
@@ -84,20 +69,6 @@ const styles = StyleService.create({
         borderRadius: 9,
         margin: 5,
         marginLeft: 10,
-        marginRight: 10,
-    },
-    itemFooter: {
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-    },
-    iconButton: {
-        flexDirection: 'row',
-        paddingHorizontal: 0,
-        alignSelf: 'flex-end'
-    },
-    rating: {
-        flexDirection: 'row',
-        alignSelf: 'flex-start',
         marginRight: 10,
     }
 });
