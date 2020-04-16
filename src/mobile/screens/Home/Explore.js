@@ -5,6 +5,7 @@ import RestaurantsList from './RestaurantList'
 import { ScrollView } from 'react-native-gesture-handler'
 import CategoryList from './CategoryList'
 import CategoryXLList from './CategoryXLList'
+import CuisineList from './CuisineList'
 
 const green = '#277e6d'
 
@@ -67,6 +68,13 @@ const CategoryXL = (props) => (
     </View>
 )
 
+const Cuisine = (props) => (
+    <View style={{ margin: 15 }}>
+        <Text category='h3'>Cuisine</Text>
+        <CuisineList />
+    </View>
+)
+
 const Explore = () => {
 
     return (
@@ -80,6 +88,8 @@ const Explore = () => {
                     <Category title='Nearby' />
                     <CategoryXL title='Best offers' />
                     <Category title='Best rated' />
+                    <Category title='Nearby' />
+                    <Cuisine />
                     {/* <RestaurantsList /> */}
                 </ScrollView>
             </Layout>
