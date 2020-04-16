@@ -7,38 +7,24 @@ import SignUp from './Authentication/SignUp';
 import LogIn from './Authentication/LogIn';
 import Authentication from './Authentication/Authentication';
 import Cuisine from './Home/Cuisine';
+import { Search, Pin, Heart, Person } from '../components/Icons';
 
 const { Navigator, Screen } = createBottomTabNavigator();
-
-const Icons = {
-  Search: (style) => (
-    <Icon {...style} width='16' height='16' fill='green' name='search' />
-  ),
-  Pin: (style) => (
-    <Icon {...style} width='16' height='16' fill='green' name='pin-outline' />
-  ),
-  Heart: (style) => (
-    <Icon {...style} width='16' height='16' fill='green' name='heart-outline' />
-  ),
-  Heart: (style) => (
-    <Icon {...style} width='16' height='16' fill='green' name='person-outline' />
-  )
-}
 
 const BottomTabBar = ({ navigation, state }) => (
   <BottomNavigation
     selectedIndex={state.index}
     onSelect={index => navigation.navigate(state.routeNames[index])}>
-    <BottomNavigationTab icon={Icons.Search} />
-    <BottomNavigationTab icon={Icons.Pin} />
-    <BottomNavigationTab icon={Icons.Heart} />
-    <BottomNavigationTab icon={Icons.Search} />
+    <BottomNavigationTab icon={Search} />
+    <BottomNavigationTab icon={Pin} />
+    <BottomNavigationTab icon={Heart} />
+    <BottomNavigationTab icon={Person} />
   </BottomNavigation>
 );
 
 const TabNavigator = () => (
   <Navigator tabBar={props => <BottomTabBar {...props} />}>
-    <Screen name='Users' component={Cuisine} />
+    <Screen name='Users' component={Explore} />
     <Screen name='Authentication' component={Explore} />
     <Screen name='LogIn' component={LogIn} />
     <Screen name='SignUp' component={SignUp} />

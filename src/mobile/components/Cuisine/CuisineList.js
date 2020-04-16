@@ -6,18 +6,6 @@ import { Layout, Text, Input, Button, List, ListItem, Card, Icon, useStyleSheet,
 import { ImageBackground, StyleSheet, View, Dimensions } from 'react-native'
 import { colors } from '../../variables/colors';
 
-const AvailableIcon = (style) => (
-    <Icon {...style} name='bookmark-outline' />
-);
-
-const NotAvailableIcon = (style) => (
-    <Icon {...style} name='bookmark' />
-);
-
-const StarIcon = (style) => (
-    <Icon {...style} name='star' fill='#FFB700' />
-);
-
 const displayCuisine = cuisines
 
 const renderItemHeader = (info) => (
@@ -47,11 +35,11 @@ const renderCuisineItem = (info) => (
     </View>
 );
 
-const CuisineListVertical = () => (
+const CuisineList = () => (
     <List
-        numColumns={2}
         contentContainerStyle={styles.cuisineList}
         data={displayCuisine.length && displayCuisine || cuisine}
+        horizontal
         renderItem={renderCuisineItem}
     />
 )
@@ -102,4 +90,4 @@ const styles = StyleService.create({
     }
 });
 
-export default CuisineListVertical
+export default CuisineList

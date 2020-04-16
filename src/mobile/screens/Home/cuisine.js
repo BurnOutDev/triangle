@@ -3,50 +3,13 @@ import { Layout, Text, Input, Button, List, ListItem, Card, Icon, useStyleSheet,
 import { ImageBackground, StyleSheet, View, Dimensions, StatusBar, Image } from 'react-native'
 import RestaurantsList from './RestaurantList'
 import { ScrollView } from 'react-native-gesture-handler'
-import CategoryList from './CategoryList'
-import CategoryXLList from './CategoryXLList'
-import CuisineList from './CuisineList'
+import CategoryList from '../../components/Category/CategoryList'
+import CuisineList from '../../components/Cuisine/CuisineList'
 import CuisineListVertical from './CuisineListVertical'
 import { colors } from '../../variables/colors'
-
-const green = '#277e6d'
-
-const ArrowIcon = (props) => (
-    <Icon {...props} name='arrow-back' />
-);
-
-const Search = (style) => (
-    <Icon {...style} width='16' height='16' fill='green' name='search' />
-)
-
-const Filter = () => {
-    const [value, setValue] = React.useState('');
-
-    return (
-        <View style={styles.filterContainer}>
-            <Input
-                size='small'
-                placeholder='Cuisine, restaurant name...'
-                value={value}
-                onChangeText={nextValue => setValue(nextValue)}
-                icon={Search}
-            />
-        </View>
-    )
-}
-
-const Cuisines = (props) => (
-    <View style={{ margin: 15 }}>
-        <CuisineListVertical />
-    </View>
-)
-
-const Header = (props) => (
-    <View style={{ backgroundColor: colors.green }}>
-        <Button style={{ position: 'absolute', zIndex: 2 }}  appearance='ghost' status='basic' icon={ArrowIcon} />
-        <Text style={{ textAlign: 'center', color: colors.white }} category='h5'>Cuisine</Text>
-    </View>
-)
+import { Back } from '../../components/Icons'
+import Filter from '../../components/Filter'
+import PageHeader from '../../components/PageHeader'
 
 const Cuisine = () => {
 
@@ -54,11 +17,9 @@ const Cuisine = () => {
         <>
             <StatusBar backgroundColor={green} />
             <Layout>
-                <Header />
+                <PageHeader />
                 <Filter />
-                <ScrollView>
-                    <Cuisines />
-                </ScrollView>
+                <CuisineListVertical style={{ margin: 15 }} />
             </Layout>
         </>
     )
@@ -66,7 +27,7 @@ const Cuisine = () => {
 
 const styles = StyleSheet.create({
     layout: {
-
+        
     },
     imageBg: {
         resizeMode: 'cover',
@@ -85,7 +46,7 @@ const styles = StyleSheet.create({
     },
     filterContainer: {
         padding: 15,
-        backgroundColor: green
+        backgroundColor: colors.green
     },
     filterButtonsContainer: {
         flexDirection: 'row',
