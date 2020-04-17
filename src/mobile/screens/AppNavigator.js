@@ -8,7 +8,7 @@ import LogIn from './Authentication/LogIn';
 import Authentication from './Authentication/Authentication';
 import Cuisine from './Home/Cuisine';
 import { Search, Pin, Heart, Person } from '../components/Icons';
-import Category from './Home/Category';
+import Location from './Home/Location';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -25,7 +25,7 @@ const BottomTabBar = ({ navigation, state }) => (
 
 const TabNavigator = () => (
   <Navigator tabBar={props => <BottomTabBar {...props} />}>
-    <Screen name='Users' component={Category} />
+    <Screen name='Users' component={Location} />
     <Screen name='Authentication' component={Explore} />
     <Screen name='LogIn' component={LogIn} />
     <Screen name='SignUp' component={SignUp} />
