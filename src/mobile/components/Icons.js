@@ -30,3 +30,7 @@ export const ArrowRight = (style) => (
 export const Back = (style) => (
     <Icon {...style} width='16' height='16' fill={colors.green} name='arrow-back' />
 );
+
+export const Star = (style) => (
+    <Icon width='16' height='16' name='star' fill={colors.gold} {...style} />
+);

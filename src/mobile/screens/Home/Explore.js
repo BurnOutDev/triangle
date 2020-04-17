@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Layout, Text, Input, Button, List, ListItem, Card, Icon, useStyleSheet, StyleService } from '@ui-kitten/components'
 import { ImageBackground, StyleSheet, View, Dimensions, StatusBar, Image } from 'react-native'
-import RestaurantsList from './RestaurantList'
 import { ScrollView } from 'react-native-gesture-handler'
 import CategoryList from '../../components/Category/CategoryList'
 import CuisineList from '../../components/Cuisine/CuisineList'
@@ -16,7 +15,6 @@ import Address from '../../components/Address'
 
 const Explore = () => (
     <>
-        <StatusBar backgroundColor={colors.green} />
         <Layout>
             <Filter />
             <ScrollView>
@@ -28,7 +26,6 @@ const Explore = () => (
                 <Category title='Nearby' />
                 <Cuisine />
                 <ReferalPromo />
-                <RestaurantsList />
             </ScrollView>
         </Layout>
     </>

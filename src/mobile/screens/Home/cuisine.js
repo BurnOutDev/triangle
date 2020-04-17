@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Layout, Text, Input, Button, List, ListItem, Card, Icon, useStyleSheet, StyleService } from '@ui-kitten/components'
 import { ImageBackground, StyleSheet, View, Dimensions, StatusBar, Image } from 'react-native'
-import RestaurantsList from './RestaurantList'
 import { ScrollView } from 'react-native-gesture-handler'
 import CategoryList from '../../components/Category/CategoryList'
 import CuisineList from '../../components/Cuisine/CuisineList'
@@ -15,7 +14,6 @@ const Cuisine = () => {
 
     return (
         <>
-            <StatusBar backgroundColor={green} />
             <Layout>
                 <PageHeader />
                 <Filter />

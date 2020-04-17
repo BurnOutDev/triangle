@@ -1,6 +1,8 @@
 import React from 'react'
 import { View } from 'react-native'
 import { Button, Text } from '@ui-kitten/components'
+import { colors } from '../variables/colors'
+import { Back } from './Icons'
 
 const PageHeader = (props) => (
     <View style={{ backgroundColor: colors.green }}>

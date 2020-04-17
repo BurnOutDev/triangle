@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, StatusBar } from 'react-native';
 import { Input } from '@ui-kitten/components';
 import { colors } from '../variables/colors'
 import { Search } from './Icons';
@@ -23,7 +23,8 @@ const Filter = () => {
 const styles = StyleSheet.create({
     filterContainer: {
         padding: 15,
-        backgroundColor: colors.green
+        paddingTop: 15 + StatusBar.currentHeight,
+        backgroundColor: colors.green,
     },
     filterButtonsContainer: {
         flexDirection: 'row',
