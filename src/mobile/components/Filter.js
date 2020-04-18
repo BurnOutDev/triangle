@@ -5,7 +5,7 @@ import { colors } from '../variables/colors'
 import { Search } from './Icons';
 
 const Filter = (props) => {
-    
+        
     const [value, setValue] = React.useState('');
 
     return (
@@ -21,13 +21,10 @@ const Filter = (props) => {
     )
 }
 
-Filter.defaultProps = {
-
-}
-
 const styles = StyleSheet.create({
     filterContainer: {
         padding: 15,
+        paddingTop: 0,
         backgroundColor: colors.green,
     },
     filterContainerStatusBar: {

@@ -15,7 +15,7 @@ const Cuisine = () => {
     return (
         <>
             <Layout>
-                <PageHeader />
+                <PageHeader title='Cuisine' />
                 <Filter />
                 <CuisineListVertical style={{ margin: 15 }} />
             </Layout>

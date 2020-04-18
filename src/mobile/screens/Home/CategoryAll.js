@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, StatusBar, StyleSheet, ImageBackground } from 'react-native'
+import { View, StatusBar, StyleSheet, ImageBackground, Image, SafeAreaView } from 'react-native'
 import { Text, Layout, Input, Button, Icon } from '@ui-kitten/components'
 import CategoryXLList from '../../components/CategoryXL/CategoryXLList'
 import { colors } from '../../variables/colors'
@@ -8,13 +8,17 @@ import CuisineListVertical from '../../components/Cuisine/CuisineListVertical'
 import { Search, Star, Location } from '../../components/Icons'
 import CategoryXL from '../../components/CategoryXL/CategoryXL'
 import Filter from '../../components/Filter'
+import RestaurantList from '../../components/RestaurantList/RestaurantList'
 
-const Category = (props) => (
+const CategoryAll = (props) => (
     <>
         <Layout>
-            <PageHeader />
+            <PageHeader title='Coffee shop' />
             <Filter />
-            <CategoryXL title='Most popular' />
+            <ImageBackground style={{ height: 150, width: 'auto', flexDirection: 'column-reverse' }} source={require('../../assets/girl.jpg')} resizeMode='cover'>
+                <Text category='h1' style={{ color: 'white', fontWeight: 'bold', padding: 15, paddingRight: 100 }}>Top rated coffee shop</Text>
+            </ImageBackground>
+            <RestaurantList title='Most popular' />
         </Layout>
     </>
 )
@@ -35,4 +39,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Category
+export default CategoryAll
