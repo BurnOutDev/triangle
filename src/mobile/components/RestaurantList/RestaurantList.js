@@ -25,14 +25,14 @@ const renderProductItem = (info) => (
         {renderItemHeader(info)}
 
         <View style={styles.content}>
-            <Text category='s1' style={{ fontWeight: 'bold' }}>{info.item.title}</Text>
-            <Text appearance='hint' category='c2'>
-                {info.item.category}
+            <Text category='h6' style={{ fontWeight: 'bold' }}>{info.item.title}</Text>
+            <Text appearance='hint' category='s1'>
+                {info.item.category} • $
             </Text>
             <View style={styles.rating}>
                 <Star />
-                <Text category='s2' style={{ fontWeight: 'bold' }}>{info.item.rating}</Text>
-                <Text appearance='hint' category='c2' style={{ paddingLeft: 5 }}>({info.item.reviewsCount} reviews)</Text>
+                <Text category='s1' style={{ fontWeight: 'bold' }}>{info.item.rating}</Text>
+                <Text appearance='hint' category='s1' style={{ paddingLeft: 5 }}>({info.item.reviewsCount} reviews)</Text>
             </View>
         </View>
     </View>
@@ -43,6 +43,7 @@ const RestaurantList = () => (
         contentContainerStyle={styles.productList}
         data={displayProducts.length && displayProducts || products}
         renderItem={renderProductItem}
+        style={{height: 'auto'}}
     />
 )
 
