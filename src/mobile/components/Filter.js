@@ -4,11 +4,12 @@ import { Input } from '@ui-kitten/components';
 import { colors } from '../variables/colors'
 import { Search } from './Icons';
 
-const Filter = () => {
+const Filter = (props) => {
+    
     const [value, setValue] = React.useState('');
 
     return (
-        <View style={styles.filterContainer}>
+        <View style={props.statusBarPadding ? styles.filterContainerStatusBar : styles.filterContainer }>
             <Input
                 size='small'
                 placeholder='Cuisine, restaurant name...'
@@ -20,11 +21,19 @@ const Filter = () => {
     )
 }
 
+Filter.defaultProps = {
+
+}
+
 const styles = StyleSheet.create({
     filterContainer: {
         padding: 15,
-        paddingTop: 15 + StatusBar.currentHeight,
         backgroundColor: colors.green,
+    },
+    filterContainerStatusBar: {
+        padding: 15,
+        backgroundColor: colors.green,
+        paddingTop: 15 + StatusBar.currentHeight,
     },
     filterButtonsContainer: {
         flexDirection: 'row',

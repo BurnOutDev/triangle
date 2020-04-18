@@ -16,7 +16,7 @@ import Address from '../../components/Address'
 const Explore = () => (
     <>
         <Layout>
-            <Filter />
+            <Filter statusBarPadding />
             <ScrollView>
                 <Address />
                 <Promo />
