@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Layout, Text, Input, Button, List, ListItem, Card, Icon, useStyleSheet, StyleService } from '@ui-kitten/components'
+import { Text, Input, Button, List, ListItem, Card, Icon, useStyleSheet, StyleService } from '@ui-kitten/components'
 import { ImageBackground, StyleSheet, View, Dimensions, StatusBar, Image } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import CategoryList from '../../components/Category/CategoryList'
@@ -9,23 +9,24 @@ import { colors } from '../../variables/colors'
 import { Back } from '../../components/Icons'
 import Filter from '../../components/Filter'
 import PageHeader from '../../components/PageHeader'
+import Container from '../../components/Container'
 
 const Cuisine = () => {
 
     return (
         <>
-            <Layout>
+            <Container>
                 <PageHeader title='Cuisine' />
                 <Filter />
                 <CuisineListVertical style={{ margin: 15 }} />
-            </Layout>
+            </Container>
         </>
     )
 }
 
 const styles = StyleSheet.create({
     layout: {
-        
+
     },
     imageBg: {
         resizeMode: 'cover',
