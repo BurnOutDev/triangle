@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20190610140907_CityCountryStateAdded.cs" />
+    <Compile Remove="Migrations\20190610140907_CityCountryStateAdded.Designer.cs" />
+    <Compile Remove="Migrations\20190613113607_PartyAdded.cs" />
+    <Compile Remove="Migrations\20190613113607_PartyAdded.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.30" />
+    <PackageReference Include="Dapper.Contrib" Version="2.0.30" />
+    <PackageReference Include="MediatR" Version="8.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ReserveProject.Domain\ReserveProject.Domain.csproj" />
+    <ProjectReference Include="..\ReserveProject.Shared\ReserveProject.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
