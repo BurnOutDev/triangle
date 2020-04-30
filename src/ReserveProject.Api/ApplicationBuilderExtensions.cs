@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using ReserveProject.Infrastructure.Database;
-using ReserveProject.Infrastructure.Database.Configurations.Dapper;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
+using ReserveProject.Persistence;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ReserveProject.Api
 {
@@ -38,10 +39,10 @@ namespace ReserveProject.Api
             using (var serviceScope = applicationBuilder.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
                 .CreateScope())
             {
-                serviceScope.ServiceProvider.GetService<PrimeDbContext>().Database.Migrate();
+                serviceScope.ServiceProvider.GetService<ReserveDbContext>().Database.Migrate();
             }
 
-            DapperNamingMapperExtensions.DefineDapperNameMapping();
+            //DapperNamingMapperExtensions.DefineDapperNameMapping();
 
             return applicationBuilder;
         }

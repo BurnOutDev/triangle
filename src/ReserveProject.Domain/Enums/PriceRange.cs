@@ -4,9 +4,10 @@ using System.Text;
 
 namespace ReserveProject.Domain.Enums
 {
-    public enum EntityStatus
+    public enum PriceRange
     {
-        Active = 0,
-        Deleted = 1
+        Cheap,
+        Normal,
+        Expensive
     }
 }

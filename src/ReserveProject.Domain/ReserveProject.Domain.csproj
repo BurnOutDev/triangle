@@ -1,18 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="Aggregates\CurrencyAggregate\Commands\" />
-    <Folder Include="Aggregates\CurrencyAggregate\Events\" />
-    <Folder Include="Aggregates\InvoiceAggregate\Events\" />
-    <Folder Include="Aggregates\LocationAggregate\Events\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\ReserveProject.Shared\ReserveProject.Shared.csproj" />
-  </ItemGroup>
 
 </Project>

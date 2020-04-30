@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ReserveProject.DI;
-using ReserveProject.Shared.ApplicationInfrastructure;
+using ReserveProject.Shared;
 using System.Text;
 
 namespace ReserveProject.Api
@@ -28,8 +28,7 @@ namespace ReserveProject.Api
 
         public static IServiceCollection AddDi(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
-            new PrimeDependencyResolver(configuration).Resolve(serviceCollection)
-                .SynchronousEventDispatching();
+            new ReserveDependencyResolver(configuration).Resolve(serviceCollection);
             return serviceCollection;
         }
 
@@ -44,24 +43,24 @@ namespace ReserveProject.Api
 
             var audience = authConfiguration.GetValue<string>(ConfigurationItem.Audience);
 
-            serviceCollection.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-          .AddJwtBearer(options =>
-          {
-
-              // base-address of your identityserver
-              options.Authority = authoriy;
-              options.RequireHttpsMetadata = false;
-              // name of the API resource
-              options.Audience = audience;
-              options.TokenValidationParameters = new TokenValidationParameters
-              {
-                  //ValidIssuer="localhost:",
-                  IssuerSigningKey = issuerSignInKey,
-              };
-          });
+            serviceCollection
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                
+                    // base-address of your identityserver
+                    options.Authority = authoriy;
+                    options.RequireHttpsMetadata = false;
+                    // name of the API resource
+                    options.Audience = audience;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        //ValidIssuer="localhost:",
+                        IssuerSigningKey = issuerSignInKey,
+                    };
+                });
 
             return serviceCollection;
         }
     }
-
 }
