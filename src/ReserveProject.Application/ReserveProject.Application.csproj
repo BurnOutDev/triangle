@@ -1,11 +1,23 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ReserveProject.Persistence\ReserveProject.Persistence.csproj" />
+    <PackageReference Include="MediatR" Version="8.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ReserveProject.Domain\ReserveProject.Domain.csproj" />
+    <ProjectReference Include="..\ReserveProject.Infrastructure\ReserveProject.Infrastructure.csproj" />
+    <ProjectReference Include="..\ReserveProject.Shared\ReserveProject.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="QueryHandlers\CurrencyQueryHandler\" />
   </ItemGroup>
 
 </Project>

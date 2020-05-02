@@ -6,7 +6,7 @@ namespace ReserveProject.DI
 {
     public static class DiExtensions
     {
-
+      
         public static IServiceCollection Replace<TService>(
                             this IServiceCollection services,
                             Func<IServiceProvider, TService> instance,
