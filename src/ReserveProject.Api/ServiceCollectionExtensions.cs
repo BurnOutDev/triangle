@@ -46,7 +46,7 @@ namespace ReserveProject.Api
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                
+
                     // base-address of your identityserver
                     options.Authority = authoriy;
                     options.RequireHttpsMetadata = false;

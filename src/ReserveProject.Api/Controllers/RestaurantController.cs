@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ReserveProject.Application;
@@ -38,27 +39,19 @@ namespace ReserveProject.Api.Controllers
         }
 
         [HttpPost("[action]")]
-        public void AddMenuItem(AddMenuItemCommand addMenuItemCommand)
-        {
-            RestaurantReservationService.AddMenuItem(addMenuItemCommand);
-        }
-
-        [HttpPost("[action]")]
-        public void AddIngredient(AddIngredientCommand addIngredientCommand)
-        {
-            RestaurantReservationService.AddIngredient(addIngredientCommand);
-        }
-
-        [HttpPost("[action]")]
-        public void AddCategory(AddCategoryCommand addCategoryCommand)
-        {
-            RestaurantReservationService.AddCategory(addCategoryCommand);
-        }
-
-        [HttpPost("[action]")]
         public void AddCuisine(AddCuisineCommand addCuisineCommand)
         {
             RestaurantReservationService.AddCuisine(addCuisineCommand);
+        }
+
+        [Authorize]
+        [HttpGet()]
+        public IActionResult GetTested()
+        {
+            return new JsonResult(new
+            {
+                text = 5
+            });
         }
 
     }
