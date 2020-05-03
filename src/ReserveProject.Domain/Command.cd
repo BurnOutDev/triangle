@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Alphabetical">
+  <Class Name="ReserveProject.Domain.BusinessHours">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAQAAAAAAAAAAIAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\BusinessHours.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReserveProject.Domain.Category">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Entities\Category.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReserveProject.Domain.Cuisine">
+    <Position X="6.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Entities\Cuisine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReserveProject.Domain.Customer">
+    <Position X="8.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAACAAAACAAEAAQAAAAAAAAAAAAAAAAAAAABg=</HashCode>
+      <FileName>Entities\Customer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReserveProject.Domain.Ingredient">
+    <Position X="10.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAQgAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Ingredient.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReserveProject.Domain.Media">
+    <Position X="3.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAgAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Media.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReserveProject.Domain.MenuItem">
+    <Position X="5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAARAAAAQAgAAAAAAAAAARAAAAAAAAAAAAEAAAACAA=</HashCode>
+      <FileName>Entities\MenuItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReserveProject.Domain.MenuItemsIngredient">
+    <Position X="6.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\MenuItemsIngredient.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReserveProject.Domain.Promo">
+    <Position X="8.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Entities\Promo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReserveProject.Domain.Reservation">
+    <Position X="10.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>oAEAAAAEAQAAiAAEAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Entities\Reservation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReserveProject.Domain.ReservationCustomer">
+    <Position X="3.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\ReservationCustomer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReserveProject.Domain.ReservationMenuItem">
+    <Position X="5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAABAAEAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Entities\ReservationMenuItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReserveProject.Domain.Restaurant">
+    <Position X="6.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QCAAAAAAACAkAAAAgEAAQAQwCAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Restaurant.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReserveProject.Domain.RestaurantMedia">
+    <Position X="8.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAEAAAAAAA=</HashCode>
+      <FileName>Entities\RestaurantMedia.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReserveProject.Domain.Review">
+    <Position X="10.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEEAAAAAAgAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Review.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReserveProject.Domain.SeatType">
+    <Position X="3.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\SeatType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReserveProject.Domain.User">
+    <Position X="5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAACAAAACAAAAAQAAAAAAAAAAAAAAAAAAAABg=</HashCode>
+      <FileName>Entities\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
