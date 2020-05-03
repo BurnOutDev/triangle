@@ -12,5 +12,6 @@ namespace ReserveProject.Application.Services
         void AddMenuItem(AddMenuItemCommand addMenuItemCommand);
         void AddIngredient(AddIngredientCommand addIngredientCommand);
         void AddCategory(AddCategoryCommand addCategoryCommand);
+        void AddCuisine(AddCuisineCommand addCuisineCommand);
     }
 }

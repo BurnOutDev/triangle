@@ -54,5 +54,12 @@ namespace ReserveProject.Api.Controllers
         {
             RestaurantReservationService.AddCategory(addCategoryCommand);
         }
+
+        [HttpPost("[action]")]
+        public void AddCuisine(AddCuisineCommand addCuisineCommand)
+        {
+            RestaurantReservationService.AddCuisine(addCuisineCommand);
+        }
+
     }
 }

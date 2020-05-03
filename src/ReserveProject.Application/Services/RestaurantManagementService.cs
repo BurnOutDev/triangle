@@ -113,5 +113,17 @@ namespace ReserveProject.Application.Services
             Context.Add(category);
             Context.SaveChanges();
         }
+
+        public void AddCuisine(AddCuisineCommand addCuisineCommand)
+        {
+            var cuisine = new Cuisine
+            {
+                Name = addCuisineCommand.Name,
+                Icon = addCuisineCommand.Icon
+            };
+
+            Context.Add(cuisine);
+            Context.SaveChanges();
+        }
     }
 }
