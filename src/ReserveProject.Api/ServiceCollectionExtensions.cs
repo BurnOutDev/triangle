@@ -20,7 +20,6 @@ namespace ReserveProject.Api
                     Title = "My API",
                     Version = "v1"
                 });
-                c.DescribeAllEnumsAsStrings();
                 c.CustomSchemaIds(x => x.FullName);
             });
             return serviceCollection;

@@ -9,8 +9,8 @@ namespace ReserveProject.Domain
         public string ImageUrl { get; set; }
         public virtual Category Category { get; set; }
         public virtual Ingredient Ingredient { get; set; }
-        public string Price { get; set; }
+        public decimal Price { get; set; }
         public string Available { get; set; }
-        public int RestaurantId { get; set; }
+        public virtual Restaurant Restaurant { get; set; }
     }
 }

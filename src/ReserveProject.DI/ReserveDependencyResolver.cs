@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Debug;
 using Microsoft.AspNetCore.Http;
 using ReserveProject.Application;
+using ReserveProject.Application.Services;
 
 namespace ReserveProject.DI
 {
@@ -37,7 +38,8 @@ namespace ReserveProject.DI
 
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddScoped<ICuisineService, CuisineService>();
+            services.AddScoped<IRestaurantManagementService, RestaurantManagementService>();
+            services.AddScoped<IReservationService, ReservationService>();
 
             return this;
         }

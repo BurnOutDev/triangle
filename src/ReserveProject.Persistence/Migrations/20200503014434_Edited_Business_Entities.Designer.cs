@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ReserveProject.Persistence;
 
 namespace ReserveProject.Persistence.Migrations
 {
     [DbContext(typeof(ReserveDbContext))]
-    partial class ReserveDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200503014434_Edited_Business_Entities")]
+    partial class Edited_Business_Entities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -208,10 +210,10 @@ namespace ReserveProject.Persistence.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("Price")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RestaurantId")
+                    b.Property<int>("RestaurantId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -219,8 +221,6 @@ namespace ReserveProject.Persistence.Migrations
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("IngredientId");
-
-                    b.HasIndex("RestaurantId");
 
                     b.ToTable("MenuItem");
                 });
@@ -555,10 +555,6 @@ namespace ReserveProject.Persistence.Migrations
                     b.HasOne("ReserveProject.Domain.Ingredient", "Ingredient")
                         .WithMany()
                         .HasForeignKey("IngredientId");
-
-                    b.HasOne("ReserveProject.Domain.Restaurant", "Restaurant")
-                        .WithMany()
-                        .HasForeignKey("RestaurantId");
                 });
 
             modelBuilder.Entity("ReserveProject.Domain.MenuItemsIngredient", b =>

@@ -1,8 +1,6 @@
 ﻿using ReserveProject.Domain.Enums;
-using System;
 using System.Collections.Generic;
 using System.Spatial;
-using System.Text;
 
 namespace ReserveProject.Domain.Commands
 {
@@ -25,13 +23,6 @@ namespace ReserveProject.Domain.Commands
         public bool HasParking { get; set; }
         public bool IsCardPaymentAvailable { get; set; }
 
-        public ICollection<RestaurantBusinessHours> BusinessHours { get; set; }
-
-        public class RestaurantBusinessHours
-        {
-            public WeekDay WeekDay { get; set; }
-            public TimeSpan OpeningTime { get; set; }
-            public TimeSpan ClosingTime { get; set; }
-        }
+        public ICollection<WorkDay> BusinessHours { get; set; }
     }
 }
