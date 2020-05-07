@@ -10,7 +10,7 @@ namespace ReserveProject.Domain
         public virtual Category Category { get; set; }
         public virtual Ingredient Ingredient { get; set; }
         public decimal Price { get; set; }
-        public string Available { get; set; }
+        public bool Unavailable { get; set; }
         public virtual Restaurant Restaurant { get; set; }
     }
 }

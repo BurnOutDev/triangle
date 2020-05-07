@@ -31,7 +31,6 @@ namespace ReserveProject.Persistence
             builder.AddConfiguration(new MenuItemsIngredientConfiguration());
             builder.AddConfiguration(new PromoConfiguration());
             builder.AddConfiguration(new ReservationConfiguration());
-            builder.AddConfiguration(new ReservationCustomerConfiguration());
             builder.AddConfiguration(new ReservationMenuItemConfiguration());
             builder.AddConfiguration(new RestaurantConfiguration());
             builder.AddConfiguration(new RestaurantMediaConfiguration());

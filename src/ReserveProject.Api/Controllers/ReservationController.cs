@@ -24,5 +24,11 @@ namespace ReserveProject.Api.Controllers
             ReservationService = reservationService;
             _logger = logger;
         }
+
+        [HttpPost("[action]")]
+        public void Reserve(ReserveCommand reserveCommand)
+        {
+            ReservationService.Reserve(reserveCommand);
+        }
     }
 }

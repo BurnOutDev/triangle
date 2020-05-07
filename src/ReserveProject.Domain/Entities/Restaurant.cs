@@ -24,5 +24,6 @@ namespace ReserveProject.Domain
         public bool IsCardPaymentAvailable { get; set; }
 
         public virtual ICollection<BusinessHours> BusinessHours { get; set; }
+        public virtual ICollection<MenuItem> MenuItems { get; set; }
     }
 }

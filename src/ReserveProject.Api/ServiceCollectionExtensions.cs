@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -44,19 +45,12 @@ namespace ReserveProject.Api
 
             serviceCollection
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
+                .AddIdentityServerAuthentication(options =>
                 {
-
-                    // base-address of your identityserver
-                    options.Authority = authoriy;
                     options.RequireHttpsMetadata = false;
-                    // name of the API resource
-                    options.Audience = audience;
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        //ValidIssuer="localhost:",
-                        IssuerSigningKey = issuerSignInKey,
-                    };
+                    options.Authority = "https://demo.identityserver.io";
+                    options.ApiName = "api1";
+                    options.ApiSecret = "secret";
                 });
 
             return serviceCollection;

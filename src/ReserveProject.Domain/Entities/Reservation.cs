@@ -1,6 +1,7 @@
 ﻿using ReserveProject.Domain.Entities.Shared;
 using ReserveProject.Domain.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace ReserveProject.Domain
 {
@@ -15,5 +16,8 @@ namespace ReserveProject.Domain
         public virtual SeatType SeatType { get; set; }
         public DateTime DateAndTime { get; set; }
         public int PartySize { get; set; }
+        public string Comment { get; set; }
+
+        public virtual ICollection<MenuItem> MenuItems { get; set; }
     }
 }
