@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28917.182
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReserveProject.Domain", "ReserveProject.Domain\ReserveProject.Domain.csproj", "{76BB1FA8-1615-44A6-B2D5-4BE50D18E73E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReserveProject.Domain", "ReserveProject.Domain\ReserveProject.Domain.csproj", "{76BB1FA8-1615-44A6-B2D5-4BE50D18E73E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReserveProject.Persistence", "ReserveProject.Persistence\ReserveProject.Persistence.csproj", "{643A66B8-63A7-40CF-8F74-DECE532853A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReserveProject.Persistence", "ReserveProject.Persistence\ReserveProject.Persistence.csproj", "{643A66B8-63A7-40CF-8F74-DECE532853A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReserveProject.Api", "ReserveProject.Api\ReserveProject.Api.csproj", "{C08753D1-91CC-491A-9D62-393FA457F469}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReserveProject.Api", "ReserveProject.Api\ReserveProject.Api.csproj", "{C08753D1-91CC-491A-9D62-393FA457F469}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReserveProject.Application", "ReserveProject.Application\ReserveProject.Application.csproj", "{90E91C27-4234-488D-B86C-92938EDE96E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReserveProject.Application", "ReserveProject.Application\ReserveProject.Application.csproj", "{90E91C27-4234-488D-B86C-92938EDE96E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReserveProject.DI", "ReserveProject.DI\ReserveProject.DI.csproj", "{4705EC27-1635-42A0-816E-1A6B7F2E39DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReserveProject.DI", "ReserveProject.DI\ReserveProject.DI.csproj", "{4705EC27-1635-42A0-816E-1A6B7F2E39DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReserveProject.Shared", "ReserveProject.Shared\ReserveProject.Shared.csproj", "{1306D1CC-96A0-48AA-B8EB-961E59391669}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReserveProject.Shared", "ReserveProject.Shared\ReserveProject.Shared.csproj", "{1306D1CC-96A0-48AA-B8EB-961E59391669}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReserveProject.IDP", "ReserveProject.IDP\ReserveProject.IDP.csproj", "{BD0E5C52-4D74-4D10-90DB-B20968521687}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{1306D1CC-96A0-48AA-B8EB-961E59391669}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1306D1CC-96A0-48AA-B8EB-961E59391669}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1306D1CC-96A0-48AA-B8EB-961E59391669}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD0E5C52-4D74-4D10-90DB-B20968521687}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD0E5C52-4D74-4D10-90DB-B20968521687}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD0E5C52-4D74-4D10-90DB-B20968521687}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD0E5C52-4D74-4D10-90DB-B20968521687}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
