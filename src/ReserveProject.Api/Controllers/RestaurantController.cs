@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using ReserveProject.Application;
 using ReserveProject.Application.Services;
 using ReserveProject.Domain;
@@ -46,12 +48,13 @@ namespace ReserveProject.Api.Controllers
 
         [Authorize]
         [HttpGet()]
-        public IActionResult GetTested()
+        public async Task<IActionResult> GetTested()
         {
-            return new JsonResult(new
-            {
-                text = 5
-            });
+            var identityToken = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.IdToken);
+
+            var claims = string.Join("\n", User.Claims.Select(claim => $"Claim type: {claim.Type}, Claim value: {claim.Value}"));
+
+            return new ObjectResult($"{identityToken}\nClaims:\n{claims}");
         }
 
     }

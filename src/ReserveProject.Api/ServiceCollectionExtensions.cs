@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,13 +46,24 @@ namespace ReserveProject.Api
             var audience = authConfiguration.GetValue<string>(ConfigurationItem.Audience);
 
             serviceCollection
-                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddIdentityServerAuthentication(options =>
+                .AddAuthentication(options =>
                 {
-                    options.RequireHttpsMetadata = false;
-                    options.Authority = "https://demo.identityserver.io";
-                    options.ApiName = "api1";
-                    options.ApiSecret = "secret";
+                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+                })
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddOpenIdConnect(options =>
+                {
+                    options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.Authority = "https://localhost:5001/";
+                    options.ClientId = "reserveprojectapi";
+                    options.ResponseType = "code";
+                    options.UsePkce = false;
+                    options.Scope.Add("openid"); //this is defined in IDP too, scopes here are for clarity only
+                    options.Scope.Add("profile");
+                    options.SaveTokens = true;
+                    options.ClientSecret = "secret";
+                    //options.CallbackPath = "returnuri";
                 });
 
             return serviceCollection;

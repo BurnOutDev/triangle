@@ -13,27 +13,25 @@ namespace ReserveProject.IDP
     {
         public static List<TestUser> Users = new List<TestUser>
         {
-            new TestUser{SubjectId = "818727", Username = "alice", Password = "alice", 
+            new TestUser{SubjectId = "818727", Username = "burnoutdev", Password = "sassless88", 
                 Claims = 
                 {
-                    new Claim(JwtClaimTypes.Name, "Alice Smith"),
-                    new Claim(JwtClaimTypes.GivenName, "Alice"),
-                    new Claim(JwtClaimTypes.FamilyName, "Smith"),
-                    new Claim(JwtClaimTypes.Email, "AliceSmith@email.com"),
+                    new Claim(JwtClaimTypes.Name, "Irakli Murusidze"),
+                    new Claim(JwtClaimTypes.GivenName, "Irakli"),
+                    new Claim(JwtClaimTypes.FamilyName, "Murusidze"),
+                    new Claim(JwtClaimTypes.Email, "iraklimurusidze@live.com"),
                     new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
-                    new Claim(JwtClaimTypes.WebSite, "http://alice.com"),
                     new Claim(JwtClaimTypes.Address, @"{ 'street_address': 'One Hacker Way', 'locality': 'Heidelberg', 'postal_code': 69118, 'country': 'Germany' }", IdentityServer4.IdentityServerConstants.ClaimValueTypes.Json)
                 }
             },
-            new TestUser{SubjectId = "88421113", Username = "bob", Password = "bob", 
+            new TestUser{SubjectId = "88421113", Username = "gege", Password = "heisenberg123", 
                 Claims = 
                 {
-                    new Claim(JwtClaimTypes.Name, "Bob Smith"),
-                    new Claim(JwtClaimTypes.GivenName, "Bob"),
-                    new Claim(JwtClaimTypes.FamilyName, "Smith"),
-                    new Claim(JwtClaimTypes.Email, "BobSmith@email.com"),
+                    new Claim(JwtClaimTypes.Name, "George Gegeshidze"),
+                    new Claim(JwtClaimTypes.GivenName, "George"),
+                    new Claim(JwtClaimTypes.FamilyName, "Gegeshidze"),
+                    new Claim(JwtClaimTypes.Email, "bfgegesha@yahoo.com"),
                     new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
-                    new Claim(JwtClaimTypes.WebSite, "http://bob.com"),
                     new Claim(JwtClaimTypes.Address, @"{ 'street_address': 'One Hacker Way', 'locality': 'Heidelberg', 'postal_code': 69118, 'country': 'Germany' }", IdentityServer4.IdentityServerConstants.ClaimValueTypes.Json),
                     new Claim("location", "somewhere")
                 }
