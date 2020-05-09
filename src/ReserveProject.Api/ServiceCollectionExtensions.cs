@@ -58,11 +58,12 @@ namespace ReserveProject.Api
                     options.Authority = "https://localhost:5001/";
                     options.ClientId = "reserveprojectapi";
                     options.ResponseType = "code";
-                    options.UsePkce = false;
+                    //options.UsePkce = false;
                     options.Scope.Add("openid"); //this is defined in IDP too, scopes here are for clarity only
                     options.Scope.Add("profile");
                     options.SaveTokens = true;
                     options.ClientSecret = "secret";
+                    options.GetClaimsFromUserInfoEndpoint = true;
                     //options.CallbackPath = "returnuri";
                 });
 

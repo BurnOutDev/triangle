@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -47,7 +49,7 @@ namespace ReserveProject.Api.Controllers
         }
 
         [Authorize]
-        [HttpGet()]
+        [HttpGet("[action]")]
         public async Task<IActionResult> GetTested()
         {
             var identityToken = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.IdToken);
@@ -57,5 +59,12 @@ namespace ReserveProject.Api.Controllers
             return new ObjectResult($"{identityToken}\nClaims:\n{claims}");
         }
 
+        [Authorize]
+        [HttpGet("[action]")]
+        public async Task Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
+        }
     }
 }

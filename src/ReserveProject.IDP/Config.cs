@@ -29,6 +29,7 @@ namespace ReserveProject.IDP
                     ClientName = "Reserve Project",
                     ClientId = "reserveprojectapi",
                     AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true,
                     RedirectUris = new List<string>()
                     {
                         "https://localhost:4001/signin-oidc"
