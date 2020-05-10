@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
@@ -46,26 +47,11 @@ namespace ReserveProject.Api
             var audience = authConfiguration.GetValue<string>(ConfigurationItem.Audience);
 
             serviceCollection
-                .AddAuthentication(options =>
+                .AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                .AddIdentityServerAuthentication(options =>
                 {
-                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-                })
-                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddOpenIdConnect(options =>
-                {
-                    options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.Authority = "https://localhost:5001/";
-                    options.ClientId = "reserveprojectapi";
-                    options.ResponseType = "code";
-                    //options.UsePkce = false;
-                    options.Scope.Add("openid"); //this is defined in IDP too, scopes here are for clarity only
-                    options.Scope.Add("profile");
-                    options.Scope.Add("reservationapi");
-                    options.SaveTokens = true;
-                    options.ClientSecret = "secret";
-                    options.GetClaimsFromUserInfoEndpoint = true;
-                    //options.CallbackPath = "returnuri";
+                    options.Authority = authoriy;
+                    options.ApiName = "reservationapi";
                 });
 
             return serviceCollection;

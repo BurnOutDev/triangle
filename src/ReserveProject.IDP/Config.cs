@@ -28,14 +28,10 @@ namespace ReserveProject.IDP
             {
                 new Client
                 {
-                    ClientName = "Reserve Project",
-                    ClientId = "reserveprojectapi",
+                    ClientName = "Reservation Client",
+                    ClientId = "reservationclient",
                     AllowedGrantTypes = GrantTypes.Code,
                     RequirePkce = true,
-                    RedirectUris = new List<string>()
-                    {
-                        "https://localhost:4001/signin-oidc"
-                    },
                     ClientSecrets =
                     {
                         new Secret("secret".Sha256())
@@ -45,7 +41,15 @@ namespace ReserveProject.IDP
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         "reservationapi"
-                    }
+                    },
+                    RedirectUris = new List<string>()
+                    {
+                        "https://localhost:3001/signin-oidc"
+                    },
+                    PostLogoutRedirectUris = new List<string>()
+                    {
+                        "https://localhost:3001/signout-callback-oidc"
+                    },
                 }
             };
     }

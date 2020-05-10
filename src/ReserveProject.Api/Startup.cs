@@ -55,7 +55,7 @@ namespace ReserveProject.Api
                .InitializeDatabase()
                .UseHttpsRedirection()
                .UseAuthentication()
-               .UseAuthentication()
+               .UseAuthorization()
                .UseExceptionHandler(
               ops =>
               {

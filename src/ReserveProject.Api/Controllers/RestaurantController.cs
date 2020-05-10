@@ -66,5 +66,15 @@ namespace ReserveProject.Api.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
         }
+
+        [Authorize]
+        [HttpGet("[action]")]
+        public IActionResult GetUserInfo()
+        {
+            return new JsonResult(new
+            {
+                Username = "burnoutdev"
+            });
+        }
     }
 }
