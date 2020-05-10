@@ -52,6 +52,7 @@ namespace ReserveProject.Api
                 {
                     options.Authority = authoriy;
                     options.ApiName = "reservationapi";
+                    options.RequireHttpsMetadata = false;
                 });
 
             return serviceCollection;

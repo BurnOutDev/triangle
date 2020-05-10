@@ -72,7 +72,7 @@ namespace ReserveProject.Client
             .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
             {
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.Authority = "https://localhost:5001/";
+                options.Authority = "http://localhost:5000/";
                 options.ClientId = "reservationclient";
                 options.ResponseType = "code";
                 options.Scope.Add("openid"); //this is defined in IDP too, scopes here are for clarity only
@@ -87,6 +87,7 @@ namespace ReserveProject.Client
                 options.GetClaimsFromUserInfoEndpoint = true;
 
                 options.SignedOutRedirectUri = "https://localhost:3001";
+                options.RequireHttpsMetadata = false;
             });
         }
 

@@ -49,7 +49,7 @@ namespace ReserveProject.IDP
                     PostLogoutRedirectUris = new List<string>()
                     {
                         "https://localhost:3001/signout-callback-oidc"
-                    },
+                    }
                 }
             };
     }
