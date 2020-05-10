@@ -61,6 +61,7 @@ namespace ReserveProject.Api
                     //options.UsePkce = false;
                     options.Scope.Add("openid"); //this is defined in IDP too, scopes here are for clarity only
                     options.Scope.Add("profile");
+                    options.Scope.Add("reservationapi");
                     options.SaveTokens = true;
                     options.ClientSecret = "secret";
                     options.GetClaimsFromUserInfoEndpoint = true;

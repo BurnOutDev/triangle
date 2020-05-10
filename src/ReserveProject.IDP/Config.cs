@@ -19,7 +19,9 @@ namespace ReserveProject.IDP
 
         public static IEnumerable<ApiResource> Apis =>
             new ApiResource[]
-            { };
+            { 
+                new ApiResource("reservationapi", "Reservation API")
+            };
 
         public static IEnumerable<Client> Clients =>
             new Client[]
@@ -41,7 +43,8 @@ namespace ReserveProject.IDP
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "reservationapi"
                     }
                 }
             };
