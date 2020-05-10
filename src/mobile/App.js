@@ -25,6 +25,19 @@ import SignUp from './screens/Authentication/SignUp';
 import IntroLayout from './screens/Intro/IntroLayout';
 import Explore from './screens/Home/Explore';
 
+import { authorize } from 'react-native-app-auth';
+
+
+// base config
+const config = {
+  issuer: 'https://reserveidentityserver.azurewebsites.net/',
+  clientId: 'nativeclient',
+  redirectUrl: 'net.azurewebsites.reserveidentityserver:/oauthredirect',
+  scopes: ['openid', 'profile']
+};
+
+authorize(config).then(result => console.log(result.accessToken));
+
 const App: () => React$Node = () => {
   return (<>
     <StatusBar backgroundColor='transparent' translucent />
