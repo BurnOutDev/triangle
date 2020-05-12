@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { StyleSheet, StatusBar, View, SafeAreaView, ImageBackground, Image } from 'react-native';
 import { Text, Card, Layout, Input, Icon, Button, Divider } from '@ui-kitten/components';
+import { authorize } from 'react-native-app-auth';
+import openIdConfig from '../../openIdConfig';
+import axios, { accessToken } from '../../axios';
 
 const FacebookIcon = (props) => (
     <Icon {...props} name='facebook' />
@@ -10,16 +13,20 @@ const Authentication = () => {
 
     const [value, setValue] = React.useState('');
 
+    const authenticate = () => {
+        authorize(openIdConfig).then(result => accessToken = result.accessToken).then(() => console.log(accessToken));
+    }
+
     return (
         <ImageBackground resizeMode='cover' source={require('../../assets/background.jpg')} style={styles.imageBg}>
 
             <View>
-                <Button style={{ flexDirection: 'row-reverse', alignSelf: 'flex-end' }} appearance='ghost' status='basic'>Log in</Button>
+                <Button style={{ flexDirection: 'row-reverse', alignSelf: 'flex-end' }} appearance='ghost' status='basic' onPress={authenticate}>Log in</Button>
                 <Text category='h1' style={styles.headerText}>Find and book the best restaurants</Text>
             </View>
 
             <View style={styles.buttonsContainer}>
-                <Button style={styles.button} status='success' size='medium'>Sign up</Button>
+                <Button style={styles.button} status='success' size='medium' onPress={authenticate}>Sign up</Button>
                 <Text style={{ color: 'white', alignSelf: 'center' }}>OR</Text>
                 <Button style={styles.button} status='basic' size='medium'>Continue with Apple</Button>
                 <Button style={styles.button} status='primary' size='medium' icon={FacebookIcon}>Continue with Facebook</Button>

@@ -1,6 +1,7 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer,  } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import { BottomNavigation, BottomNavigationTab, Layout, Text, Icon } from '@ui-kitten/components';
 import Explore from './Home/Explore';
 import SignUp from './Authentication/SignUp';
@@ -12,6 +13,7 @@ import Location from './Home/Location';
 import CategoryAll from './Home/CategoryAll';
 
 const { Navigator, Screen } = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 const BottomTabBar = ({ navigation, state }) => (
   <BottomNavigation
@@ -33,8 +35,15 @@ const TabNavigator = () => (
   </Navigator>
 );
 
+const AuthNavigator = () => (
+  <Stack.Navigator>
+    <Stack.Screen name='Users'  component={Authentication} />
+  </Stack.Navigator>
+)
+
 const AppNavigator = () => (
   <NavigationContainer>
+    <AuthNavigator />
     <TabNavigator />
   </NavigationContainer>
 );

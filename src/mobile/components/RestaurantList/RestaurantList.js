@@ -38,12 +38,18 @@ const renderProductItem = (info) => (
     </View>
 );
 
+const header = () => 
+<ImageBackground style={{ height: 150, width: 'auto', flexDirection: 'column-reverse' }} source={require('../../assets/girl.jpg')} resizeMode='cover'>
+    <Text category='h1' style={{ color: 'white', fontWeight: 'bold', padding: 15, paddingRight: 100 }}>Top rated coffee shop</Text>
+</ImageBackground>
+
 const RestaurantList = () => (
     <List
         contentContainerStyle={styles.productList}
         data={displayProducts.length && displayProducts || products}
         renderItem={renderProductItem}
         style={{height: 'auto'}}
+        ListHeaderComponent={header}
     />
 )
 
@@ -53,16 +59,16 @@ const styles = StyleService.create({
         backgroundColor: 'background-basic-color-2',
     },
     productList: {
-        padding: 16,
+        
     },
     productItem: {
         flex: 1,
         marginRight: 8,
         marginTop: 8,
-        marginBottom: 8,
         maxWidth: Dimensions.get('window').width - 24,
         backgroundColor: 'background-basic-color-1',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        paddingHorizontal: 8
     },
     itemHeader: {
         height: 80,
