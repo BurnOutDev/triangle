@@ -12,11 +12,22 @@ import { colors } from '../../variables/colors'
 import CategoryXL from '../../components/CategoryXL/CategoryXL'
 import Cuisine from '../../components/Cuisine/Cuisine'
 import Address from '../../components/Address'
+import { createStackNavigator } from '@react-navigation/stack'
+import { AuthContext } from '../context'
 
-const Explore = () => (
-    <>
+const { Navigator, Screen } = createStackNavigator();
+
+const header = () => (
+    <Filter statusBarPadding />
+)
+
+const Explore = () => {
+    const { getToken } = React.useContext(AuthContext)
+
+    console.log(getToken())
+
+    return (
         <Layout>
-            <Filter statusBarPadding bottomPadding />
             <ScrollView>
                 <Address />
                 <Promo />
@@ -28,7 +39,11 @@ const Explore = () => (
                 <ReferalPromo />
             </ScrollView>
         </Layout>
-    </>
-)
+    )
+}
 
-export default Explore
+export default () => (
+    <Navigator>
+        <Screen name="Home" component={Explore} options={{ header }} />
+    </Navigator>
+)
