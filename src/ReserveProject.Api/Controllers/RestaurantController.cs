@@ -84,5 +84,12 @@ namespace ReserveProject.Api.Controllers
         {
             return RestaurantReservationService.RestaurantsPerCategory(restaurantsPerCategoryQuery);
         }
+
+        [Authorize]
+        [HttpPost("[action]")]
+        public CuisinesQueryResult Cuisines()
+        {
+            return RestaurantReservationService.Cuisines();
+        }
     }
 }

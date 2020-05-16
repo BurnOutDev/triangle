@@ -12,7 +12,7 @@ const renderItemHeader = (info) => (
     <>
         <ImageBackground
             style={styles.itemHeader}
-            source={info.item.image}
+            source={{uri: info.item.image}}
             imageStyle={{
                 borderTopLeftRadius: 9,
                 borderTopRightRadius: 9,
@@ -28,17 +28,17 @@ const renderCuisineItem = (info) => (
         onPress={() => onItemPress(info.index)}>
         {renderItemHeader(info)}
 
-        <Text category='s1' style={{ fontWeight: 'bold', textAlign: 'center' }}>{info.item.name}</Text>
+        <Text category='s1' style={{ fontWeight: 'bold', textAlign: 'center' }}>{info.item.title}</Text>
         <Text category='c2' appearance='hint' style={{ textAlign: 'center' }}>{info.item.restaurantQuantity} Restaurants</Text>
 
         <Text category='c2' />
     </View>
 );
 
-const CuisineList = () => (
+const CuisineList = (props) => (
     <List
         contentContainerStyle={styles.cuisineList}
-        data={displayCuisine.length && displayCuisine || cuisine}
+        data={props.cuisines}
         horizontal
         renderItem={renderCuisineItem}
     />

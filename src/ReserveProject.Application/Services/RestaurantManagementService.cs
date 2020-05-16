@@ -154,5 +154,22 @@ namespace ReserveProject.Application.Services
 
             return queryResult;
         }
+
+        public CuisinesQueryResult Cuisines()
+        {
+            var cuisines = Context.Set<Cuisine>().Select(cuisine => new CuisinesQueryResult.CuisineItem
+            {
+                Title = cuisine.Name,
+                RestaurantQuantity = cuisine.Restaurants.Count,
+                Image = cuisine.Icon
+            });
+
+            var queryResult = new CuisinesQueryResult
+            {
+                Cuisines = cuisines.ToList()
+            };
+
+            return queryResult;
+        }
     }
 }

@@ -16,5 +16,6 @@ namespace ReserveProject.Application.Services
         void AddCategory(AddCategoryCommand addCategoryCommand);
         void AddCuisine(AddCuisineCommand addCuisineCommand);
         RestaurantsPerCategoryQueryResult RestaurantsPerCategory(RestaurantsPerCategoryQuery restaurantsPerCategoryQuery);
+        CuisinesQueryResult Cuisines();
     }
 }
