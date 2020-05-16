@@ -1,5 +1,7 @@
 ﻿using ReserveProject.Domain.Commands;
+using ReserveProject.Domain.Queries;
 using ReserveProject.Persistence;
+using System.Collections.Generic;
 
 namespace ReserveProject.Application.Services
 {
@@ -13,5 +15,6 @@ namespace ReserveProject.Application.Services
         void AddIngredient(AddIngredientCommand addIngredientCommand);
         void AddCategory(AddCategoryCommand addCategoryCommand);
         void AddCuisine(AddCuisineCommand addCuisineCommand);
+        ICollection<RestaurantListItem> GetAllRestaurants();
     }
 }

@@ -25,5 +25,6 @@ namespace ReserveProject.Domain
 
         public virtual ICollection<BusinessHours> BusinessHours { get; set; }
         public virtual ICollection<MenuItem> MenuItems { get; set; }
+        public virtual ICollection<Media> Media { get; set; }
     }
 }

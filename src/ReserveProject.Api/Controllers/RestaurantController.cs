@@ -13,6 +13,7 @@ using ReserveProject.Application;
 using ReserveProject.Application.Services;
 using ReserveProject.Domain;
 using ReserveProject.Domain.Commands;
+using ReserveProject.Domain.Queries;
 
 namespace ReserveProject.Api.Controllers
 {
@@ -75,6 +76,13 @@ namespace ReserveProject.Api.Controllers
             {
                 Username = "burnoutdev"
             });
+        }
+
+        [Authorize]
+        [HttpGet("[action]")]
+        public ICollection<RestaurantListItem> GetAll()
+        {
+            return RestaurantReservationService.GetAllRestaurants();
         }
     }
 }

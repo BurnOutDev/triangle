@@ -33,7 +33,6 @@ namespace ReserveProject.Persistence
             builder.AddConfiguration(new ReservationConfiguration());
             builder.AddConfiguration(new ReservationMenuItemConfiguration());
             builder.AddConfiguration(new RestaurantConfiguration());
-            builder.AddConfiguration(new RestaurantMediaConfiguration());
             builder.AddConfiguration(new ReviewConfiguration());
             builder.AddConfiguration(new SeatTypeConfiguration());
             builder.AddConfiguration(new UserConfiguration());

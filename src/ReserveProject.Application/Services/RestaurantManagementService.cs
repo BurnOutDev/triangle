@@ -1,5 +1,7 @@
 ﻿using ReserveProject.Domain;
 using ReserveProject.Domain.Commands;
+using ReserveProject.Domain.Enums;
+using ReserveProject.Domain.Queries;
 using ReserveProject.Persistence;
 using System;
 using System.Collections.Generic;
@@ -124,6 +126,22 @@ namespace ReserveProject.Application.Services
 
             Context.Add(cuisine);
             Context.SaveChanges();
+        }
+
+        public ICollection<RestaurantListItem> GetAllRestaurants()
+        {
+            var restaurants = Context.Set<Restaurant>().Select(restaurant => new RestaurantListItem
+            {
+                Name = restaurant.Name,
+                Cuisine = restaurant.Cuisine.Name,
+                PriceRange = restaurant.PriceRange,
+                ImageUrl = restaurant.Media
+                                .Where(x => x.Format == MediaFormat.Picture)
+                                .Select(x => x.Url)
+                                .FirstOrDefault()
+            });
+
+            return restaurants.ToList();
         }
     }
 }

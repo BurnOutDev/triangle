@@ -21,11 +21,7 @@ const header = () => (
     <Filter statusBarPadding />
 )
 
-const Explore = () => {
-    const { getToken } = React.useContext(AuthContext)
-
-    console.log(getToken())
-
+const Explore = () => {    
     return (
         <Layout>
             <ScrollView>

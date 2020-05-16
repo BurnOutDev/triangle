@@ -18,6 +18,6 @@ namespace ReserveProject.Domain
         public int PartySize { get; set; }
         public string Comment { get; set; }
 
-        public virtual ICollection<MenuItem> MenuItems { get; set; }
+        public virtual ICollection<ReservationMenuItem> MenuItems { get; set; }
     }
 }

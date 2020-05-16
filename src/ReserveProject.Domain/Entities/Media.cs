@@ -1,4 +1,5 @@
 ﻿using ReserveProject.Domain.Entities.Shared;
+using ReserveProject.Domain.Enums;
 
 namespace ReserveProject.Domain
 {
@@ -6,6 +7,7 @@ namespace ReserveProject.Domain
     {
         public string Name { get; set; }
         public string Url { get; set; }
-        public string Format { get; set; }
+        public MediaFormat Format { get; set; }
+        public virtual Restaurant Restaurant { get; set; }
     }
 }
