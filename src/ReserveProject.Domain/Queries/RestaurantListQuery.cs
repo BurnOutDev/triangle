@@ -1,6 +1,5 @@
 ﻿using ReserveProject.Domain.Enums;
 using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace ReserveProject.Domain.Queries

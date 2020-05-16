@@ -15,6 +15,6 @@ namespace ReserveProject.Application.Services
         void AddIngredient(AddIngredientCommand addIngredientCommand);
         void AddCategory(AddCategoryCommand addCategoryCommand);
         void AddCuisine(AddCuisineCommand addCuisineCommand);
-        ICollection<RestaurantListItem> GetAllRestaurants();
+        RestaurantsPerCategoryQueryResult RestaurantsPerCategory();
     }
 }

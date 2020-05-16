@@ -80,9 +80,9 @@ namespace ReserveProject.Api.Controllers
 
         [Authorize]
         [HttpGet("[action]")]
-        public ICollection<RestaurantListItem> GetAll()
+        public RestaurantsPerCategoryQueryResult RestaurantsPerCategory(RestaurantsPerCategoryQuery restaurantsPerCategoryQuery)
         {
-            return RestaurantReservationService.GetAllRestaurants();
+            return RestaurantReservationService.RestaurantsPerCategory();
         }
     }
 }

@@ -11,7 +11,7 @@ const Category = (props) => {
     React.useEffect(() => { if (!data) getData() }, []);
 
     const getData = async () => {
-        const response = await axios.get('Restaurant/GetAll')
+        const response = await axios.get('Restaurant/RestaurantsPerCategory')
         setData(response.data)
     }
 

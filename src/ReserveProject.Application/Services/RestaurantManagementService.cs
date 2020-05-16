@@ -128,20 +128,31 @@ namespace ReserveProject.Application.Services
             Context.SaveChanges();
         }
 
-        public ICollection<RestaurantListItem> GetAllRestaurants()
+        public RestaurantsPerCategoryQueryResult RestaurantsPerCategory()
         {
-            var restaurants = Context.Set<Restaurant>().Select(restaurant => new RestaurantListItem
+            var restaurants = Context.Set<Restaurant>().Select(restaurant => new RestaurantsPerCategoryQueryResult.RestaurantItem
             {
-                Name = restaurant.Name,
+                Title = restaurant.Name,
                 Cuisine = restaurant.Cuisine.Name,
-                PriceRange = restaurant.PriceRange,
-                ImageUrl = restaurant.Media
-                                .Where(x => x.Format == MediaFormat.Picture)
-                                .Select(x => x.Url)
-                                .FirstOrDefault()
+                PriceRange = (int)restaurant.PriceRange,
+                Image = restaurant.ImageUrl,
+                Address = restaurant.Address,
+                Rating = $"4.{new Random().Next(0, 9)}",
+                ReviewsCount = new Random().Next(24, 90)
             });
 
-            return restaurants.ToList();
+            var queryResult = new RestaurantsPerCategoryQueryResult
+            {
+                CategoryName = "Nearby",
+                Restaurants = restaurants.ToList()
+            };
+
+            //Image = restaurant.Media
+            //                .Where(x => x.Format == MediaFormat.Picture)
+            //                .Select(x => x.Url)
+            //                .FirstOrDefault(),
+
+            return queryResult;
         }
     }
 }

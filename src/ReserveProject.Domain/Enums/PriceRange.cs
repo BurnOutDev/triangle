@@ -6,8 +6,8 @@ namespace ReserveProject.Domain.Enums
 {
     public enum PriceRange
     {
-        Cheap,
-        Normal,
-        Expensive
+        Cheap = 1,
+        Normal = 2,
+        Expensive = 3
     }
 }

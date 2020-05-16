@@ -17,6 +17,12 @@ namespace ReserveProject.Domain
         public string BusinessId { get; set; }
         public string FacebookId { get; set; }
 
+        public string ImageUrl { get; set; }
+
+        public string Address { get; set; }
+        public string AddressLongtitude { get; set; }
+        public string AddressLatitude { get; set; }
+
         public virtual Cuisine Cuisine { get; set; }
         public PriceRange PriceRange { get; set; }
 

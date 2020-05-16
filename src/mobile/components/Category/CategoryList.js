@@ -17,8 +17,6 @@ const StarIcon = (style) => (
     <Icon {...style} name='star' fill='#FFB700' />
 );
 
-const displayProducts = products
-
 const renderItemHeader = (info) => (
     <>
         <ImageBackground
@@ -37,7 +35,7 @@ const renderProductItem = (info) => (
 
         <Text category='s1' style={{ fontWeight: 'bold' }}>{info.item.title}</Text>
         <Text appearance='hint' category='c2'>
-            {info.item.category}
+            {info.item.cuisine}
         </Text>
         <View style={styles.rating}>
             <StarIcon width={16} height={16} />
@@ -47,10 +45,11 @@ const renderProductItem = (info) => (
     </View>
 );
 
-const CategoryList = () => (
+const CategoryList = (props) => (
     <List
         contentContainerStyle={styles.productList}
-        data={displayProducts.length && displayProducts || products}
+        data={products}
+        // data={props.restaurants}
         horizontal
         renderItem={renderProductItem}
     />
