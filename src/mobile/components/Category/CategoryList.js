@@ -21,7 +21,7 @@ const renderItemHeader = (info) => (
     <>
         <ImageBackground
             style={styles.itemHeader}
-            source={info.item.image}
+            source={{uri: info.item.image}}
             imageStyle={{ borderRadius: 9 }}
         />
     </>
@@ -39,8 +39,8 @@ const renderProductItem = (info) => (
         </Text>
         <View style={styles.rating}>
             <StarIcon width={16} height={16} />
-            <Text category='s2' style={{ fontWeight: 'bold', alignSelf: 'flex-start' }}>{info.item.rating}</Text>
-            <Text appearance='hint' category='c2' style={{ alignSelf: 'flex-end' }}>({info.item.reviewsCount} reviews)</Text>
+            <Text category='s2' style={{ fontWeight: 'bold', marginLeft: 1 }}>{info.item.rating}</Text>
+            <Text appearance='hint' category='c2' style={{ marginLeft: 3 }}>({info.item.reviewsCount} reviews)</Text>
         </View>
     </View>
 );
@@ -48,10 +48,10 @@ const renderProductItem = (info) => (
 const CategoryList = (props) => (
     <List
         contentContainerStyle={styles.productList}
-        data={products}
-        // data={props.restaurants}
+        data={props.restaurants}
         horizontal
         renderItem={renderProductItem}
+        style={{backgroundColor: 'transparent'}}
     />
 )
 
@@ -88,7 +88,8 @@ const styles = StyleService.create({
     },
     rating: {
         flexDirection: 'row',
-        alignSelf: 'flex-start',
+        // alignSelf: 'flex-start',
+        alignItems: 'center',
         marginRight: 10,
     }
 });

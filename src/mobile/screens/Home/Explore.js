@@ -30,7 +30,7 @@ const Explore = () => {
                 <Category title='Nearby' />
                 <CategoryXL title='Best offers' />
                 <Category title='Best rated' />
-                <Category title='Nearby' />
+                <Category title='Featured' />
                 <Cuisine />
                 <ReferalPromo />
             </ScrollView>

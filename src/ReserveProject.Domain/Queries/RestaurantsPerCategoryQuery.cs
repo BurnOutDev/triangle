@@ -2,6 +2,6 @@
 {
     public class RestaurantsPerCategoryQuery
     {
-        //some filter per category or in database or something
+        public string CategoryName { get; set; }
     }
 }

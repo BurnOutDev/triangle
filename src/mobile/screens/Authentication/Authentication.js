@@ -15,6 +15,7 @@ const Authentication = ({ navigation }) => {
     const [value, setValue] = React.useState('');
 
     const { signIn } = React.useContext(AuthContext);
+    signIn()
 
     return (
         <ImageBackground resizeMode='cover' source={require('../../assets/background.jpg')} style={styles.imageBg}>

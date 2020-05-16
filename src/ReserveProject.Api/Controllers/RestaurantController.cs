@@ -79,10 +79,10 @@ namespace ReserveProject.Api.Controllers
         }
 
         [Authorize]
-        [HttpGet("[action]")]
+        [HttpPost("[action]")]
         public RestaurantsPerCategoryQueryResult RestaurantsPerCategory(RestaurantsPerCategoryQuery restaurantsPerCategoryQuery)
         {
-            return RestaurantReservationService.RestaurantsPerCategory();
+            return RestaurantReservationService.RestaurantsPerCategory(restaurantsPerCategoryQuery);
         }
     }
 }

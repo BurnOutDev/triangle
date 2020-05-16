@@ -4,7 +4,9 @@ import { AsyncStorage } from 'react-native';
 axios.interceptors.request.use(async (config) => {
     const token = await AsyncStorage.getItem('token')
     
-    config.headers = { Authorization: `Bearer ${token}` }
+    config.headers = { 
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json' }
     config.baseURL = 'https://reserveprojectapi.azurewebsites.net/'
 
     return config;
@@ -13,15 +15,16 @@ axios.interceptors.request.use(async (config) => {
     return Promise.reject(error);
 });
 
-axios.interceptors.response.use((response) => {
+// axios.interceptors.response.use((response) => {
 
-    console.log('Response was received');
-    console.log(response);
+//     console.log('Response was received');
+//     console.log(response);
 
-    return response;
-}, error => {
+//     return response;
+// }, error => {
+//     // console.error(error);
 
-    return Promise.reject(error);
-});
+//     return Promise.reject(error);
+// });
 
 export default axios

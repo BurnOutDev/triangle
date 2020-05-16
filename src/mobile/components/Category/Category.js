@@ -8,17 +8,20 @@ import axios from '../../axios'
 const Category = (props) => {
     const [data, setData] = React.useState(null)
 
-    React.useEffect(() => { if (!data) getData() }, []);
+    React.useEffect(() => { if (data == null) getData() }, []);
 
     const getData = async () => {
-        const response = await axios.get('Restaurant/RestaurantsPerCategory')
+        const response = await axios.post('Restaurant/RestaurantsPerCategory', {
+            categoryName: props.title
+        })
+
         setData(response.data)
     }
 
-    return (
+    return (data &&
         <View style={{ margin: 15 }}>
-            <Text category='h3'>{props.title}</Text>
-            <CategoryList restaurants={data} />
+            <Text category='h3'>{data.categoryName}</Text>
+            <CategoryList restaurants={data.restaurants} />
         </View>
     )
 }

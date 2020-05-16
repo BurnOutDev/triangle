@@ -114,6 +114,7 @@ export default () => {
         authorize(openIdConfig).then(result => {
           AsyncStorage.setItem('token', result.accessToken)
           setUserToken(result.accessToken)
+          console.log(result.accessToken)
         })
       },
       signUp: () => {

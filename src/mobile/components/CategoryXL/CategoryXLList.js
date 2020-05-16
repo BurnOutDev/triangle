@@ -23,7 +23,7 @@ const renderItemHeader = (info) => (
     <>
         <ImageBackground
             style={styles.itemHeader}
-            source={info.item.image}
+            source={{uri: info.item.image}}
             imageStyle={{ borderRadius: 9 }}
         />
     </>
@@ -37,22 +37,23 @@ const renderProductItem = (info) => (
 
         <Text category='s1' style={{ fontWeight: 'bold' }}>{info.item.title}</Text>
         <Text appearance='hint' category='c2'>
-            {info.item.category}
+            {info.item.cuisine}
         </Text>
         <View style={styles.rating}>
             <StarIcon width={16} height={16} />
-            <Text category='s2' style={{ fontWeight: 'bold', alignSelf: 'flex-start' }}>{info.item.rating}</Text>
-            <Text appearance='hint' category='c2' style={{ alignSelf: 'flex-end' }}>({info.item.reviewsCount} reviews)</Text>
+            <Text category='s2' style={{ fontWeight: 'bold', marginLeft: 1 }}>{info.item.rating}</Text>
+            <Text appearance='hint' category='c2' style={{ marginLeft: 3 }}>({info.item.reviewsCount} reviews)</Text>
         </View>
     </View>
 );
 
-const CategoryXLList = () => (
+const CategoryXLList = (props) => (
     <List
         contentContainerStyle={styles.productList}
-        data={displayProducts.length && displayProducts || products}
+        data={props.restaurants}
         horizontal
         renderItem={renderProductItem}
+        style={{backgroundColor: 'transparent', marginRight: -16, marginLeft: -16, paddingLeft: 16}}
     />
 )
 
@@ -90,7 +91,8 @@ const styles = StyleService.create({
     },
     rating: {
         flexDirection: 'row',
-        alignSelf: 'flex-start',
+        // alignSelf: 'flex-start',
+        alignItems: 'center',
         marginRight: 10,
     }
 });

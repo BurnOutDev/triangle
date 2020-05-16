@@ -128,7 +128,7 @@ namespace ReserveProject.Application.Services
             Context.SaveChanges();
         }
 
-        public RestaurantsPerCategoryQueryResult RestaurantsPerCategory()
+        public RestaurantsPerCategoryQueryResult RestaurantsPerCategory(RestaurantsPerCategoryQuery restaurantsPerCategoryQuery)
         {
             var restaurants = Context.Set<Restaurant>().Select(restaurant => new RestaurantsPerCategoryQueryResult.RestaurantItem
             {
@@ -143,7 +143,7 @@ namespace ReserveProject.Application.Services
 
             var queryResult = new RestaurantsPerCategoryQueryResult
             {
-                CategoryName = "Nearby",
+                CategoryName = restaurantsPerCategoryQuery.CategoryName,
                 Restaurants = restaurants.ToList()
             };
 
