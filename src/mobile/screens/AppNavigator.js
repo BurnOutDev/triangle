@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createBottomTabNavigator, BottomTabBar } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { AsyncStorage } from 'react-native';
 
@@ -22,6 +22,8 @@ import { authorize, revoke } from "react-native-app-auth";
 import openIdConfig from "../openIdConfig";
 import Explore from "./Home/Explore";
 import axios from 'axios';
+import CategoryAll from "./Home/CategoryAll";
+import Cuisine from "../screens/Home/Cuisine";
 
 const AuthStack = createStackNavigator();
 const AuthStackScreen = () => (
@@ -57,16 +59,11 @@ const ProfileStackScreen = () => (
 );
 
 const TabsScreen = () => (
-  <Tabs.Navigator>
+  <Tabs.Navigator tabBar={props => <BottomTabBar {...props} />}>
     <Tabs.Screen name='Home' component={Explore} />
-    <Tabs.Screen name='Homes' component={() => <></>} />
-    <Tabs.Screen name='Homed' component={() => <></>} />
+    <Tabs.Screen name='CategoryAll' component={CategoryAll} />
+    <Tabs.Screen name='Cuisine' component={Cuisine} />
     <Tabs.Screen name='Homef' component={() => <></>} />
-
-    {/* <Screen name='Users' component={CategoryAll} />
-    <Screen name='Authentication' component={Explore} />
-    <Screen name='LogIn' component={Cuisine} />
-    <Screen name='SignUp' component={SignUp} /> */}
   </Tabs.Navigator>
 );
 
