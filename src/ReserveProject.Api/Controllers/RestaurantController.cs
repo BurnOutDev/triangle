@@ -17,6 +17,7 @@ using ReserveProject.Domain.Queries;
 
 namespace ReserveProject.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class RestaurantController : ControllerBase
@@ -49,7 +50,6 @@ namespace ReserveProject.Api.Controllers
             RestaurantReservationService.AddCuisine(addCuisineCommand);
         }
 
-        [Authorize]
         [HttpGet("[action]")]
         public async Task<IActionResult> GetTested()
         {
@@ -60,7 +60,6 @@ namespace ReserveProject.Api.Controllers
             return new ObjectResult($"{identityToken}\nClaims:\n{claims}");
         }
 
-        [Authorize]
         [HttpGet("[action]")]
         public async Task Logout()
         {
@@ -68,7 +67,6 @@ namespace ReserveProject.Api.Controllers
             await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
         }
 
-        [Authorize]
         [HttpGet("[action]")]
         public IActionResult GetUserInfo()
         {
@@ -78,18 +76,22 @@ namespace ReserveProject.Api.Controllers
             });
         }
 
-        [Authorize]
         [HttpPost("[action]")]
         public RestaurantsPerCategoryQueryResult RestaurantsPerCategory(RestaurantsPerCategoryQuery restaurantsPerCategoryQuery)
         {
             return RestaurantReservationService.RestaurantsPerCategory(restaurantsPerCategoryQuery);
         }
 
-        [Authorize]
         [HttpPost("[action]")]
         public CuisinesQueryResult Cuisines()
         {
             return RestaurantReservationService.Cuisines();
+        }
+
+        [HttpGet("[action]")]
+        public RestaurantProfileQueryResult Profile()
+        {
+            return null;
         }
     }
 }

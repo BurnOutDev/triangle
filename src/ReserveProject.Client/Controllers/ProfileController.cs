@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -17,12 +18,23 @@ namespace ReserveProject.Client.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        [HttpGet]
-        public IActionResult Profile()
+        public async Task<IActionResult> Index()
         {
+            var httpClient = _httpClientFactory.CreateClient("APIClient");
 
+            var request = new HttpRequestMessage(
+                HttpMethod.Get,
+                "/Restaurant/Profile");
 
-            return new JsonResult(new { });
+            var response = await httpClient.SendAsync(
+                request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
+
+            // error if not 200 (avoid unauthorized)
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync();
+
+            return View(model: content);
         }
     }
 }
