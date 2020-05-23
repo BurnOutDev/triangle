@@ -9,17 +9,15 @@ import { colors } from '../../variables/colors';
 const displayCuisine = cuisines
 
 const renderItemHeader = (info) => (
-    <>
-        <ImageBackground
-            style={styles.itemHeader}
-            source={{ uri: info.item.image }}
-            imageStyle={{
-                borderTopLeftRadius: 9,
-                borderTopRightRadius: 9,
-            }}
-            resizeMode='contain'
-        />
-    </>
+    <ImageBackground
+        style={styles.itemHeader}
+        source={{ uri: info.item.image }}
+        imageStyle={{
+            borderTopLeftRadius: 9,
+            borderTopRightRadius: 9,
+        }}
+        resizeMode='contain'
+    />
 );
 
 const renderCuisineItem = (info) => (

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ReserveProject.DI;
@@ -37,6 +38,8 @@ namespace ReserveProject.Api
 
         public static IServiceCollection AddAuthorization(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
+            IdentityModelEventSource.ShowPII = true;
+
             var authConfiguration = configuration.GetSection(ConfigurationItem.Authorization);
 
             var privateKey = authConfiguration.GetValue<string>(ConfigurationItem.PrivateKey);

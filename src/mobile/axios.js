@@ -7,7 +7,7 @@ axios.interceptors.request.use(async (config) => {
     config.headers = { 
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json' }
-    config.baseURL = 'https://reserveprojectapi.azurewebsites.net/'
+    config.baseURL = 'http://192.168.100.7:5001/'
 
     return config;
 }, error => {

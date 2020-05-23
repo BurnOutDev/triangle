@@ -21,7 +21,6 @@
     "@ui-kitten/components": "^4.4.1",
     "@ui-kitten/eva-icons": "^5.0.0-alpha.1",
     "axios": "^0.19.2",
-    "instabug-reactnative": "^9.1.1",
     "react": "16.11.0",
     "react-native": "0.62.0",
     "react-native-app-auth": "^5.1.2",

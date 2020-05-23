@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 
@@ -22,6 +23,8 @@ namespace ReserveProject.Client
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            IdentityModelEventSource.ShowPII = true;
         }
 
         public IConfiguration Configuration { get; }
@@ -33,7 +36,7 @@ namespace ReserveProject.Client
             {
                 options.DefaultRequestHeaders.Clear();
                 options.DefaultRequestHeaders.Add("Accept", "application/json");
-                options.BaseAddress = new Uri("https://localhost:4001");
+                options.BaseAddress = new Uri("https://localhost:5001");
             });
 
             services.AddControllersWithViews()
@@ -46,7 +49,7 @@ namespace ReserveProject.Client
             // create an HttpClient used for accessing the API
             services.AddHttpClient("APIClient", client =>
             {
-                client.BaseAddress = new Uri("https://localhost:4001/");
+                client.BaseAddress = new Uri("http://localhost:5001/");
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
             }).AddHttpMessageHandler<BearerTokenHandler>();
@@ -54,7 +57,7 @@ namespace ReserveProject.Client
             // create an HttpClient used for accessing the IDP
             services.AddHttpClient("IDPClient", client =>
             {
-                client.BaseAddress = new Uri("https://localhost:5001/");
+                client.BaseAddress = new Uri("https://localhost:5000/");
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
             });
@@ -72,7 +75,7 @@ namespace ReserveProject.Client
             .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
             {
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.Authority = "https://reserveidentityserver.azurewebsites.net/";
+                options.Authority = "http://localhost:5000/";
                 options.ClientId = "reservationclient";
                 options.ResponseType = "code";
                 options.Scope.Add("openid"); //this is defined in IDP too, scopes here are for clarity only
@@ -86,7 +89,7 @@ namespace ReserveProject.Client
                 options.ClientSecret = "secret";
                 options.GetClaimsFromUserInfoEndpoint = true;
 
-                options.SignedOutRedirectUri = "https://localhost:3001";
+                options.SignedOutRedirectUri = "https://localhost:5002";
                 options.RequireHttpsMetadata = false;
             });
         }
