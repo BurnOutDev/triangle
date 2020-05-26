@@ -15,6 +15,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
+using RestSharp.Extensions;
+using RestSharp;
+using ReserveProject.Application.Services;
 
 namespace ReserveProject.Client
 {
@@ -32,13 +35,6 @@ namespace ReserveProject.Client
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddHttpClient("Api Client", options =>
-            {
-                options.DefaultRequestHeaders.Clear();
-                options.DefaultRequestHeaders.Add("Accept", "application/json");
-                options.BaseAddress = new Uri("https://localhost:5001");
-            });
-
             services.AddControllersWithViews()
                 .AddJsonOptions(opts => opts.JsonSerializerOptions.PropertyNamingPolicy = null);
 
@@ -46,7 +42,6 @@ namespace ReserveProject.Client
 
             services.AddTransient<BearerTokenHandler>();
 
-            // create an HttpClient used for accessing the API
             services.AddHttpClient("APIClient", client =>
             {
                 client.BaseAddress = new Uri("http://localhost:5001/");
@@ -54,7 +49,6 @@ namespace ReserveProject.Client
                 client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
             }).AddHttpMessageHandler<BearerTokenHandler>();
 
-            // create an HttpClient used for accessing the IDP
             services.AddHttpClient("IDPClient", client =>
             {
                 client.BaseAddress = new Uri("https://localhost:5000/");
@@ -92,6 +86,10 @@ namespace ReserveProject.Client
                 options.SignedOutRedirectUri = "https://localhost:5002";
                 options.RequireHttpsMetadata = false;
             });
+
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
+            services.AddTransient<FileService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

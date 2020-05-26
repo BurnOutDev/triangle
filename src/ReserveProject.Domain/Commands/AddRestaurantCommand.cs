@@ -15,7 +15,11 @@ namespace ReserveProject.Domain.Commands
         public string BusinessId { get; set; }
         public string FacebookId { get; set; }
 
-        public GeographyPoint Location { get; set; }
+        public string Image { get; set; }
+
+        public string Address { get; set; }
+        public string AddressLongtitude { get; set; }
+        public string AddressLatitude { get; set; }
 
         public int CuisineId { get; set; }
         public PriceRange PriceRange { get; set; }

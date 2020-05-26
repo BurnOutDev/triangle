@@ -1,12 +1,10 @@
-﻿using ReserveProject.Domain.Entities.Shared;
-using ReserveProject.Domain.Enums;
-using System;
+﻿using ReserveProject.Domain.Enums;
 using System.Collections.Generic;
 using System.Spatial;
 
-namespace ReserveProject.Domain
+namespace ReserveProject.Domain.Commands
 {
-    public class Restaurant : BaseEntity
+    public class UpdateRestaurantCommand
     {
         public string Name { get; set; }
         public string Description { get; set; }
@@ -23,15 +21,10 @@ namespace ReserveProject.Domain
         public string AddressLongtitude { get; set; }
         public string AddressLatitude { get; set; }
 
-        public virtual Cuisine Cuisine { get; set; }
-        public virtual int CuisineId { get; set; }
+        public int CuisineId { get; set; }
         public PriceRange PriceRange { get; set; }
 
         public bool HasParking { get; set; }
         public bool IsCardPaymentAvailable { get; set; }
-
-        public virtual ICollection<BusinessHours> BusinessHours { get; set; }
-        public virtual ICollection<MenuItem> MenuItems { get; set; }
-        public virtual ICollection<Media> Media { get; set; }
     }
 }

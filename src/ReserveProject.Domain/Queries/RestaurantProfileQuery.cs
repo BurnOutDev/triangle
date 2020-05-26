@@ -22,8 +22,8 @@ namespace ReserveProject.Domain.Queries
         public string AddressLongtitude { get; set; }
         public string AddressLatitude { get; set; }
 
-        public virtual Cuisine Cuisine { get; set; }
-        public PriceRange PriceRange { get; set; }
+        public int CuisineId { get; set; }
+        public int PriceRange { get; set; }
 
         public bool HasParking { get; set; }
         public bool IsCardPaymentAvailable { get; set; }

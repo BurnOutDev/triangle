@@ -1,0 +1,189 @@
+﻿@model ReserveProject.Client.Models.ProfileViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <div class="container">
+        <div class="text-center">
+            <h1 class="display-4">Restaurant Profile</h1>
+            <p class="lead">Using form below you can update your restaurant profile visible to customers.</p>
+        </div>
+
+        <form class="needs-validation" asp-action="SaveProfileData" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-8 order-md-1">
+                    <h4 class="mb-3">Editable fields</h4>
+                    <div class="mb-3">
+                        <label asp-for="Name">Title</label>
+                        <input type="text" class="form-control" asp-for="Name" placeholder="Restaurant Title">
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description">Description</label>
+                        <textarea class="form-control" asp-for="Description" placeholder="Restaurant Description"></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Email">Email</label>
+                            <input type="text" class="form-control" asp-for="Email" placeholder="Restaurant Email">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="PhoneNumber">PhoneNumber</label>
+                            <input type="text" class="form-control" asp-for="PhoneNumber" placeholder="Restaurant PhoneNumber">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="WebsiteUrl">Website Url</label>
+                        <input type="text" class="form-control" asp-for="WebsiteUrl" placeholder="Restaurant Website Url">
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="BusinessId">BusinessId</label>
+                        <input type="text" readonly class="form-control" asp-for="BusinessId" placeholder="Restaurant Business Id">
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="FacebookId">Facebook Id</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">@@</span>
+                            </div>
+                            <input class="form-control" asp-for="FacebookId">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Address">Address</label>
+                        <input type="text" class="form-control" asp-for="Address" placeholder="1234 Main St">
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="CuisineId">Cuisine</label>
+                        <select class="custom-select d-block w-100" asp-for="CuisineId" asp-items="@(new SelectList(Model.CuisinesQuery.Cuisines, "CuisineId", "Title"))">
+                            <option value="">Choose...</option>
+                        </select>
+                    </div>
+                    <hr class="mb-4">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" asp-for="HasParking">
+                        <label class="custom-control-label" asp-for="HasParking">Parking is available</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" asp-for="IsCardPaymentAvailable">
+                        <label class="custom-control-label" asp-for="IsCardPaymentAvailable">Debit card payments available</label>
+                    </div>
+                    <hr class="mb-4">
+                    <button class="btn btn-primary btn-lg btn-block" id="submitButton" type="submit" formenctype="multipart/form-data">Update profile details</button>
+                </div>
+                @* Separator *@
+                <div class="col-md-4 order-md-2 mb-4">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-muted">Main Picture</span>
+                    </h4>
+                    <div class="mb-4">
+                        <img src="@Model.ImageUrl" class="img-thumbnail float-left mb-3" />
+                        <input class="form-control-file" type="file" asp-for="FormImage" placeholder="Restaurant Image Url">
+                        <input asp-for="ImageUrl" id="imageUrl" type="hidden">
+                    </div>
+                    <h4 class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="text-muted mb-3">Location</span>
+                    </h4>
+                    <input type="text" class="form-control mb-2 map-input" placeholder="Search on the map">
+                    <div id="map" style="height: 300px" class="form-control"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <style>
+        .map-input {
+            width: unset;
+            margin: 10px;
+        }
+    </style>
+    <script>
+        $(function () {
+
+            function initMap() {
+
+                var location = new google.maps.LatLng(50.0875726, 14.4189987);
+
+                var mapCanvas = document.getElementById('map');
+                var mapOptions = {
+                    center: location,
+                    zoom: 16,
+                    panControl: false,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                }
+
+                var markers = [];
+
+                var map = new google.maps.Map(mapCanvas, mapOptions);
+
+                var input = document.getElementsByClassName('map-input')[0]
+
+                var searchBox = new google.maps.places.SearchBox(input);
+                map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+                map.addListener('bounds_changed', function () {
+                    searchBox.setBounds(map.getBounds());
+                });
+
+                searchBox.addListener('places_changed', function () {
+                    var places = searchBox.getPlaces();
+
+                    if (places.length == 0) {
+                        return;
+                    }
+
+                    // Clear out the old markers.
+                    markers.forEach(function (marker) {
+                        marker.setMap(null);
+                    });
+                    markers = [];
+
+                    // For each place, get the icon, name and location.
+                    var bounds = new google.maps.LatLngBounds();
+                    places.forEach(function (place) {
+                        if (!place.geometry) {
+                            console.log("Returned place contains no geometry");
+                            return;
+                        }
+                        var icon = {
+                            url: place.icon,
+                            size: new google.maps.Size(71, 71),
+                            origin: new google.maps.Point(0, 0),
+                            anchor: new google.maps.Point(17, 34),
+                            scaledSize: new google.maps.Size(25, 25)
+                        };
+
+                        // Create a marker for each place.
+                        markers.push(new google.maps.Marker({
+                            map: map,
+                            icon: icon,
+                            title: place.name,
+                            position: place.geometry.location
+                        }));
+
+                        if (place.geometry.viewport) {
+                            // Only geocodes have viewport.
+                            bounds.union(place.geometry.viewport);
+                        } else {
+                            bounds.extend(place.geometry.location);
+                        }
+                    });
+                    map.fitBounds(bounds);
+                });
+            }
+
+            google.maps.event.addDomListener(window, 'load', initMap);
+        });
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBK5XHG0PhX_iRQLWPzvr-cdit3Fv1mCvU&libraries=places,markers"></script>
+}

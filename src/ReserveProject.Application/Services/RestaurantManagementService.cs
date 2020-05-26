@@ -35,7 +35,11 @@ namespace ReserveProject.Application.Services
                 HasParking = addRestaurantCommand.HasParking,
                 IsCardPaymentAvailable = addRestaurantCommand.IsCardPaymentAvailable,
                 PriceRange = addRestaurantCommand.PriceRange,
-                Cuisine = cuisine
+                Cuisine = cuisine,
+                Address = addRestaurantCommand.Address,
+                AddressLatitude = addRestaurantCommand.AddressLatitude,
+                AddressLongtitude = addRestaurantCommand.AddressLongtitude,
+                ImageUrl = addRestaurantCommand.Image
             };
 
             restaurant.BusinessHours = addRestaurantCommand.BusinessHours?.Select(workday => new BusinessHours
@@ -64,6 +68,34 @@ namespace ReserveProject.Application.Services
                 OpeningTime = TimeSpan.Parse(workday.OpeningTime),
                 ClosingTime = TimeSpan.Parse(workday.ClosingTime)
             }).ToList());
+
+            Context.Update(restaurant);
+            Context.SaveChanges();
+        }
+
+        public void UpdateRestaurant(string userId, UpdateRestaurantCommand updateRestaurantCommand)
+        {
+            var restaurant = GetRestaurantByUserId(userId);
+
+            restaurant.Name = updateRestaurantCommand.Name;
+            restaurant.Description = updateRestaurantCommand.Description;
+            restaurant.PhoneNumber = updateRestaurantCommand.PhoneNumber;
+            restaurant.WebsiteUrl = updateRestaurantCommand.WebsiteUrl;
+            restaurant.Email = updateRestaurantCommand.Email;
+
+            restaurant.FacebookId = updateRestaurantCommand.FacebookId;
+
+            restaurant.ImageUrl = updateRestaurantCommand.ImageUrl;
+
+            restaurant.Address = updateRestaurantCommand.Address;
+            restaurant.AddressLatitude = updateRestaurantCommand.AddressLatitude;
+            restaurant.AddressLongtitude = updateRestaurantCommand.AddressLongtitude;
+
+            restaurant.CuisineId = updateRestaurantCommand.CuisineId;
+            restaurant.PriceRange = updateRestaurantCommand.PriceRange;
+
+            restaurant.HasParking = updateRestaurantCommand.HasParking;
+            restaurant.IsCardPaymentAvailable = updateRestaurantCommand.IsCardPaymentAvailable;
 
             Context.Update(restaurant);
             Context.SaveChanges();
@@ -159,6 +191,7 @@ namespace ReserveProject.Application.Services
         {
             var cuisines = Context.Set<Cuisine>().Select(cuisine => new CuisinesQueryResult.CuisineItem
             {
+                CuisineId = cuisine.Id,
                 Title = cuisine.Name,
                 RestaurantQuantity = cuisine.Restaurants.Count,
                 Image = cuisine.Icon
@@ -170,6 +203,37 @@ namespace ReserveProject.Application.Services
             };
 
             return queryResult;
+        }
+
+        public RestaurantProfileQueryResult RestaurantProfile(string userId)
+        {
+            var restaurant = GetRestaurantByUserId(userId);
+
+            var queryResult = new RestaurantProfileQueryResult
+            {
+                Name = restaurant.Name,
+                Description = restaurant.Description,
+                Address = restaurant.Address,
+                AddressLatitude = restaurant.AddressLatitude,
+                AddressLongtitude = restaurant.AddressLongtitude,
+                BusinessId = restaurant.BusinessId,
+                Email = restaurant.Email,
+                FacebookId = restaurant.FacebookId,
+                HasParking = restaurant.HasParking,
+                ImageUrl = restaurant.ImageUrl,
+                IsCardPaymentAvailable = restaurant.IsCardPaymentAvailable,
+                PhoneNumber = restaurant.PhoneNumber,
+                PriceRange = (int)restaurant.PriceRange,
+                WebsiteUrl = restaurant.WebsiteUrl,
+                CuisineId = restaurant.Cuisine.Id
+            };
+
+            return queryResult;
+        }
+
+        private Restaurant GetRestaurantByUserId(string userId)
+        {
+            return Context.Set<IdentityUserRestaurant>().Where(user => user.IdentityUserId == userId).FirstOrDefault().Restaurant;
         }
     }
 }

@@ -7,7 +7,14 @@
   <ItemGroup>
     <PackageReference Include="IdentityModel" Version="4.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="3.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.3" />
+    <PackageReference Include="RestSharp" Version="106.11.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ReserveProject.Application\ReserveProject.Application.csproj" />
+    <ProjectReference Include="..\ReserveProject.Domain\ReserveProject.Domain.csproj" />
   </ItemGroup>
 
 

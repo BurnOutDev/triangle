@@ -82,7 +82,7 @@ namespace ReserveProject.Api.Controllers
             return RestaurantReservationService.RestaurantsPerCategory(restaurantsPerCategoryQuery);
         }
 
-        [HttpPost("[action]")]
+        [HttpGet("[action]")]
         public CuisinesQueryResult Cuisines()
         {
             return RestaurantReservationService.Cuisines();
@@ -91,7 +91,15 @@ namespace ReserveProject.Api.Controllers
         [HttpGet("[action]")]
         public RestaurantProfileQueryResult Profile()
         {
-            return null;
+            return RestaurantReservationService.RestaurantProfile(UserId);
         }
+
+        [HttpPost("[action]")]
+        public void Update(UpdateRestaurantCommand updateRestaurantCommand)
+        {
+            RestaurantReservationService.UpdateRestaurant(UserId, updateRestaurantCommand);
+        }
+
+        public string UserId { get { return User.FindFirst("sub").Value; } }
     }
 }

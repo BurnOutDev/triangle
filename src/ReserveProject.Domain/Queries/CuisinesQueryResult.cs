@@ -8,6 +8,7 @@ namespace ReserveProject.Domain.Queries
 
         public class CuisineItem
         {
+            public int CuisineId { get; set; }
             public string Title { get; set; }
             public int RestaurantQuantity { get; set; }
             public string Image { get; set; }
