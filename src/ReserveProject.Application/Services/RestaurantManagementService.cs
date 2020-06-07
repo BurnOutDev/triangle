@@ -104,7 +104,7 @@ namespace ReserveProject.Application.Services
         public void AddMenuItem(AddMenuItemCommand addMenuItemCommand)
         {
             var category = Context.Find<Category>(addMenuItemCommand.CategoryId);
-            var ingredient = Context.Find<Ingredient>(addMenuItemCommand.IngredientId);
+
             var restaurant = Context.Find<Restaurant>(addMenuItemCommand.RestaurantId);
 
             var menuItem = new MenuItem
@@ -113,10 +113,18 @@ namespace ReserveProject.Application.Services
                 Description = addMenuItemCommand.Description,
                 ImageUrl = addMenuItemCommand.ImageUrl,
                 Category = category,
-                Ingredient = ingredient,
                 Restaurant = restaurant,
-                Price = addMenuItemCommand.Price
+                Price = addMenuItemCommand.Price,
+                Unavailable = false
             };
+
+            menuItem.MenuItemIngredients = Context.Set<Ingredient>()
+                .Where(ingredient => addMenuItemCommand.IngredientIds.Contains(ingredient.Id))
+                .Select(ingredient => new MenuItemIngredient
+                {
+                    MenuItem = menuItem,
+                    Ingredient = ingredient
+                }).ToList();
 
             Context.Add(menuItem);
             Context.SaveChanges();
@@ -234,6 +242,66 @@ namespace ReserveProject.Application.Services
         private Restaurant GetRestaurantByUserId(string userId)
         {
             return Context.Set<IdentityUserRestaurant>().Where(user => user.IdentityUserId == userId).FirstOrDefault().Restaurant;
+        }
+
+        public IngredientsQueryResult Ingredients()
+        {
+            var ingredients = Context.Set<Ingredient>().Select(ingredient => new IngredientsQueryResult.IngredientItem
+            {
+                IngredientId = ingredient.Id,
+                Name = ingredient.Name,
+                IsAllergen = ingredient.IsAllergen,
+                IsVegan = ingredient.IsVegan,
+                IsVegetarian = ingredient.IsVegetarian,
+            });
+
+            var queryResult = new IngredientsQueryResult
+            {
+                Ingredients = ingredients.ToList()
+            };
+
+            return queryResult;
+        }
+
+        public CategoriesQueryResult Categories()
+        {
+            var categories = Context.Set<Category>().Select(category => new CategoriesQueryResult.CategoryItem
+            {
+                CategoryId = category.Id,
+                Name = category.Name
+            });
+
+            var queryResult = new CategoriesQueryResult
+            {
+                Categories = categories.ToList()
+            };
+
+            return queryResult;
+        }
+
+        public RestaurantMenuItemsQueryResult GetMenuItems(string userId)
+        {
+            var restaurant = GetRestaurantByUserId(userId);
+
+            var menuItems = restaurant.MenuItems.Select(x => new RestaurantMenuItemsQueryResult.RestaurantMenuItem
+            {
+                CategoryId = x.Category.Id,
+                Description = x.Description,
+                ImageUrl = x.ImageUrl,
+                IngredientIds = x.MenuItemIngredients.Select(ingredient => ingredient.Id).ToArray(),
+                Name = x.Name,
+                Price = x.Price,
+                Unavailable = x.Unavailable,
+                MenuItemId = x.Id
+            }).ToList();
+
+            var queryResult = new RestaurantMenuItemsQueryResult
+            {
+                MenuItems = menuItems,
+                RestaurantId = restaurant.Id
+            };
+
+            return queryResult;
         }
     }
 }

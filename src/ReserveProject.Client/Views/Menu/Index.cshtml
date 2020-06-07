@@ -1,0 +1,28 @@
+﻿@model ReserveProject.Client.Models.MenuItemsViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    <div class="text-center">
+        <h1 class="display-4">Restaurant Menu <a href="#"><span class="badge badge-secondary">New</span></a></h1>
+        <p class="lead">Using form below you can add and update your restaurant menu.</p>
+    </div>
+    @foreach (var c in Model.CategoriesQuery.Categories)
+    {
+        <div class="my-3 p-3 bg-white rounded box-shadow">
+            <h6 class="border-bottom border-gray pb-2 mb-0">@c.Name</h6>
+            @foreach (var menuItem in Model.MenuItems.MenuItems.Where(m => m.CategoryId == c.CategoryId))
+            {
+                <div class="media text-muted pt-3">
+                    <img alt="32x32" class="mr-2 rounded" src="@menuItem.ImageUrl" data-holder-rendered="true" style="width: 32px; height: 32px;">
+                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                        <strong class="d-block text-gray-dark">@menuItem.Name</strong>
+                        @menuItem.Description
+                    </p>
+                </div>
+            }
+        </div>
+    }
+</div>

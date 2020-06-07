@@ -19,5 +19,8 @@ namespace ReserveProject.Application.Services
         CuisinesQueryResult Cuisines();
         RestaurantProfileQueryResult RestaurantProfile(string userId);
         void UpdateRestaurant(string userId, UpdateRestaurantCommand updateRestaurantCommand);
+        public RestaurantMenuItemsQueryResult GetMenuItems(string userId);
+        CategoriesQueryResult Categories();
+        IngredientsQueryResult Ingredients();
     }
 }

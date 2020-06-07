@@ -8,6 +8,7 @@ using ReserveProject.Application;
 using ReserveProject.Application.Services;
 using ReserveProject.Domain;
 using ReserveProject.Domain.Commands;
+using ReserveProject.Domain.Queries;
 
 namespace ReserveProject.Api.Controllers
 {
@@ -42,5 +43,25 @@ namespace ReserveProject.Api.Controllers
         {
             RestaurantReservationService.AddCategory(addCategoryCommand);
         }
+
+        [HttpGet("[action]")]
+        public CategoriesQueryResult Categories()
+        {
+            return RestaurantReservationService.Categories();
+        }
+
+        [HttpGet("[action]")]
+        public IngredientsQueryResult Ingredients()
+        {
+            return RestaurantReservationService.Ingredients();
+        }
+
+        [HttpGet("[action]")]
+        public RestaurantMenuItemsQueryResult GetMenuItems()
+        {
+            return RestaurantReservationService.GetMenuItems(UserId);
+        }
+
+        public string UserId { get { return User.FindFirst("sub").Value; } }
     }
 }
