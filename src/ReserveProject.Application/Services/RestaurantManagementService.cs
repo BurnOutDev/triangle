@@ -279,6 +279,15 @@ namespace ReserveProject.Application.Services
             return queryResult;
         }
 
+        public KeyValuesQueryResult CategoriesKeyValues()
+        {
+            var categories = Context.Set<Category>().ToDictionary(x => x.Id, x => x.Name);
+
+            var queryResult = new KeyValuesQueryResult(categories);
+
+            return queryResult;
+        }
+
         public RestaurantMenuItemsQueryResult GetMenuItems(string userId)
         {
             var restaurant = GetRestaurantByUserId(userId);

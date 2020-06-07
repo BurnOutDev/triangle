@@ -22,5 +22,6 @@ namespace ReserveProject.Application.Services
         public RestaurantMenuItemsQueryResult GetMenuItems(string userId);
         CategoriesQueryResult Categories();
         IngredientsQueryResult Ingredients();
+        KeyValuesQueryResult CategoriesKeyValues();
     }
 }

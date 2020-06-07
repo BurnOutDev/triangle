@@ -45,9 +45,9 @@ namespace ReserveProject.Api.Controllers
         }
 
         [HttpGet("[action]")]
-        public CategoriesQueryResult Categories()
+        public KeyValuesQueryResult Categories()
         {
-            return RestaurantReservationService.Categories();
+            return RestaurantReservationService.CategoriesKeyValues();
         }
 
         [HttpGet("[action]")]
