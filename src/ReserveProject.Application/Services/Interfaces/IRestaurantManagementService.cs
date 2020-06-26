@@ -11,7 +11,7 @@ namespace ReserveProject.Application.Services
 
         void AddRestaurant(AddRestaurantCommand addRestaurantCommand);
         void ChangeBusinessHours(ChangeBusinessHoursCommand businessHoursCommand);
-        void AddMenuItem(AddMenuItemCommand addMenuItemCommand);
+        void AddMenuItem(string userId, AddMenuItemCommand addMenuItemCommand);
         void AddIngredient(AddIngredientCommand addIngredientCommand);
         void AddCategory(AddCategoryCommand addCategoryCommand);
         void AddCuisine(AddCuisineCommand addCuisineCommand);
@@ -23,5 +23,6 @@ namespace ReserveProject.Application.Services
         CategoriesQueryResult Categories();
         IngredientsQueryResult Ingredients();
         KeyValuesQueryResult CategoriesKeyValues();
+        RestaurantMenuItemQueryResult Get(int id);
     }
 }

@@ -101,11 +101,11 @@ namespace ReserveProject.Application.Services
             Context.SaveChanges();
         }
 
-        public void AddMenuItem(AddMenuItemCommand addMenuItemCommand)
+        public void AddMenuItem(string userId, AddMenuItemCommand addMenuItemCommand)
         {
             var category = Context.Find<Category>(addMenuItemCommand.CategoryId);
 
-            var restaurant = Context.Find<Restaurant>(addMenuItemCommand.RestaurantId);
+            var restaurant = GetRestaurantByUserId(userId);
 
             var menuItem = new MenuItem
             {
@@ -118,13 +118,16 @@ namespace ReserveProject.Application.Services
                 Unavailable = false
             };
 
-            menuItem.MenuItemIngredients = Context.Set<Ingredient>()
-                .Where(ingredient => addMenuItemCommand.IngredientIds.Contains(ingredient.Id))
-                .Select(ingredient => new MenuItemIngredient
-                {
-                    MenuItem = menuItem,
-                    Ingredient = ingredient
-                }).ToList();
+            var x = Context.Set<Ingredient>()
+                .Where(ingredient => addMenuItemCommand.IngredientIds.Contains(ingredient.Id));
+
+            var select = x.Select(ingredient => new MenuItemIngredients
+            {
+                MenuItem = menuItem,
+                Ingredient = ingredient
+            }).ToList();
+
+            menuItem.MenuItemIngredients = select;
 
             Context.Add(menuItem);
             Context.SaveChanges();
@@ -301,7 +304,8 @@ namespace ReserveProject.Application.Services
                 Name = x.Name,
                 Price = x.Price,
                 Unavailable = x.Unavailable,
-                MenuItemId = x.Id
+                MenuItemId = x.Id,
+                CategoryName = x.Category.Name
             }).ToList();
 
             var queryResult = new RestaurantMenuItemsQueryResult
@@ -311,6 +315,57 @@ namespace ReserveProject.Application.Services
             };
 
             return queryResult;
+        }
+
+        public RestaurantMenuItemQueryResult Get(int id)
+        {
+            var queryResult = Context.Set<MenuItem>().Where(x => x.Id == id).Select(x => new RestaurantMenuItemQueryResult
+            {
+                CategoryId = x.Category.Id,
+                Description = x.Description,
+                ImageUrl = x.ImageUrl,
+                IngredientIds = x.MenuItemIngredients.Select(ingredient => ingredient.Id).ToArray(),
+                Name = x.Name,
+                Price = x.Price,
+                Unavailable = x.Unavailable,
+                MenuItemId = x.Id,
+                CategoryName = x.Category.Name
+            }).FirstOrDefault();
+
+            return queryResult;
+        }
+
+        public void Update(UpdateMenuItemCommand queryResult)
+        {
+            var mi = Context.Set<MenuItem>().FirstOrDefault(x => x.Id == queryResult.MenuItemId);
+
+            mi.Category.Id = queryResult.CategoryId;
+            mi.Description = queryResult.Description;
+            mi.ImageUrl = queryResult.ImageUrl;
+            mi.Name = queryResult.Name;
+            mi.Price = queryResult.Price;
+            mi.Unavailable = queryResult.Unavailable;
+            mi.Id = queryResult.MenuItemId;
+
+            var ingredientsNeedsToBeUpdated = Enumerable.SequenceEqual(mi.MenuItemIngredients.Select(x => x.Id), queryResult.IngredientIds);
+
+            if (ingredientsNeedsToBeUpdated)
+            {
+                var ingredientsToRemove = Context.Set<MenuItemIngredients>().Where(x => x.MenuItem.Id == x.Id);
+
+                Context.RemoveRange(ingredientsToRemove);
+
+                var ingredientsToAdd = Context.Set<Ingredient>().Where(x => queryResult.IngredientIds.Contains(x.Id))
+                    .Select(x => new MenuItemIngredients 
+                    {
+                        Ingredient = x,
+                        MenuItem = mi
+                    });
+
+                Context.AddRange(ingredientsToAdd);
+            }
+
+            Context.Update(mi);
         }
     }
 }

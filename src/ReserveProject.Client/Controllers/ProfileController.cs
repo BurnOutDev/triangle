@@ -64,14 +64,12 @@ namespace ReserveProject.Client.Controllers
                 }
             }
 
-            var data = model as RestaurantProfileQueryResult;
-
             var accessToken = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
             var client = new RestClient("http://localhost:5001");
             client.AddDefaultHeader("Authorization", $"Bearer {accessToken}");
 
             var request = new RestRequest("Restaurant/Update");
-            request.AddJsonBody(data);
+            request.AddJsonBody(model);
 
             var response = client.Post(request);
 

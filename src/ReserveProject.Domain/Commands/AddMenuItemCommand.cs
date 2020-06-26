@@ -9,6 +9,5 @@
         public int[] IngredientIds { get; set; }
         public decimal Price { get; set; }
         public bool Available { get; set; }
-        public int RestaurantId { get; set; }
     }
 }

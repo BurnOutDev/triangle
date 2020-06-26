@@ -248,7 +248,7 @@ namespace ReserveProject.Persistence.Migrations
                     b.ToTable("MenuItem");
                 });
 
-            modelBuilder.Entity("ReserveProject.Domain.MenuItemIngredient", b =>
+            modelBuilder.Entity("ReserveProject.Domain.MenuItemIngredients", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -270,32 +270,7 @@ namespace ReserveProject.Persistence.Migrations
 
                     b.HasIndex("MenuItemId");
 
-                    b.ToTable("MenuItemIngredient");
-                });
-
-            modelBuilder.Entity("ReserveProject.Domain.MenuItemsIngredient", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("EntityStatus")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IngredientId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MenuItemId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IngredientId");
-
-                    b.HasIndex("MenuItemId");
-
-                    b.ToTable("MenuItemsIngredient");
+                    b.ToTable("MenuItemIngredients");
                 });
 
             modelBuilder.Entity("ReserveProject.Domain.Promo", b =>
@@ -561,7 +536,7 @@ namespace ReserveProject.Persistence.Migrations
                         .HasForeignKey("RestaurantId");
                 });
 
-            modelBuilder.Entity("ReserveProject.Domain.MenuItemIngredient", b =>
+            modelBuilder.Entity("ReserveProject.Domain.MenuItemIngredients", b =>
                 {
                     b.HasOne("ReserveProject.Domain.Ingredient", "Ingredient")
                         .WithMany()
@@ -569,17 +544,6 @@ namespace ReserveProject.Persistence.Migrations
 
                     b.HasOne("ReserveProject.Domain.MenuItem", "MenuItem")
                         .WithMany("MenuItemIngredients")
-                        .HasForeignKey("MenuItemId");
-                });
-
-            modelBuilder.Entity("ReserveProject.Domain.MenuItemsIngredient", b =>
-                {
-                    b.HasOne("ReserveProject.Domain.Ingredient", "Ingredient")
-                        .WithMany()
-                        .HasForeignKey("IngredientId");
-
-                    b.HasOne("ReserveProject.Domain.MenuItem", "MenuItem")
-                        .WithMany()
                         .HasForeignKey("MenuItemId");
                 });
 

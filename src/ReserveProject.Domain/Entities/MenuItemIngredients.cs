@@ -2,9 +2,9 @@
 
 namespace ReserveProject.Domain
 {
-    public class MenuItemIngredient : BaseEntity
+    public class MenuItemIngredients : BaseEntity
     {
-        public virtual MenuItem MenuItem { get; set; }
         public virtual Ingredient Ingredient { get; set; }
+        public virtual MenuItem MenuItem { get; set; }
     }
 }

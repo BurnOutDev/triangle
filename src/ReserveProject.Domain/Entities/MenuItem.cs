@@ -12,6 +12,6 @@ namespace ReserveProject.Domain
         public decimal Price { get; set; }
         public bool Unavailable { get; set; }
         public virtual Restaurant Restaurant { get; set; }
-        public virtual ICollection<MenuItemIngredient> MenuItemIngredients { get; set; }
+        public virtual ICollection<MenuItemIngredients> MenuItemIngredients { get; set; }
     }
 }

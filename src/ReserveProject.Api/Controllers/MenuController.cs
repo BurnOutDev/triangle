@@ -29,7 +29,7 @@ namespace ReserveProject.Api.Controllers
         [HttpPost("[action]")]
         public void AddMenuItem(AddMenuItemCommand addMenuItemCommand)
         {
-            RestaurantReservationService.AddMenuItem(addMenuItemCommand);
+            RestaurantReservationService.AddMenuItem(UserId, addMenuItemCommand);
         }
 
         [HttpPost("[action]")]
@@ -60,6 +60,12 @@ namespace ReserveProject.Api.Controllers
         public RestaurantMenuItemsQueryResult GetMenuItems()
         {
             return RestaurantReservationService.GetMenuItems(UserId);
+        }
+
+        [HttpGet("[action]")]
+        public RestaurantMenuItemQueryResult Get(int id)
+        {
+            return RestaurantReservationService.Get(id);
         }
 
         public string UserId { get { return User.FindFirst("sub").Value; } }

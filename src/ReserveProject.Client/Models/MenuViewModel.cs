@@ -7,8 +7,5 @@ namespace ReserveProject.Client.Models
         public IngredientsQueryResult IngredientsQuery { get; set; }
 
         public RestaurantMenuItemsQueryResult MenuItems { get; set; }
-
-        public CategoriesQueryResult CategoriesQuery { get; set; }
-
     }
 }

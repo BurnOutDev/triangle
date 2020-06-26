@@ -16,6 +16,7 @@ using ReserveProject.Domain.Queries;
 using RestSharp;
 using RestSharp.Authenticators;
 using Microsoft.AspNetCore.Http;
+using System.Net;
 
 namespace ReserveProject.Client.Controllers
 {
@@ -35,13 +36,73 @@ namespace ReserveProject.Client.Controllers
         {
             var viewModel = new MenuItemsViewModel();
 
-            var categories = await GetData<CategoriesQueryResult>("Menu/Categories", "GET");
             var ingredients = await GetData<IngredientsQueryResult>("Menu/Ingredients", "GET");
             var menuItems = await GetData<RestaurantMenuItemsQueryResult>("Menu/GetMenuItems", "GET");
 
-            viewModel.CategoriesQuery = categories;
             viewModel.IngredientsQuery = ingredients;
             viewModel.MenuItems = menuItems;
+
+            return View(model: viewModel);
+        }
+
+        public async Task<IActionResult> Add()
+        {
+            var categories = await GetData<KeyValuesQueryResult>("Menu/Categories", "GET");
+            var ingredients = await GetData<IngredientsQueryResult>("Menu/Ingredients", "GET");
+
+            var viewModel = new AddMenuItemViewModel
+            {
+                CategoriesQuery = categories,
+                IngredientsQuery = ingredients
+            };
+
+            return View(model: viewModel);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult> Add(AddMenuItemViewModel menuItem)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                if (menuItem.FormImage != null)
+                {
+                    menuItem.FormImage.CopyTo(memoryStream);
+                    var bytes = memoryStream.ToArray();
+
+                    menuItem.ImageUrl = $"data:image/png;base64,{Convert.ToBase64String(bytes)}";
+                }
+            }
+
+            var response = await ApiRequest("Menu/AddMenuItem", "POST", menuItem);
+
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                throw response.ErrorException;
+            }
+
+            return RedirectToActionPermanent("Index");
+        }
+
+        [HttpGet("[action]/{id}")]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var categories = await GetData<KeyValuesQueryResult>("Menu/Categories", "GET");
+            var ingredients = await GetData<IngredientsQueryResult>("Menu/Ingredients", "GET");
+            var m = await GetData<RestaurantMenuItemQueryResult>("Menu/Get", "GET");
+
+            var viewModel = new AddMenuItemViewModel
+            {
+                CategoryId = m.CategoryId,
+                Description = m.Description,
+                ImageUrl = m.ImageUrl,
+                IngredientIds = m.IngredientIds,
+                Name = m.Name,
+                Price = m.Price,
+                Unavailable = m.Unavailable,
+
+                CategoriesQuery = categories,
+                IngredientsQuery = ingredients
+            };
 
             return View(model: viewModel);
         }
@@ -60,11 +121,31 @@ namespace ReserveProject.Client.Controllers
             }
 
             //var response = client.Post<T>(request);
-            var response = await client.ExecuteAsync(request, Enum.Parse<Method>(method));
+            var response = await ApiRequest(url, method, data);
 
             var content = JsonConvert.DeserializeObject<T>(response.Content);
 
             return content;
         }
+
+        public async Task<IRestResponse> ApiRequest(string url, string method, object data = null)
+        {
+            var accessToken = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
+            var client = new RestClient("http://localhost:5001");
+            client.AddDefaultHeader("Authorization", $"Bearer {accessToken}");
+
+            var request = new RestRequest(url);
+
+            if (data != null)
+            {
+                request.AddJsonBody(data);
+            }
+
+            //var response = client.Post<T>(request);
+            var response = await client.ExecuteAsync(request, Enum.Parse<Method>(method));
+
+            return response;
+        }
+
     }
 }

@@ -6,14 +6,17 @@
 
 <div class="container">
     <div class="text-center">
-        <h1 class="display-4">Restaurant Menu <a href="#"><span class="badge badge-secondary">New</span></a></h1>
+        <h1 class="display-4">Restaurant Menu</h1>
         <p class="lead">Using form below you can add and update your restaurant menu.</p>
+        <div>
+            <a class="btn btn-secondary" href="/Menu/Add">New</a>
+        </div>
     </div>
-    @foreach (var c in Model.CategoriesQuery.Categories)
+    @foreach (var group in Model.MenuItems.MenuItems.GroupBy(x => x.CategoryName))
     {
         <div class="my-3 p-3 bg-white rounded box-shadow">
-            <h6 class="border-bottom border-gray pb-2 mb-0">@c.Name</h6>
-            @foreach (var menuItem in Model.MenuItems.MenuItems.Where(m => m.CategoryId == c.CategoryId))
+            <h6 class="border-bottom border-gray pb-2 mb-0">@group.Key</h6>
+            @foreach (var menuItem in group)
             {
                 <div class="media text-muted pt-3">
                     <img alt="32x32" class="mr-2 rounded" src="@menuItem.ImageUrl" data-holder-rendered="true" style="width: 32px; height: 32px;">
@@ -21,6 +24,7 @@
                         <strong class="d-block text-gray-dark">@menuItem.Name</strong>
                         @menuItem.Description
                     </p>
+                    <a asp-action="Edit">Edit</a>
                 </div>
             }
         </div>

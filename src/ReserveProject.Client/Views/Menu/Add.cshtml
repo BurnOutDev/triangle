@@ -1,0 +1,56 @@
+﻿@model ReserveProject.Client.Models.AddMenuItemViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    <div class="text-center">
+        <h1 class="display-4">New Restaurant Menu Item</h1>
+        <p class="lead">Using form below you can add new menu item to your restaurant menu.</p>
+    </div>
+    <form class="needs-validation" asp-action="Add" asp-controller="Menu" enctype="multipart/form-data" method="post">
+        <div class="row">
+            <div class="col-md-8 order-md-1">
+                <h4 class="mb-3">Editable fields</h4>
+                <div class="mb-3">
+                    <label asp-for="Name">Title</label>
+                    <input type="text" class="form-control" asp-for="Name" placeholder="Menu Item Title">
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Description">Description</label>
+                    <textarea class="form-control" asp-for="Description" placeholder="Restaurant Description"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="CategoryId">Category</label>
+                    <select class="custom-select d-block w-100" asp-for="CategoryId" asp-items="@(new SelectList(Model.CategoriesQuery.KeyValues, "Key", "Value"))">
+                        <option value="">Choose...</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Price">
+                    </label>
+                    <input type="text" class="form-control" asp-for="Price" placeholder="Menu Item Title">
+                </div>
+                <div class="mb-3">
+                    <label asp-for="IngredientIds">Ingredients</label>
+                    <select class="selectpicker d-block w-100" asp-for="IngredientIds" asp-items="@(new SelectList(Model.IngredientsQuery.Ingredients, "IngredientId", "Name"))">
+                    </select>
+                </div>
+                <button class="btn btn-primary btn-lg btn-block" id="submitButton" type="submit" formenctype="multipart/form-data">Add to menu</button>
+            </div>
+            @* Separator *@
+        <div class="col-md-4 order-md-2 mb-4">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted">Picture</span>
+            </h4>
+            <div class="mb-4">
+                <img src="@Model.ImageUrl" class="img-thumbnail float-left mb-3" />
+                <input class="form-control-file" type="file" asp-for="FormImage" placeholder="Restaurant Image Url">
+                <input asp-for="ImageUrl" id="imageUrl" type="hidden">
+            </div>
+            <hr class="mb-4">
+        </div>
+        </div>
+    </form>
+</div>
