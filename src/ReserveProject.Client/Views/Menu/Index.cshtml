@@ -24,7 +24,7 @@
                         <strong class="d-block text-gray-dark">@menuItem.Name</strong>
                         @menuItem.Description
                     </p>
-                    <a asp-action="Edit">Edit</a>
+                    <a asp-action="Edit" asp-route-id="@menuItem.MenuItemId">Edit</a>
                 </div>
             }
         </div>

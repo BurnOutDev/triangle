@@ -133,6 +133,41 @@ namespace ReserveProject.Application.Services
             Context.SaveChanges();
         }
 
+        public void EditMenuItem(string userId, EditMenuItemCommand editMenuItemCommand)
+        {
+            var category = Context.Find<Category>(editMenuItemCommand.CategoryId);
+
+            var restaurant = GetRestaurantByUserId(userId);
+
+            var item = Context.Set<MenuItem>().Find(editMenuItemCommand.Id);
+
+            item.Name = editMenuItemCommand.Name;
+            item.Description = editMenuItemCommand.Description;
+            item.ImageUrl = editMenuItemCommand.ImageUrl;
+            item.Category = category;
+            item.Restaurant = restaurant;
+            item.Price = editMenuItemCommand.Price;
+            item.Unavailable = false;
+
+            var oldIngredients = Context.Set<MenuItemIngredients>().Where(x => x.MenuItem.Id == item.Id);
+
+            Context.RemoveRange(oldIngredients);
+
+            var x = Context.Set<Ingredient>()
+                .Where(ingredient => editMenuItemCommand.IngredientIds.Contains(ingredient.Id));
+
+            var select = x.Select(ingredient => new MenuItemIngredients
+            {
+                MenuItem = item,
+                Ingredient = ingredient
+            }).ToList();
+
+            item.MenuItemIngredients = select;
+
+            Context.Update(item);
+            Context.SaveChanges();
+        }
+
         public void AddIngredient(AddIngredientCommand addIngredientCommand)
         {
             var ingredient = new Ingredient
@@ -356,7 +391,7 @@ namespace ReserveProject.Application.Services
                 Context.RemoveRange(ingredientsToRemove);
 
                 var ingredientsToAdd = Context.Set<Ingredient>().Where(x => queryResult.IngredientIds.Contains(x.Id))
-                    .Select(x => new MenuItemIngredients 
+                    .Select(x => new MenuItemIngredients
                     {
                         Ingredient = x,
                         MenuItem = mi

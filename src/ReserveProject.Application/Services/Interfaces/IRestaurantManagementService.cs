@@ -24,5 +24,6 @@ namespace ReserveProject.Application.Services
         IngredientsQueryResult Ingredients();
         KeyValuesQueryResult CategoriesKeyValues();
         RestaurantMenuItemQueryResult Get(int id);
+        void EditMenuItem(string userId, EditMenuItemCommand editMenuItemCommand);
     }
 }

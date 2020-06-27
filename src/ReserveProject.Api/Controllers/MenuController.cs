@@ -33,6 +33,12 @@ namespace ReserveProject.Api.Controllers
         }
 
         [HttpPost("[action]")]
+        public void EditMenuItem(EditMenuItemCommand editMenuItemCommand)
+        {
+            RestaurantReservationService.EditMenuItem(UserId, editMenuItemCommand);
+        }
+
+        [HttpPost("[action]")]
         public void AddIngredient(AddIngredientCommand addIngredientCommand)
         {
             RestaurantReservationService.AddIngredient(addIngredientCommand);

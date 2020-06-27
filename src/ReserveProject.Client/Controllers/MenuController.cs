@@ -75,22 +75,37 @@ namespace ReserveProject.Client.Controllers
 
             var response = await ApiRequest("Menu/AddMenuItem", "POST", menuItem);
 
-            if (response.StatusCode != HttpStatusCode.OK)
-            {
-                throw response.ErrorException;
-            }
-
             return RedirectToActionPermanent("Index");
         }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult> EditMenuItem(EditMenuItemViewModel menuItem)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                if (menuItem.FormImage != null)
+                {
+                    menuItem.FormImage.CopyTo(memoryStream);
+                    var bytes = memoryStream.ToArray();
+
+                    menuItem.ImageUrl = $"data:image/png;base64,{Convert.ToBase64String(bytes)}";
+                }
+            }
+
+            var response = await ApiRequest("Menu/EditMenuItem", "POST", menuItem);
+
+            return RedirectToActionPermanent("Edit", new { id = menuItem.Id });
+        }
+
 
         [HttpGet("[action]/{id}")]
         public async Task<IActionResult> Edit(int id)
         {
             var categories = await GetData<KeyValuesQueryResult>("Menu/Categories", "GET");
             var ingredients = await GetData<IngredientsQueryResult>("Menu/Ingredients", "GET");
-            var m = await GetData<RestaurantMenuItemQueryResult>("Menu/Get", "GET");
+            var m = await GetData<RestaurantMenuItemQueryResult>($"Menu/Get?id={id}", "GET");
 
-            var viewModel = new AddMenuItemViewModel
+            var viewModel = new EditMenuItemViewModel
             {
                 CategoryId = m.CategoryId,
                 Description = m.Description,
@@ -99,6 +114,8 @@ namespace ReserveProject.Client.Controllers
                 Name = m.Name,
                 Price = m.Price,
                 Unavailable = m.Unavailable,
+
+                Id = m.MenuItemId,
 
                 CategoriesQuery = categories,
                 IngredientsQuery = ingredients
@@ -143,6 +160,11 @@ namespace ReserveProject.Client.Controllers
 
             //var response = client.Post<T>(request);
             var response = await client.ExecuteAsync(request, Enum.Parse<Method>(method));
+
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                throw response.ErrorException;
+            }
 
             return response;
         }
