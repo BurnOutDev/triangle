@@ -23,10 +23,10 @@ namespace ReserveProject.Client.Controllers
     [Authorize]
     public class MenuController : Controller
     {
-        private readonly ILogger<ProfileController> _logger;
+        private readonly ILogger<MenuController> _logger;
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public MenuController(ILogger<ProfileController> logger, IHttpClientFactory httpClientFactory)
+        public MenuController(ILogger<MenuController> logger, IHttpClientFactory httpClientFactory)
         {
             _logger = logger;
             _httpClientFactory = httpClientFactory;
@@ -39,7 +39,7 @@ namespace ReserveProject.Client.Controllers
             var ingredients = await GetData<IngredientsQueryResult>("Menu/Ingredients", "GET");
             var menuItems = await GetData<RestaurantMenuItemsQueryResult>("Menu/GetMenuItems", "GET");
 
-            viewModel.IngredientsQuery = ingredients;
+            //viewModel.IngredientsQuery = ingredients;
             viewModel.MenuItems = menuItems;
 
             return View(model: viewModel);

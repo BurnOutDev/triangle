@@ -1,4 +1,5 @@
 ﻿using ReserveProject.Domain.Commands;
+using ReserveProject.Domain.Queries;
 using ReserveProject.Persistence;
 
 namespace ReserveProject.Application.Services
@@ -7,6 +8,7 @@ namespace ReserveProject.Application.Services
     {
         ReserveDbContext Context { get; }
 
+        ReservationsQueryResult GetReservations(string userId);
         void Reserve(ReserveCommand reserveCommand);
     }
 }

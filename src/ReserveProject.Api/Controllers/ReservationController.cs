@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ReserveProject.Application;
 using ReserveProject.Application.Services;
-using ReserveProject.Domain;
 using ReserveProject.Domain.Commands;
+using ReserveProject.Domain.Queries;
 
 namespace ReserveProject.Api.Controllers
 {
@@ -30,5 +25,13 @@ namespace ReserveProject.Api.Controllers
         {
             ReservationService.Reserve(reserveCommand);
         }
+
+        [HttpGet("[action]")]
+        public ReservationsQueryResult GetReservations()
+        {
+            return ReservationService.GetReservations(UserId);
+        }
+
+        public string UserId { get { return User.FindFirst("sub").Value; } }
     }
 }

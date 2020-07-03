@@ -13,5 +13,13 @@ namespace ReserveProject.Domain
         public DateTime BithDate { get; set; }
         public bool IsActivated { get; set; }
         public string FacebookId { get; set; }
+
+        public string FullName
+        {
+            get
+            {
+                return $"{FirstName} {LastName}";
+            }
+        }
     }
 }
