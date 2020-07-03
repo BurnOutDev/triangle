@@ -11,6 +11,7 @@ namespace ReserveProject.Domain.Queries
 
         public class ReservationItem
         {
+            public int ReservationId { get; set; }
             public int CustomerId { get; set; }
             public string CustomerName { get; set; }
             public string CustomerPhoneNumber { get; set; }
