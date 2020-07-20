@@ -51,7 +51,7 @@ namespace ReserveProject.Client
 
             services.AddHttpClient("IDPClient", client =>
             {
-                client.BaseAddress = new Uri("https://localhost:5000/");
+                client.BaseAddress = new Uri("https://idpserverirakli.azurewebsites.net/");
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
             });
@@ -69,7 +69,7 @@ namespace ReserveProject.Client
             .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
             {
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.Authority = "http://localhost:5000/";
+                options.Authority = "https://idpserverirakli.azurewebsites.net/";
                 options.ClientId = "reservationclient";
                 options.ResponseType = "code";
                 options.Scope.Add("openid"); //this is defined in IDP too, scopes here are for clarity only
