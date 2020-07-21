@@ -23,7 +23,7 @@ import openIdConfig from "../openIdConfig";
 import Explore from "./Home/Explore";
 import axios from 'axios';
 import CategoryAll from "./Home/CategoryAll";
-import Cuisine from "../screens/Home/Cuisine";
+import Cuisine from "../screens/Home/cuisine";
 
 const AuthStack = createStackNavigator();
 const AuthStackScreen = () => (

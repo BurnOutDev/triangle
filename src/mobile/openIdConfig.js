@@ -1,7 +1,7 @@
 const openIdConfig = {
-    issuer: 'http://192.168.100.7:5000/',
+    issuer: 'https://idpserverirakli.azurewebsites.net/',
     clientId: 'nativeclient',
-    redirectUrl: 'com.reserveproject:/oauthredirect',
+    redirectUrl: 'net.azurewebsites.idpserverirakli:/oauthredirect',
     scopes: ['openid', 'profile', 'reservationapi']
 }
 
