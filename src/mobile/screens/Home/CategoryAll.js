@@ -16,7 +16,9 @@ const CategoryAll = (props) => (
         <Container>
             <PageHeader title='Coffee shop' />
             <Filter />
-            <RestaurantList title='Most popular' />
+            <SafeAreaView>
+                <RestaurantList title='Most popular' />
+            </SafeAreaView>
         </Container>
     </>
 )
