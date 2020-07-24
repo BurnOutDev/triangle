@@ -1,9 +1,10 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator, BottomTabBar } from "@react-navigation/bottom-tabs";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { AsyncStorage } from 'react-native';
+import { HomeBottomNavigation } from './BottomTabNavigator';
 
 import { AuthContext } from "./context";
 
@@ -24,6 +25,7 @@ import Explore from "./Home/Explore";
 import axios from 'axios';
 import CategoryAll from "./Home/CategoryAll";
 import Cuisine from "../screens/Home/cuisine";
+import { Icon } from "@ui-kitten/components";
 
 const AuthStack = createStackNavigator();
 const AuthStackScreen = () => (
@@ -42,6 +44,7 @@ const AuthStackScreen = () => (
 );
 
 const Tabs = createBottomTabNavigator();
+
 const SearchStack = createStackNavigator();
 
 const SearchStackScreen = () => (
@@ -58,8 +61,12 @@ const ProfileStackScreen = () => (
   </ProfileStack.Navigator>
 );
 
+const StarIcon = (style) => (
+  <Icon {...style} name='star' fill='#FFB700' />
+);
+
 const TabsScreen = () => (
-  <Tabs.Navigator tabBar={props => <BottomTabBar {...props} />}>
+  <Tabs.Navigator tabBar={props => <HomeBottomNavigation {...props} />}>
     <Tabs.Screen name='Home' component={Explore} />
     <Tabs.Screen name='CategoryAll' component={CategoryAll} />
     <Tabs.Screen name='Cuisine' component={Cuisine} />
@@ -106,12 +113,13 @@ export default () => {
   const authContext = React.useMemo(() => {
     return {
       signIn: () => {
-        setIsLoading(false);
+        setIsLoading(true);
 
         authorize(openIdConfig).then(result => {
           AsyncStorage.setItem('token', result.accessToken)
           setUserToken(result.accessToken)
           console.log(result.accessToken)
+          setIsLoading(false);
         })
       },
       signUp: () => {
