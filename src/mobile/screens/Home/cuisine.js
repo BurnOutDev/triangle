@@ -13,19 +13,20 @@ import Container from '../../components/Container'
 import axios from '../../axios'
 
 const Cuisine = () => {
+
     const [data, setData] = React.useState(null)
 
     React.useEffect(() => { if (data == null) getData() }, []);
 
     const getData = async () => {
-        const response = await axios.post('Restaurant/Cuisines')
+        const response = await axios.get('Restaurant/Cuisines')
 
         setData(response.data)
     }
 
     return (
         <Container>
-            <PageHeader title='Cuisine' />
+            <PageHeader title='g' />
             <Filter />
             {data && <CuisineListVertical cuisines={data.cuisines} />}
         </Container>
