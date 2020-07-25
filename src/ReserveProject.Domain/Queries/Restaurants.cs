@@ -2,14 +2,8 @@
 
 namespace ReserveProject.Domain.Queries
 {
-    public class RestaurantsPerCategoryQuery
+    public class RestaurantsQueryResult
     {
-        public string CategoryName { get; set; }
-    }
-
-    public class RestaurantsPerCategoryQueryResult
-    {
-        public string CategoryName { get; set; }
         public ICollection<RestaurantItem> Restaurants { get; set; }
 
         public class RestaurantItem

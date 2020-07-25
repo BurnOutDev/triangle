@@ -83,6 +83,12 @@ namespace ReserveProject.Api.Controllers
         }
 
         [HttpGet("[action]")]
+        public RestaurantsQueryResult Restaurants()
+        {
+            return RestaurantReservationService.Restaurants();
+        }
+
+        [HttpGet("[action]")]
         public CuisinesQueryResult Cuisines()
         {
             return RestaurantReservationService.Cuisines();

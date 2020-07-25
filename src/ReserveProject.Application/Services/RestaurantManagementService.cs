@@ -233,6 +233,27 @@ namespace ReserveProject.Application.Services
             return queryResult;
         }
 
+        public RestaurantsQueryResult Restaurants()
+        {
+            var restaurants = Context.Set<Restaurant>().Select(restaurant => new RestaurantsQueryResult.RestaurantItem
+            {
+                Title = restaurant.Name,
+                Cuisine = restaurant.Cuisine.Name,
+                PriceRange = (int)restaurant.PriceRange,
+                Image = restaurant.ImageUrl,
+                Address = restaurant.Address,
+                Rating = $"4.{new Random().Next(0, 9)}",
+                ReviewsCount = new Random().Next(24, 90)
+            });
+
+            var queryResult = new RestaurantsQueryResult
+            {
+                Restaurants = restaurants.ToList()
+            };
+
+            return queryResult;
+        }
+
         public CuisinesQueryResult Cuisines()
         {
             var cuisines = Context.Set<Cuisine>().Select(cuisine => new CuisinesQueryResult.CuisineItem

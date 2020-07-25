@@ -10,13 +10,27 @@ import CategoryXL from '../../components/CategoryXL/CategoryXL'
 import Filter from '../../components/Filter'
 import RestaurantList from '../../components/RestaurantList/RestaurantList'
 import Container from '../../components/Container'
+import axios from '../../axios'
+import { Splash } from '../Screens'
 
-const CategoryAll = (props) => (
-    <Container>
-        <PageHeader title='Coffee shop' />
-        <Filter />
-        <RestaurantList title='Most popular' />
-    </Container>
-)
+const CategoryAll = (props) => {
+    const [data, setData] = React.useState(null)
+
+    React.useEffect(() => { if (data == null) getData() }, []);
+
+    const getData = async () => {
+        const response = await axios.get('Restaurant/Restaurants')
+
+        setData(response.data)
+    }
+
+    return (
+        <Container>
+            <PageHeader title='Coffee shop' />
+            <Filter />
+            {data ? <RestaurantList title='Most popular' restaurants={data.restaurants} /> : <Splash />}
+        </Container>
+    )
+}
 
 export default CategoryAll

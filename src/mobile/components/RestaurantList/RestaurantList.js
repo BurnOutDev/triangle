@@ -12,7 +12,7 @@ const renderItemHeader = (info) => (
     <>
         <ImageBackground
             style={styles.itemHeader}
-            source={info.item.image}
+            source={{uri: info.item.image}}
             imageStyle={{ borderRadius: 9 }}
         />
     </>
@@ -27,7 +27,7 @@ const renderProductItem = (info) => (
         <View style={styles.content}>
             <Text category='h6' style={{ fontWeight: 'bold' }}>{info.item.title}</Text>
             <Text appearance='hint' category='s1'>
-                {info.item.category} • $
+                {info.item.cuisine} • $
             </Text>
             <View style={styles.rating}>
                 <Star />
@@ -43,10 +43,10 @@ const header = () =>
     <Text category='h1' style={{ color: 'white', fontWeight: 'bold', padding: 15, paddingRight: 100 }}>Top rated coffee shop</Text>
 </ImageBackground>
 
-const RestaurantList = () => (
+const RestaurantList = (props) => (
     <List
         contentContainerStyle={styles.productList}
-        data={displayProducts.length && displayProducts || products}
+        data={props.restaurants}
         renderItem={renderProductItem}
         style={{height: 'auto'}}
         ListHeaderComponent={header}

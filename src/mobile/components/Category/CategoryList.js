@@ -35,7 +35,7 @@ const renderProductItem = (info) => (
 
         <Text category='s1' style={{ fontWeight: 'bold' }}>{info.item.title}</Text>
         <Text appearance='hint' category='c2'>
-            {info.item.cuisine}
+            {info.item.cuisine} • $
         </Text>
         <View style={styles.rating}>
             <StarIcon width={16} height={16} />
