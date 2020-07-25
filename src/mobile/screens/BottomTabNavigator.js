@@ -1,6 +1,6 @@
 import React from 'react';
 import { BottomNavigationTab, Divider, BottomNavigation } from '@ui-kitten/components';
-import { ColorPaletteIcon, LayoutIcon, ListIcon, StarOutlineIcon } from '../variables/Icons';
+import { SearchIcon, PinIcon, HeartIcon, PersonIcon } from '../variables/Icons';
 import { SafeAreaView } from 'react-native';
 import { SafeAreaLayoutComponent } from '../components/SafeAreaLayout';
 
@@ -19,15 +19,19 @@ const HomeBottomNavigation = (props) => {
         onSelect={onSelect}>
         <BottomNavigationTab
           title='Home'
-          icon={LayoutIcon}
+          icon={SearchIcon}
         />
         <BottomNavigationTab
           title='Categories'
-          icon={StarOutlineIcon}
+          icon={PinIcon}
         />
         <BottomNavigationTab
           title='Cuisine'
-          icon={ListIcon}
+          icon={HeartIcon}
+        />
+         <BottomNavigationTab
+          title='Profile'
+          icon={PersonIcon}
         />
       </BottomNavigation>
     </SafeAreaLayoutComponent>

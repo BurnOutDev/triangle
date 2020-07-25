@@ -28,9 +28,15 @@ const CategoryAll = (props) => {
         <Container>
             <PageHeader title='Coffee shop' />
             <Filter />
+            <Header />
             {data ? <RestaurantList title='Most popular' restaurants={data.restaurants} /> : <Splash />}
         </Container>
     )
 }
+
+const Header = () => 
+<ImageBackground style={{ height: 150, width: 'auto', flexDirection: 'column-reverse' }} source={require('../../assets/girl.jpg')} resizeMode='cover'>
+    <Text category='h1' style={{ color: 'white', fontWeight: 'bold', padding: 15, paddingRight: 100 }}>Top rated coffee shop</Text>
+</ImageBackground>
 
 export default CategoryAll
