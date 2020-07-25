@@ -11,7 +11,6 @@ const Filter = (props) => {
     return (
         <View style={props.statusBarPadding ? styles.filterContainerStatusBar : styles.filterContainer }>
             <Input
-                size='small'
                 placeholder='Cuisine, restaurant name...'
                 value={value}
                 onChangeText={nextValue => setValue(nextValue)}

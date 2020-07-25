@@ -70,7 +70,6 @@ const TabsScreen = () => (
     <Tabs.Screen name='Home' component={Explore} />
     <Tabs.Screen name='CategoryAll' component={CategoryAll} />
     <Tabs.Screen name='Cuisine' component={Cuisine} />
-    <Tabs.Screen name='Homef' component={() => <></>} />
   </Tabs.Navigator>
 );
 

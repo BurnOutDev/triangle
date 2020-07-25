@@ -12,31 +12,11 @@ import RestaurantList from '../../components/RestaurantList/RestaurantList'
 import Container from '../../components/Container'
 
 const CategoryAll = (props) => (
-    <>
-        <Container>
-            <PageHeader title='Coffee shop' />
-            <Filter />
-            <SafeAreaView>
-                <RestaurantList title='Most popular' />
-            </SafeAreaView>
-        </Container>
-    </>
+    <Container>
+        <PageHeader title='Coffee shop' />
+        <Filter />
+        <RestaurantList title='Most popular' />
+    </Container>
 )
-
-const styles = StyleSheet.create({
-    filterContainer: {
-        padding: 15,
-        marginTop: StatusBar.currentHeight,
-        backgroundColor: 'transparent',
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
-    rating: {
-        flexDirection: 'row',
-        alignSelf: 'flex-start',
-        marginRight: 10,
-        marginBottom: 15
-    }
-})
 
 export default CategoryAll

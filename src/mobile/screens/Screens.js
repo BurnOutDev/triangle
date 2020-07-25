@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button, ActivityIndicator } from "react-native";
 
 import { AuthContext } from "./context";
 
@@ -82,9 +82,10 @@ export const Profile = ({ navigation }) => {
 };
 
 export const Splash = () => (
-  <ScreenContainer>
-    <Text>Loading...</Text>
-  </ScreenContainer>
+  <View style={{    flex: 1,
+    justifyContent: "center"}}>
+  <ActivityIndicator />
+  </View>
 );
 
 export const SignIn = ({ navigation }) => {

@@ -14,6 +14,7 @@ import Cuisine from '../../components/Cuisine/Cuisine'
 import Address from '../../components/Address'
 import { createStackNavigator } from '@react-navigation/stack'
 import { AuthContext } from '../context'
+import Container from '../../components/Container'
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -23,7 +24,7 @@ const header = () => (
 
 const Explore = () => {    
     return (
-        <Layout>
+        <Container>
             <ScrollView>
                 <Address />
                 <Promo />
@@ -34,7 +35,7 @@ const Explore = () => {
                 <Cuisine />
                 <ReferalPromo />
             </ScrollView>
-        </Layout>
+        </Container>
     )
 }
 

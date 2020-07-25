@@ -4,6 +4,7 @@ import { Text } from '@ui-kitten/components'
 import CategoryList from './CategoryList'
 import { AuthContext } from '../../screens/context'
 import axios from '../../axios'
+import { Splash } from '../../screens/Screens'
 
 const Category = (props) => {
     const [data, setData] = React.useState(null)
@@ -18,10 +19,12 @@ const Category = (props) => {
         setData(response.data)
     }
 
-    return (data &&
+    return (
         <View style={{ margin: 15 }}>
-            <Text category='h3'>{data.categoryName}</Text>
-            <CategoryList restaurants={data.restaurants} />
+            {data ? <>
+                <Text category='h3'>{data.categoryName}</Text>
+                <CategoryList restaurants={data.restaurants} />
+            </> : <Splash />}
         </View>
     )
 }

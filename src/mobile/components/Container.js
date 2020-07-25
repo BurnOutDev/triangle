@@ -13,7 +13,7 @@ const Container = (props) => {
 
 const styles = StyleSheet.create({
     layout: {
-        
+        flex: 1
     }
 })
 
