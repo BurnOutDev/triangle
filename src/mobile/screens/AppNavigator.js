@@ -27,6 +27,7 @@ import axios from 'axios';
 import CategoryAll from "./Home/CategoryAll";
 import Cuisine from "../screens/Home/Cuisine";
 import { Icon } from "@ui-kitten/components";
+import RestaurantDetails from "./Home/RestaurantDetails";
 
 const AuthStack = createStackNavigator();
 const AuthStackScreen = () => (
@@ -68,7 +69,7 @@ const StarIcon = (style) => (
 
 const TabsScreen = () => (
   <Tabs.Navigator tabBar={props => <HomeBottomNavigation {...props} />}>
-    <Tabs.Screen name='Home' component={Explore} />
+    <Tabs.Screen name='Home' component={RestaurantDetails} />
     <Tabs.Screen name='CategoryAll' component={CategoryAll} />
     <Tabs.Screen name='Cuisine' component={Cuisine} />
     <Tabs.Screen name='Most Popular' component={MostPopular} />
@@ -116,11 +117,20 @@ export default () => {
       signIn: async () => {
         setIsLoading(true);
 
-        authorize(openIdConfig).then(result => {
-          AsyncStorage.setItem('token', result.accessToken)
-          setUserToken(result.accessToken)
-          console.log(result.accessToken)
-          setIsLoading(false);
+        AsyncStorage.getItem('token', (err, res) => {
+          debugger
+
+          if (res) {
+            setUserToken(res)
+            setIsLoading(false)
+          } else {
+            authorize(openIdConfig).then(result => {
+              AsyncStorage.setItem('token', result.accessToken)
+              setUserToken(result.accessToken)
+              console.log(result.accessToken)
+              setIsLoading(false)
+            })
+          }
         })
 
       },

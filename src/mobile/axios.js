@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, DevSettings } from 'react-native';
 
 axios.interceptors.request.use(async (config) => {
     const token = await AsyncStorage.getItem('token')
@@ -15,16 +15,12 @@ axios.interceptors.request.use(async (config) => {
     return Promise.reject(error);
 });
 
-// axios.interceptors.response.use((response) => {
-
-//     console.log('Response was received');
-//     console.log(response);
-
-//     return response;
-// }, error => {
-//     // console.error(error);
-
-//     return Promise.reject(error);
-// });
+axios.interceptors.response.use((response) => {
+    return response;
+}, error => {
+    AsyncStorage.removeItem('token').then(DevSettings.reload())
+   
+    return Promise.reject(error);
+});
 
 export default axios
