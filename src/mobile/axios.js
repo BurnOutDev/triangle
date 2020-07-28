@@ -18,6 +18,8 @@ axios.interceptors.request.use(async (config) => {
 axios.interceptors.response.use((response) => {
     return response;
 }, error => {
+debugger
+
     AsyncStorage.removeItem('token').then(DevSettings.reload())
    
     return Promise.reject(error);

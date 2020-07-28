@@ -10,7 +10,7 @@ const Cuisine = (props) => {
     React.useEffect(() => { if (data == null) getData() }, []);
 
     const getData = async () => {
-        const response = await Axios.post('Restaurant/Cuisines')
+        const response = await Axios.get('Restaurant/Cuisines')
 
         setData(response.data)
     }

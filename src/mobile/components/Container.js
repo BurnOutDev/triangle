@@ -5,7 +5,7 @@ import { Layout } from '@ui-kitten/components'
 const Container = (props) => {
 
     return (
-            <Layout style={styles.layout}>
+            <Layout style={[styles.layout, props.style]}>
                 {props.children}
             </Layout>
     )

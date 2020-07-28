@@ -51,7 +51,7 @@ const CategoryList = (props) => (
         data={props.restaurants}
         horizontal
         renderItem={renderProductItem}
-        style={{backgroundColor: 'transparent'}}
+        style={{backgroundColor: 'transparent', marginRight: -16, marginLeft: -16, paddingLeft: 16 }}
     />
 )
 

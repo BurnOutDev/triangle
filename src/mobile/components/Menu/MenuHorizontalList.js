@@ -1,46 +1,49 @@
 import React, { useState } from 'react'
 
-import { cuisines } from '../../mock-data/cuisines'
+import { products } from '../../mock-data/products'
 
 import { Layout, Text, Input, Button, List, ListItem, Card, Icon, useStyleSheet, StyleService } from '@ui-kitten/components'
 import { ImageBackground, StyleSheet, View, Dimensions } from 'react-native'
-import { colors } from '../../variables/colors';
 
-const displayCuisine = cuisines
+const AvailableIcon = (style) => (
+    <Icon {...style} name='bookmark-outline' />
+);
+
+const NotAvailableIcon = (style) => (
+    <Icon {...style} name='bookmark' />
+);
+
+const StarIcon = (style) => (
+    <Icon {...style} name='star' fill='#FFB700' />
+);
 
 const renderItemHeader = (info) => (
     <>
         <ImageBackground
             style={styles.itemHeader}
             source={{uri: info.item.image}}
-            imageStyle={{
-                borderTopLeftRadius: 9,
-                borderTopRightRadius: 9,
-            }}
-            resizeMode='contain'
+            imageStyle={{ borderRadius: 9 }}
         />
     </>
 );
 
-const renderCuisineItem = (info) => (
+const renderProductItem = (info) => (
     <View
-        style={styles.cuisineItem}
+        style={styles.productItem}
         onPress={() => onItemPress(info.index)}>
         {renderItemHeader(info)}
 
-        <Text category='s1' style={{ fontWeight: 'bold', textAlign: 'center' }}>{info.item.title}</Text>
-        <Text category='c2' appearance='hint' style={{ textAlign: 'center' }}>{info.item.restaurantQuantity} Restaurants</Text>
-
-        <Text category='c2' />
+        <Text category='s1'>{info.item.title}</Text>
+        <Text category='s1' style={{ fontWeight: 'bold' }}>$35</Text>
     </View>
 );
 
-const CuisineList = (props) => (
+const MenuHorizontalList = (props) => (
     <List
-        contentContainerStyle={styles.cuisineList}
-        data={props.cuisines}
+        contentContainerStyle={styles.productList}
+        data={props.restaurants}
         horizontal
-        renderItem={renderCuisineItem}
+        renderItem={renderProductItem}
         style={{backgroundColor: 'transparent', marginRight: -16, marginLeft: -16, paddingLeft: 16 }}
     />
 )
@@ -48,31 +51,24 @@ const CuisineList = (props) => (
 const styles = StyleService.create({
     container: {
         flex: 1,
+        backgroundColor: 'background-basic-color-2',
     },
-    cuisineList: {
+    productList: {
         paddingTop: 16,
-        borderRadius: 9,
-        backgroundColor: colors.white
     },
-    cuisineItem: {
+    productItem: {
         flex: 1,
         marginRight: 8,
         marginTop: 8,
         marginBottom: 8,
-        // paddingBottom: 16,
-        width: Dimensions.get('window').width / 2 - 48,
-        borderRadius: 9,
-        backgroundColor: colors.creamy
+        width: 100,
+        backgroundColor: 'background-basic-color-1',
     },
     itemHeader: {
         height: 100,
         justifyContent: 'flex-end',
         flexDirection: 'column',
-        justifyContent: 'space-between',
-        borderRadius: 9,
-        margin: 5,
-        marginLeft: 10,
-        marginRight: 10,
+        justifyContent: 'space-between'
     },
     itemFooter: {
         flexDirection: 'row',
@@ -85,9 +81,10 @@ const styles = StyleService.create({
     },
     rating: {
         flexDirection: 'row',
-        alignSelf: 'flex-start',
+        // alignSelf: 'flex-start',
+        alignItems: 'center',
         marginRight: 10,
     }
 });
 
-export default CuisineList
+export default MenuHorizontalList
