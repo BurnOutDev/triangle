@@ -80,15 +80,6 @@ const styles = StyleService.create({
         flexDirection: 'column',
         justifyContent: 'space-between'
     },
-    itemFooter: {
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-    },
-    iconButton: {
-        flexDirection: 'row',
-        paddingHorizontal: 0,
-        alignSelf: 'flex-end'
-    },
     rating: {
         flexDirection: 'row',
         // alignSelf: 'flex-start',

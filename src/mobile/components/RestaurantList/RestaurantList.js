@@ -40,10 +40,10 @@ const renderProductItem = (info) => (
 
 const RestaurantList = (props) => (
     <List
-        contentContainerStyle={styles.productList}
+        contentContainerStyle={props.style}
         data={props.restaurants}
         renderItem={renderProductItem}
-        style={{height: 'auto'}}
+        style={{flex: 1}}
         ListHeaderComponent={props.header}
     />
 )
@@ -52,9 +52,6 @@ const styles = StyleService.create({
     container: {
         flex: 1,
         backgroundColor: 'background-basic-color-2',
-    },
-    productList: {
-        
     },
     productItem: {
         flex: 1,

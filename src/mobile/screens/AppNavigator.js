@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { AsyncStorage } from 'react-native';
 import { HomeBottomNavigation } from './BottomTabNavigator';
+import MostPopular from './Home/MostPopular';
 
 import { AuthContext } from "./context";
 
@@ -70,6 +71,7 @@ const TabsScreen = () => (
     <Tabs.Screen name='Home' component={Explore} />
     <Tabs.Screen name='CategoryAll' component={CategoryAll} />
     <Tabs.Screen name='Cuisine' component={Cuisine} />
+    <Tabs.Screen name='Most Popular' component={MostPopular} />
   </Tabs.Navigator>
 );
 
@@ -111,7 +113,7 @@ export default () => {
 
   const authContext = React.useMemo(() => {
     return {
-      signIn: () => {
+      signIn: async () => {
         setIsLoading(true);
 
         authorize(openIdConfig).then(result => {
@@ -120,6 +122,7 @@ export default () => {
           console.log(result.accessToken)
           setIsLoading(false);
         })
+
       },
       signUp: () => {
         setIsLoading(false);
