@@ -32,7 +32,7 @@ const MostPopular = (props) => {
         <Container>
             <PageHeader title='Most popular' />
             <Filter />
-            {data ? <RestaurantList title='Most popular' restaurants={data.restaurants} header={Header({ ...data.restaurants[0] })} /> : <Splash />}
+            {data ? <RestaurantList title='Most popular' restaurants={data.restaurants} header={<Header { ...data.restaurants[0] } />} /> : <Splash />}
         </Container>
     )
 }

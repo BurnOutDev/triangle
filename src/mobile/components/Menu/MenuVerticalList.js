@@ -85,6 +85,7 @@ const MenuVerticalList = (props) => {
 
     const onUpdate = () => {
         setUpdate(!update)
+        props.onChange()
     }
 
     return (<List
@@ -94,7 +95,7 @@ const MenuVerticalList = (props) => {
         style={{ flex: 1 }}
         ListHeaderComponent={props.header}
         ItemSeparatorComponent={Divider}
-        extraData={onUpdate}
+        extraData={update}
     />
     )
 }

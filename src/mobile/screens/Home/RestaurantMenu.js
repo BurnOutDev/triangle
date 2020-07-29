@@ -4,7 +4,7 @@ import PageHeader from '../../components/PageHeader';
 import { Filter, Back } from '../../components/Icons';
 import RestaurantList from '../../components/RestaurantList/RestaurantList';
 import { View } from 'react-native';
-import { Icon, TopNavigationAction, Button, Text, Divider } from '@ui-kitten/components';
+import { Icon, TopNavigationAction, Button, Text, Divider, StyleService } from '@ui-kitten/components';
 import PageHeaderContainer from '../../components/PageHeaderContainer';
 import { colors } from '../../variables/colors';
 import { Svg, Line } from 'react-native-svg';
@@ -14,24 +14,36 @@ import axios from '../../axios';
 import { Splash } from '../Screens';
 import MenuHorizontalList from '../../components/Menu/MenuHorizontalList';
 import MenuVerticalList from '../../components/Menu/MenuVerticalList';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const RestaurantDetails = (props) => {
+const RestaurantMenu = (props) => {
     const [data, setData] = React.useState(null)
+    const [checkoutSum, setCheckoutSum] = React.useState(0)
 
     React.useEffect(() => { if (data == null) getData() }, []);
 
     const getData = async () => {
-               
+
         const response = await axios.get('Menu/GetMenuItems')
 
         setData(response.data)
+    }
+
+    const updateCheckoutSum = () => {
+        let sum = data.menuItems.map(item => item.count > 0 ? item.count * item.price : 0).reduce((a, b) => a + b, 0)
+
+        setCheckoutSum(sum)
     }
 
     return (
         <Container>
             <Header />
             <Text category='h3' style={{ fontWeight: 'bold', paddingHorizontal: 16, paddingBottom: 16, backgroundColor: colors.creamy }}>Menu</Text>
-            {data ? <MenuVerticalList title='Most popular' menuItems={data.menuItems} header={<MenuSpecial title={'The Chef Special'} />} /> : <Splash />}
+            {data ? <MenuVerticalList title='Most popular' menuItems={data.menuItems} header={<MenuSpecial title={'The Chef Special'} />} onChange={updateCheckoutSum} /> : <Splash />}
+            {checkoutSum > 0 && <TouchableOpacity style={styles.checkoutContainer}>
+                <Text appearance='alternative' category='h6'>Go to checkout</Text>
+                <Text appearance='alternative' category='h6'>{`$${checkoutSum}`}</Text>
+            </TouchableOpacity>}
         </Container>
     )
 }
@@ -77,4 +89,15 @@ const StarIcon = (style) => (
     <Icon {...style} name='star' fill='#FFB700' />
 );
 
-export default RestaurantDetails
+const styles = StyleService.create({
+    checkoutContainer: {
+        flexDirection: 'row',
+        backgroundColor: colors.green,
+        height: 40,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingHorizontal: 16
+    }
+})
+
+export default RestaurantMenu
