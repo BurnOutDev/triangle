@@ -82,9 +82,11 @@ export const Profile = ({ navigation }) => {
 };
 
 export const Splash = () => (
-  <View style={{    flex: 1,
-    justifyContent: "center"}}>
-  <ActivityIndicator />
+  <View style={{
+    flex: 1,
+    justifyContent: "center"
+  }}>
+    <ActivityIndicator color='green' size='large' />
   </View>
 );
 

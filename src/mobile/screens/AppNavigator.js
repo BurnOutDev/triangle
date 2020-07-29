@@ -69,10 +69,10 @@ const StarIcon = (style) => (
 
 const TabsScreen = () => (
   <Tabs.Navigator tabBar={props => <HomeBottomNavigation {...props} />}>
-    <Tabs.Screen name='Home' component={RestaurantDetails} />
+    <Tabs.Screen name='Home' component={MostPopular} />
     <Tabs.Screen name='CategoryAll' component={Explore} />
     <Tabs.Screen name='Cuisine' component={Cuisine} />
-    <Tabs.Screen name='Most Popular' component={MostPopular} />
+    <Tabs.Screen name='Most Popular' component={Explore} />
   </Tabs.Navigator>
 );
 

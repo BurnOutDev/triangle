@@ -12,7 +12,7 @@ import RestaurantList from '../../components/RestaurantList/RestaurantList'
 import Container from '../../components/Container'
 import axios from '../../axios'
 import { Splash } from '../Screens'
- 
+
 const StarIcon = (style) => (
     <Icon {...style} name='star' fill='#FFB700' />
 );
@@ -24,7 +24,7 @@ const MostPopular = (props) => {
 
     const getData = async () => {
         const response = await axios.get('Restaurant/Restaurants')
-        
+
         setData(response.data)
     }
 
@@ -32,8 +32,7 @@ const MostPopular = (props) => {
         <Container>
             <PageHeader title='Most popular' />
             <Filter />
-            {data && <Header {...data.restaurants[0]} />}
-            {data ? <RestaurantList title='Most popular' restaurants={data.restaurants} /> : <Splash />}
+            {data ? <RestaurantList title='Most popular' restaurants={data.restaurants} header={Header({ ...data.restaurants[0] })} /> : <Splash />}
         </Container>
     )
 }
@@ -41,7 +40,7 @@ const MostPopular = (props) => {
 const Header = (info) =>
     <View
         style={styles.productItem}
-        >
+    >
         <Text category='h2' style={{ fontWeight: 'bold', marginBottom: 8 }}>Featured this week</Text>
 
         <ImageBackground
