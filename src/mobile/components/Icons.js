@@ -38,3 +38,11 @@ export const Star = (style) => (
 export const Filter = (style) => (
     <Icon width='16' height='16' name='funnel-outline' fill={colors.gold} {...style} />
 )
+
+export const MinusIcon = (style: ImageStyle): IconElement => (
+    <Icon {...style} name='minus' />
+);
+
+export const PlusIcon = (style: ImageStyle): IconElement => (
+    <Icon {...style} name='plus' />
+);

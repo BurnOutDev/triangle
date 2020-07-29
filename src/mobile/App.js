@@ -27,7 +27,7 @@ import Explore from './screens/Home/Explore';
 
 const App: () => React$Node = () => {
   return (<>
-    <StatusBar backgroundColor='transparent' translucent />
+    <StatusBar backgroundColor='transparent' translucent barStyle='dark-content' />
     <IconRegistry icons={EvaIconsPack} />
     <ApplicationProvider mapping={mapping} theme={lightTheme}>
       <AppNavigator />

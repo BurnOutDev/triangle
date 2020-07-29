@@ -13,19 +13,31 @@ import CategoryList from '../../components/Category/CategoryList';
 import axios from '../../axios';
 import { Splash } from '../Screens';
 import MenuHorizontalList from '../../components/Menu/MenuHorizontalList';
+import MenuVerticalList from '../../components/Menu/MenuVerticalList';
 
 const RestaurantDetails = (props) => {
+    const [data, setData] = React.useState(null)
+
+    React.useEffect(() => { if (data == null) getData() }, []);
+
+    const getData = async () => {
+               
+        const response = await axios.get('Menu/GetMenuItems')
+
+        setData(response.data)
+    }
+
     return (
         <Container>
             <Header />
-            <Text category='h3' style={{ fontWeight: 'bold', paddingHorizontal: 16 }}>Menu</Text>
-            <MenuSpecial title={'The Chef Special'} />
+            <Text category='h3' style={{ fontWeight: 'bold', paddingHorizontal: 16, paddingBottom: 16, backgroundColor: colors.creamy }}>Menu</Text>
+            {data ? <MenuVerticalList title='Most popular' menuItems={data.menuItems} header={<MenuSpecial title={'The Chef Special'} />} /> : <Splash />}
         </Container>
     )
 }
 
 const Header = (props) =>
-    <PageHeaderContainer style={{ backgroundColor: colors.white }}>
+    <PageHeaderContainer style={{ backgroundColor: colors.creamy }}>
         <Button appearance='ghost' status='basic' icon={() => Back({ fill: colors.green })} />
     </PageHeaderContainer>
 
@@ -35,7 +47,7 @@ const MenuSpecial = (props) => {
     React.useEffect(() => { if (data == null) getData() }, []);
 
     const getData = async () => {
-        const response = await axios.get('Restaurant/Restaurants')
+        const response = await axios.get('Menu/GetMenuItems')
 
         setData(response.data)
     }
@@ -51,7 +63,7 @@ const MenuSpecial = (props) => {
                     <Line x1="0" y1="0" x2="200" y2="0" stroke="#FFB700" strokeWidth="3" />
                 </Svg>
             </View>
-            {data ? <MenuHorizontalList restaurants={data.restaurants} /> : <Splash />}
+            {data ? <MenuHorizontalList menuItems={data.menuItems} /> : <Splash />}
         </View>
     )
 }

@@ -85,3 +85,11 @@ export const HeartIcon = (style: ImageStyle): IconElement => (
 export const PersonIcon = (style: ImageStyle): IconElement => (
   <Icon {...style} name='person-outline'/>
 );
+
+export const MinusIcon = (style: ImageStyle): IconElement => (
+  <Icon {...style} name='minus'/>
+);
+
+export const PlusIcon = (style: ImageStyle): IconElement => (
+  <Icon {...style} name='plus'/>
+);

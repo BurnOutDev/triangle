@@ -4,6 +4,8 @@ import { products } from '../../mock-data/products'
 
 import { Layout, Text, Input, Button, List, ListItem, Card, Icon, useStyleSheet, StyleService } from '@ui-kitten/components'
 import { ImageBackground, StyleSheet, View, Dimensions } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import PriceTag from '../PriceTag';
 
 const AvailableIcon = (style) => (
     <Icon {...style} name='bookmark-outline' />
@@ -21,27 +23,26 @@ const renderItemHeader = (info) => (
     <>
         <ImageBackground
             style={styles.itemHeader}
-            source={{uri: info.item.image}}
+            source={{uri: info.item.imageUrl}}
             imageStyle={{ borderRadius: 9 }}
         />
     </>
 );
 
 const renderProductItem = (info) => (
-    <View
-        style={styles.productItem}
-        onPress={() => onItemPress(info.index)}>
+    <TouchableOpacity
+        style={styles.productItem}>
         {renderItemHeader(info)}
 
-        <Text category='s1'>{info.item.title}</Text>
-        <Text category='s1' style={{ fontWeight: 'bold' }}>$35</Text>
-    </View>
+        <Text category='s1'>{info.item.name}</Text>
+        <PriceTag price={info.item.price} />
+    </TouchableOpacity>
 );
 
 const MenuHorizontalList = (props) => (
     <List
         contentContainerStyle={styles.productList}
-        data={props.restaurants}
+        data={props.menuItems}
         horizontal
         renderItem={renderProductItem}
         style={{backgroundColor: 'transparent', marginRight: -16, marginLeft: -16, paddingLeft: 16 }}
