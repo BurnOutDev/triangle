@@ -24,7 +24,7 @@ const RestaurantMenu = (props) => {
 
     const getData = async () => {
 
-        const response = await axios.get('Menu/GetMenuItems')
+        const response = await axios.get(`Menu/GetMenuItems/${props.route.params.restaurantId}`)
 
         setData(response.data)
     }

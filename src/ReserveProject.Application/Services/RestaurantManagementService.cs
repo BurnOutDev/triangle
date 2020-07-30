@@ -373,6 +373,32 @@ namespace ReserveProject.Application.Services
             return queryResult;
         }
 
+        public RestaurantMenuItemsQueryResult GetMenuItems(int restaurantId)
+        {
+            var restaurant = Context.Set<Restaurant>().Find(restaurantId);
+
+            var menuItems = restaurant.MenuItems.Select(x => new RestaurantMenuItemsQueryResult.RestaurantMenuItem
+            {
+                CategoryId = x.Category.Id,
+                Description = x.Description,
+                ImageUrl = x.ImageUrl,
+                IngredientIds = x.MenuItemIngredients.Select(ingredient => ingredient.Id).ToArray(),
+                Name = x.Name,
+                Price = x.Price,
+                Unavailable = x.Unavailable,
+                MenuItemId = x.Id,
+                CategoryName = x.Category.Name
+            }).ToList();
+
+            var queryResult = new RestaurantMenuItemsQueryResult
+            {
+                MenuItems = menuItems,
+                RestaurantId = restaurant.Id
+            };
+
+            return queryResult;
+        }
+
         public RestaurantMenuItemQueryResult Get(int id)
         {
             var queryResult = Context.Set<MenuItem>().Where(x => x.Id == id).Select(x => new RestaurantMenuItemQueryResult
@@ -405,7 +431,10 @@ namespace ReserveProject.Application.Services
                 Rating = "5.3",
                 Title = restaurant.Name,
                 Description = restaurant.Description,
-                ReviewsCount = 98
+                ReviewsCount = 98,
+                AddressLatitude = restaurant.AddressLatitude,
+                AddressLongtitude = restaurant.AddressLongtitude,
+                Website = restaurant.WebsiteUrl
             };
 
             return queryResult;

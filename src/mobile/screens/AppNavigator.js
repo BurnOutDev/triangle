@@ -68,7 +68,7 @@ const StarIcon = (style) => (
   <Icon {...style} name='star' fill='#FFB700' />
 );
 
-const TabsScreen = () => (
+const TabsScreen = (props) => (
   <Tabs.Navigator tabBar={props => <HomeBottomNavigation {...props} />}>
     <Tabs.Screen name='Home' component={RestaurantDetails} />
     <Tabs.Screen name='CategoryAll' component={Explore} />
@@ -81,7 +81,6 @@ const Drawer = createDrawerNavigator();
 const DrawerScreen = () => (
   <Drawer.Navigator>
     <Drawer.Screen name="Home" component={TabsScreen} />
-    <Drawer.Screen name="Profile" component={ProfileStackScreen} />
   </Drawer.Navigator>
 );
 

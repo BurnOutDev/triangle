@@ -15,6 +15,7 @@ import Address from '../../components/Address'
 import { createStackNavigator } from '@react-navigation/stack'
 import { AuthContext } from '../context'
 import Container from '../../components/Container'
+import MostPopular from './MostPopular'
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -22,16 +23,17 @@ const header = () => (
     <Filter statusBarPadding />
 )
 
-const Explore = () => {    
+const Explore = (props) => {
+
     return (
         <Container>
             <ScrollView>
                 <Address />
                 <Promo />
-                <Category title='Nearby' />
-                <CategoryXL title='Best offers' />
-                <Category title='Best rated' />
-                <Category title='Featured' />
+                <Category navigation={props.navigation} title='Nearby' />
+                <CategoryXL navigation={props.navigation} title='Best offers' />
+                <Category navigation={props.navigation} title='Best rated' />
+                <Category navigation={props.navigation} title='Featured' />
                 <Cuisine />
                 <ReferalPromo />
             </ScrollView>
@@ -39,8 +41,8 @@ const Explore = () => {
     )
 }
 
-export default () => (
+export default (props) => (
     <Navigator>
-        <Screen name="Home" component={Explore} options={{ header }} />
+        <Screen name="Home" component={Explore} options={{ header }} {...props} />
     </Navigator>
 )

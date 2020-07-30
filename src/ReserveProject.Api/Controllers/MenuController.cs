@@ -68,6 +68,12 @@ namespace ReserveProject.Api.Controllers
             return RestaurantReservationService.GetMenuItems(UserId);
         }
 
+        [HttpGet("[action]/{restaurantId}")]
+        public RestaurantMenuItemsQueryResult GetMenuItems(int restaurantId)
+        {
+            return RestaurantReservationService.GetMenuItems(restaurantId);
+        }
+
         [HttpGet("[action]")]
         public RestaurantMenuItemQueryResult Get(int id)
         {

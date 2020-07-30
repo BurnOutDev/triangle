@@ -46,6 +46,7 @@ const MenuHorizontalList = (props) => (
         horizontal
         renderItem={renderProductItem}
         style={{backgroundColor: 'transparent', marginRight: -16, marginLeft: -16, paddingLeft: 16 }}
+        ListHeaderComponent={props.header}
     />
 )
 

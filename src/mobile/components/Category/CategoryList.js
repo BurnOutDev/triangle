@@ -4,6 +4,7 @@ import { products } from '../../mock-data/products'
 
 import { Layout, Text, Input, Button, List, ListItem, Card, Icon, useStyleSheet, StyleService } from '@ui-kitten/components'
 import { ImageBackground, StyleSheet, View, Dimensions } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const AvailableIcon = (style) => (
     <Icon {...style} name='bookmark-outline' />
@@ -21,39 +22,41 @@ const renderItemHeader = (info) => (
     <>
         <ImageBackground
             style={styles.itemHeader}
-            source={{uri: info.item.image}}
+            source={{ uri: info.item.image }}
             imageStyle={{ borderRadius: 9 }}
         />
     </>
 );
 
-const renderProductItem = (info) => (
-    <View
-        style={styles.productItem}
-        onPress={() => onItemPress(info.index)}>
-        {renderItemHeader(info)}
+const CategoryList = (props) => {
+    const renderProductItem = (info) => (
+        <TouchableOpacity
+            style={styles.productItem}
+            onPress={() => props.navigation.navigate('Explore')}>
+            {renderItemHeader(info)}
 
-        <Text category='s1' style={{ fontWeight: 'bold' }}>{info.item.title}</Text>
-        <Text appearance='hint' category='c2'>
-            {info.item.cuisine} • $
-        </Text>
-        <View style={styles.rating}>
-            <StarIcon width={16} height={16} />
-            <Text category='s2' style={{ fontWeight: 'bold', marginLeft: 1 }}>{info.item.rating}</Text>
-            <Text appearance='hint' category='c2' style={{ marginLeft: 3 }}>({info.item.reviewsCount} reviews)</Text>
-        </View>
-    </View>
-);
+            <Text category='s1' style={{ fontWeight: 'bold' }}>{info.item.title}</Text>
+            <Text appearance='hint' category='c2'>
+                {info.item.cuisine} • $
+            </Text>
+            <View style={styles.rating}>
+                <StarIcon width={16} height={16} />
+                <Text category='s2' style={{ fontWeight: 'bold', marginLeft: 1 }}>{info.item.rating}</Text>
+                <Text appearance='hint' category='c2' style={{ marginLeft: 3 }}>({info.item.reviewsCount} reviews)</Text>
+            </View>
+        </TouchableOpacity>
+    );
 
-const CategoryList = (props) => (
-    <List
-        contentContainerStyle={styles.productList}
-        data={props.restaurants}
-        horizontal
-        renderItem={renderProductItem}
-        style={{backgroundColor: 'transparent', marginRight: -16, marginLeft: -16, paddingLeft: 16 }}
-    />
-)
+    return (
+        <List
+            contentContainerStyle={styles.productList}
+            data={props.restaurants}
+            horizontal
+            renderItem={renderProductItem}
+            style={{ backgroundColor: 'transparent', marginRight: -16, marginLeft: -16, paddingLeft: 16 }}
+        />
+    )
+}
 
 const styles = StyleService.create({
     container: {
