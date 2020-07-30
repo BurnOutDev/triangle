@@ -6,11 +6,10 @@ import { Back, Filter } from './Icons'
 import PageHeaderContainer from './PageHeaderContainer'
 
 const PageHeader = (props) => (
-    <PageHeaderContainer>
-        <Button style={{ flex: 1 }} appearance='ghost' status='basic' icon={() => Back({ fill: 'white' })} />
-        <Text style={{ flex: 10, textAlign: 'center', color: colors.white }} category='h5'>{props.title}</Text>
-
-        <Button style={{ flex: 1 }} appearance='ghost' status='basic' icon={() => Filter({ fill: 'white' })} />
+    <PageHeaderContainer style={props.transparent && { backgroundColor: colors.transparent }}>
+        <Button style={{ flex: 1 }} appearance='ghost' status='basic' icon={() => Back({ fill: props.transparent ? colors.green : colors.white })} />
+        <Text style={{ flex: 10, textAlign: 'center', color: props.transparent ? colors.green : colors.white }} category='h5'>{props.title}</Text>
+        <Button style={{ flex: 1 }} appearance='ghost' status='basic' icon={() => Filter({ fill: props.transparent ? colors.green : colors.white })} />
     </PageHeaderContainer>
 )
 

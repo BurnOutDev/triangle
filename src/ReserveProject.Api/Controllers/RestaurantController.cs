@@ -100,6 +100,12 @@ namespace ReserveProject.Api.Controllers
             return RestaurantReservationService.RestaurantProfile(UserId);
         }
 
+        [HttpGet("[action]/{restaurantId}")]
+        public RestaurantQueryResult Restaurant(int restaurantId)
+        {
+            return RestaurantReservationService.Restaurant(new RestaurantQuery { RestaurantId = restaurantId });
+        }
+
         [HttpPost("[action]")]
         public void Update(UpdateRestaurantCommand updateRestaurantCommand)
         {

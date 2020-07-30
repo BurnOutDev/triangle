@@ -391,6 +391,26 @@ namespace ReserveProject.Application.Services
             return queryResult;
         }
 
+        public RestaurantQueryResult Restaurant(RestaurantQuery restaurantQuery)
+        {
+            var restaurant = Context.Set<Restaurant>().Find(restaurantQuery.RestaurantId);
+
+            var queryResult = new RestaurantQueryResult
+            {
+                RestaurantId = restaurant.Id,
+                Address = restaurant.Address,
+                Cuisine = restaurant.Cuisine.Name,
+                Image = restaurant.ImageUrl,
+                PriceRange = (int)restaurant.PriceRange,
+                Rating = "5.3",
+                Title = restaurant.Name,
+                Description = restaurant.Description,
+                ReviewsCount = 98
+            };
+
+            return queryResult;
+        }
+
         public void Update(UpdateMenuItemCommand queryResult)
         {
             var mi = Context.Set<MenuItem>().FirstOrDefault(x => x.Id == queryResult.MenuItemId);

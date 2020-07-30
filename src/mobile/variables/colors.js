@@ -2,5 +2,6 @@ export const colors = {
     green: '#277E6D',
     creamy: '#fbf4ec',
     white: 'white',
-    gold: '#FFB700'
+    gold: '#FFB700',
+    transparent: 'transparent'
 }

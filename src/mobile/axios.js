@@ -3,11 +3,12 @@ import { AsyncStorage, DevSettings } from 'react-native';
 
 axios.interceptors.request.use(async (config) => {
     const token = await AsyncStorage.getItem('token')
-    
-    config.headers = { 
+
+    config.headers = {
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json' }
-    config.baseURL = 'http://192.168.43.70:5001/'
+        'Content-Type': 'application/json'
+    }
+    config.baseURL = 'http://192.168.0.105:5001/'
 
     return config;
 }, error => {
@@ -18,10 +19,10 @@ axios.interceptors.request.use(async (config) => {
 axios.interceptors.response.use((response) => {
     return response;
 }, error => {
-debugger
+    if (error.response.status === 401) {
+        AsyncStorage.removeItem('token').then(DevSettings.reload())
+    }
 
-    AsyncStorage.removeItem('token').then(DevSettings.reload())
-   
     return Promise.reject(error);
 });
 

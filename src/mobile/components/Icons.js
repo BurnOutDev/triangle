@@ -46,3 +46,11 @@ export const MinusIcon = (style: ImageStyle): IconElement => (
 export const PlusIcon = (style: ImageStyle): IconElement => (
     <Icon {...style} name='plus' />
 );
+
+export const ShareIcon = (style: ImageStyle): IconElement => (
+    <Icon {...style} name='share-outline' />
+);
+
+export const PhotoIcon = (style: ImageStyle): IconElement => (
+    <Icon {...style} name='camera-outline' />
+);

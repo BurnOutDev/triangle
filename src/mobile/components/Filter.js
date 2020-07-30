@@ -9,12 +9,13 @@ const Filter = (props) => {
     const [value, setValue] = React.useState('');
 
     return (
-        <View style={props.statusBarPadding ? styles.filterContainerStatusBar : styles.filterContainer }>
+        <View style={[props.statusBarPadding ? styles.filterContainerStatusBar : styles.filterContainer, { backgroundColor: props.transparent ? colors.transparent : colors.green } ]}>
             <Input
                 placeholder='Cuisine, restaurant name...'
                 value={value}
                 onChangeText={nextValue => setValue(nextValue)}
                 icon={Search}
+                style={props.transparent && { backgroundColor: colors.transparent }}
             />
         </View>
     )
@@ -23,8 +24,7 @@ const Filter = (props) => {
 const styles = StyleSheet.create({
     filterContainer: {
         padding: 15,
-        paddingTop: 0,
-        backgroundColor: colors.green,
+        paddingTop: 0
     },
     filterContainerStatusBar: {
         padding: 15,

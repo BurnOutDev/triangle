@@ -28,6 +28,7 @@ import CategoryAll from "./Home/CategoryAll";
 import Cuisine from "../screens/Home/Cuisine";
 import { Icon } from "@ui-kitten/components";
 import RestaurantMenu from "./Home/RestaurantMenu";
+import RestaurantDetails from "./Home/RestaurantDetails";
 
 const AuthStack = createStackNavigator();
 const AuthStackScreen = () => (
@@ -69,7 +70,7 @@ const StarIcon = (style) => (
 
 const TabsScreen = () => (
   <Tabs.Navigator tabBar={props => <HomeBottomNavigation {...props} />}>
-    <Tabs.Screen name='Home' component={RestaurantMenu} />
+    <Tabs.Screen name='Home' component={RestaurantDetails} />
     <Tabs.Screen name='CategoryAll' component={Explore} />
     <Tabs.Screen name='Cuisine' component={Cuisine} />
     <Tabs.Screen name='Most Popular' component={MostPopular} />
