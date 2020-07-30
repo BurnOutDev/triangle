@@ -14,6 +14,7 @@ import { interpolate } from 'react-native-reanimated';
 import { PinIcon } from '../../variables/Icons';
 import { createStackNavigator } from '@react-navigation/stack';
 import RestaurantMenu from './RestaurantMenu';
+import BookATable from './BookATable';
 
 const { width, height } = Dimensions.get('window');
 
@@ -145,7 +146,7 @@ const RestaurantDetails = (props) => {
                 </View>
                 <Divider style={{ backgroundColor: colors.transparent, paddingBottom: styles.bookButton.height + styles.bookButton.bottom * 2 }} />
             </ScrollView>
-            <Button style={styles.bookButton} size='large' textStyle={{ fontWeight: 'normal' }}>Book a table</Button>
+            <Button onPress={() => props.navigation.navigate('BookATable', { restaurant })} style={styles.bookButton} size='large' textStyle={{ fontWeight: 'normal' }}>Book a table</Button>
         </View> : <Splash />
     )
 }
@@ -194,7 +195,7 @@ const styles = StyleService.create({
         paddingHorizontal: 80,
         height: 50,
         borderRadius: 8,
-        borderColor: 'none',
+        borderColor: 'transparent',
 
         shadowColor: "#000",
         shadowOffset: {
@@ -209,8 +210,9 @@ const styles = StyleService.create({
 });
 
 export default (props) => (
-    <Navigator>
-        <Screen name='RestaurantDetails' component={RestaurantDetails} options={{ headerShown: false }} />
-        <Screen name='RestaurantMenu' component={RestaurantMenu} options={{ headerShown: false }} />
+    <Navigator headerMode='none'>
+        <Screen name='RestaurantDetails' component={RestaurantDetails} />
+        <Screen name='RestaurantMenu' component={RestaurantMenu} />
+        <Screen name='BookATable' component={BookATable} />
     </Navigator>
 )
