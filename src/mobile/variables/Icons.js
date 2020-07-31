@@ -93,3 +93,11 @@ export const MinusIcon = (style: ImageStyle): IconElement => (
 export const PlusIcon = (style: ImageStyle): IconElement => (
   <Icon {...style} name='plus'/>
 );
+
+export const CalendarIcon = (style: ImageStyle): IconElement => (
+  <Icon {...style} name='calendar-outline'/>
+);
+
+export const ClockIcon = (style: ImageStyle): IconElement => (
+  <Icon {...style} name='clock-outline'/>
+);
