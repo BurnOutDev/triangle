@@ -1,7 +1,7 @@
 import React from 'react'
 import Container from '../../components/Container';
 import { View, ImageBackground, Linking, Dimensions } from 'react-native';
-import { Text, StyleService, Icon, Button, Divider, ButtonGroup, TabBar, Tab } from '@ui-kitten/components';
+import { Text, StyleService, Icon, Button, Divider, ButtonGroup, TabBar, Tab, Calendar } from '@ui-kitten/components';
 import { Splash } from '../Screens';
 import axios from '../../axios'
 import { colors } from '../../variables/colors';
@@ -39,6 +39,9 @@ const BookATable = (props) => {
     const [time, setTime] = React.useState(nanSymbol)
     const [persons, setPersons] = React.useState(nanSymbol)
 
+    const [date2, setDate2] = React.useState(new Date());
+    const [range, setRange] = React.useState({});
+
     React.useEffect(() => { if (restaurant == null) setRestaurant(props.route.params.restaurant) }, []);
 
     const PictureHeader = (props) => (
@@ -54,7 +57,7 @@ const BookATable = (props) => {
     )
 
     return (
-        restaurant ? <View>
+        restaurant ? <View style={{ backgroundColor: colors.white }}>
             <ImageBackground
                 style={styles.itemHeader}
                 source={{ uri: restaurant.image }}>
@@ -80,14 +83,19 @@ const BookATable = (props) => {
                 </TouchableOpacity>
             </View>
 
-            {/* <TabBar
-                selectedIndex={selectedIndex}
-                onSelect={index => setSelectedIndex(index)}
-                indicatorStyle={{ display: 'none' }}>
-                <Tab icon={CalendarIcon} title='13 Jan' style={styles.tabButton} titleStyle={styles.titleStyle} />
-                <Tab icon={ClockIcon} title='12:30' style={styles.tabButton} titleStyle={styles.titleStyle} />
-                <Tab icon={PersonIcon} title='2' style={[styles.tabButton, styles.tabButtonLast]} titleStyle={styles.titleStyle} />
-            </TabBar> */}
+            <View style={{marginVertical: 24}}>
+                <Text category='h5' style={{fontWeight: 'bold', textAlign: 'center'}}>Book a table</Text>
+                <View style={styles.calendarContainer}>
+                    <Calendar
+                        date={date2}
+                        onSelect={nextDate => setDate2(nextDate)}
+                        style={styles.calendar}
+                    />
+                </View>
+            </View>
+
+            <Button style={styles.bookButton} size='large' textStyle={{ fontWeight: 'normal' }}>Book a table</Button>
+
         </View> : <Splash />
     )
 }
@@ -120,13 +128,12 @@ const styles = StyleService.create({
     },
     bookButton: {
         backgroundColor: colors.green,
-        position: 'absolute',
         alignSelf: 'center',
-        bottom: 10,
+        bottom: 0,
         paddingHorizontal: 80,
         height: 50,
         borderRadius: 8,
-        borderColor: 'none',
+        borderColor: 'transparent',
 
         ...shadowStyle
     },
@@ -164,6 +171,21 @@ const styles = StyleService.create({
     barText: {
         paddingHorizontal: 8,
         color: colors.green
+    },
+    container: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+    },
+    calendarContainer: {
+        width: Dimensions.get('window').width - 40,
+    },
+    text: {
+        marginVertical: 8,
+    },
+    calendar: {
+        width: Dimensions.get('window').width,
+        // marginHorizontal: 16,
+        borderColor: 'transparent'
     }
 });
 
