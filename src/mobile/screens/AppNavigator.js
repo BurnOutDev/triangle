@@ -29,6 +29,7 @@ import Cuisine from "../screens/Home/Cuisine";
 import { Icon } from "@ui-kitten/components";
 import RestaurantMenu from "./Home/RestaurantMenu";
 import RestaurantDetails from "./Home/RestaurantDetails";
+import BookATable from "./Home/BookATable";
 
 const AuthStack = createStackNavigator();
 const AuthStackScreen = () => (
@@ -77,10 +78,12 @@ const TabsScreen = (props) => (
   </Tabs.Navigator>
 );
 
-const Drawer = createDrawerNavigator();
+const Drawer = createStackNavigator();
 const DrawerScreen = () => (
-  <Drawer.Navigator>
+  <Drawer.Navigator screenOptions={{ headerShown: false }}>
     <Drawer.Screen name="Home" component={TabsScreen} />
+    <Drawer.Screen name='RestaurantMenu' component={RestaurantMenu} />
+    <Drawer.Screen name='BookATable' component={BookATable} />
   </Drawer.Navigator>
 );
 
@@ -118,7 +121,7 @@ export default () => {
         setIsLoading(true);
 
         AsyncStorage.getItem('token', (err, res) => {
-          
+
           if (res) {
             setUserToken(res)
             setIsLoading(false)

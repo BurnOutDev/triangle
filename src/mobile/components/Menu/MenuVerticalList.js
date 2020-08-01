@@ -6,6 +6,7 @@ import { Star, MinusIcon, PlusIcon } from '../Icons'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import PriceTag from '../PriceTag'
 import { colors } from '../../variables/colors'
+import { material } from 'react-native-typography'
 
 const RenderProductItem = ({ item, onUpdate }) => {
     const [clicked, setClicked] = React.useState(false)
@@ -34,9 +35,9 @@ const RenderProductItem = ({ item, onUpdate }) => {
 
     return (
         <ListItem
-            style={styles.productItem}
+            style={[styles.productItem, clicked && { ...shadowStyle, borderBottomStartRadius: 32, marginBottom: 8 }]}
             onPress={click}>
-            <View style={styles.content}>
+            <View style={[styles.content, clicked && { ...shadowStyle }]}>
                 <Text category='s1'>{item.item.name} <Count count={item.item.count} /></Text>
                 <Text appearance='hint' category='s2'>
                     {item.item.description}
@@ -46,21 +47,14 @@ const RenderProductItem = ({ item, onUpdate }) => {
                 {clicked && <View>
                     <View style={styles.amountContainer}>
                         <Button
-                            style={[styles.iconButton, styles.amountButton]}
-                            size='tiny'
-                            icon={MinusIcon}
-                            appearance='outline'
+                            style={styles.amountButton}
                             onPress={onMinusButtonPress}
-
-                        />
-                        <Divider style={{ paddingHorizontal: 4 }} />
+                            icon={() => <MinusIcon width={24} height={24} fill={colors.green} alignSelf='center' />} />
+                        <Text style={styles.amount}></Text>
                         <Button
-                            style={[styles.iconButton, styles.amountButton]}
-                            size='tiny'
-                            icon={PlusIcon}
-                            appearance='outline'
+                            style={styles.amountButton}
                             onPress={onPlusButtonPress}
-                        />
+                            icon={() => <PlusIcon width={24} height={24} fill={colors.green} alignSelf='center' />} />
                     </View>
                 </View>}
             </View>
@@ -100,6 +94,18 @@ const MenuVerticalList = (props) => {
     )
 }
 
+const shadowStyle = {
+    shadowColor: "#000",
+    shadowOffset: {
+        width: 0,
+        height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
+}
+
 const styles = StyleService.create({
     container: {
         flex: 1,
@@ -107,7 +113,7 @@ const styles = StyleService.create({
     },
     productItem: {
         flex: 1,
-        paddingHorizontal: 16,
+        paddingHorizontal: 16
     },
     itemHeader: {
         height: 80,
@@ -121,22 +127,35 @@ const styles = StyleService.create({
     amountContainer: {
         flex: 1,
         flexDirection: 'row',
-        marginTop: 8,
         // left: 16,
         // bottom: 16,
+        // alignSelf: 'center',
+        paddingVertical: 8
     },
     amountButton: {
-        borderRadius: 8
+        borderRadius: 8,
+        paddingHorizontal: 0,
+        borderColor: 'transparent',
+        backgroundColor: colors.white,
+        borderRadius: 32,
+
+
+
+        width: 40,
+        height: 40,
+        ...shadowStyle,
+        justifyContent: 'center'
     },
     amount: {
+        ...material.display2,
         textAlign: 'center',
-        width: 40,
+        paddingHorizontal: 32,
+        textAlignVertical: 'center',
+        color: colors.green,
+        fontWeight: 'bold'
     },
     removeButton: {
         right: 0,
-    },
-    iconButton: {
-        paddingHorizontal: 0,
     },
 });
 

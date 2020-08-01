@@ -212,7 +212,5 @@ const styles = StyleService.create({
 export default (props) => (
     <Navigator headerMode='none'>
         <Screen name='RestaurantDetails' component={RestaurantDetails} />
-        <Screen name='RestaurantMenu' component={RestaurantMenu} />
-        <Screen name='BookATable' component={BookATable} />
     </Navigator>
 )

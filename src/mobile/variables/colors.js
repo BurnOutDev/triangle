@@ -3,5 +3,7 @@ export const colors = {
     creamy: '#fbf4ec',
     white: 'white',
     gold: '#FFB700',
-    transparent: 'transparent'
+    transparent: 'transparent',
+    lightGrey: '#80808020',
+    active: '#F9AE49'
 }
