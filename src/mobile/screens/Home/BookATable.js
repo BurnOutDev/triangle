@@ -134,6 +134,16 @@ const BookATable = (props) => {
         }
     }
 
+    const RenderDay = (info, style) => {
+        return info.date.toDateString() === date.toDateString() ? (
+            <TouchableOpacity style={styles.calendarDayActive}>
+                <Text style={{ textAlign: 'center', color: colors.white }}>{info.date.getDate()}</Text>
+            </TouchableOpacity>
+        ) : <TouchableOpacity style={styles.calendarDay}>
+                <Text style={{ textAlign: 'center', color: colors.black }}>{info.date.getDate()}</Text>
+            </TouchableOpacity>
+    }
+
     return (
         restaurant ? <View style={{ backgroundColor: colors.white, height: '100%' }}>
             <ImageBackground
@@ -170,6 +180,8 @@ const BookATable = (props) => {
                                 date={date}
                                 onSelect={selectDate}
                                 style={styles.calendar}
+                                renderDay={RenderDay}
+                                renderFooter={() => <></>}
                             />
                         </View>
                     </View>)}
@@ -362,6 +374,23 @@ const styles = StyleService.create({
     removeButton: {
         right: 0,
     },
+    calendarDay: {
+        backgroundColor: colors.transparent,
+        width: 32,
+        height: 32,
+        borderRadius: 32,
+        justifyContent: 'center',
+    },
+    calendarDayActive: {
+        backgroundColor: colors.active,
+        width: 32,
+        height: 32,
+        borderRadius: 32,
+        justifyContent: 'center',
+        borderWidth: 3,
+        borderColor: colors.white,
+        ...shadowStyle
+    }
 });
 
 export default BookATable

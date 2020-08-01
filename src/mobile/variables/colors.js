@@ -5,5 +5,6 @@ export const colors = {
     gold: '#FFB700',
     transparent: 'transparent',
     lightGrey: '#80808020',
-    active: '#F9AE49'
+    active: '#F9AE49',
+    black: '#000000'
 }
