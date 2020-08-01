@@ -11,7 +11,7 @@ import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import MapView, { MAP_TYPES, Marker, PROVIDER_DEFAULT, UrlTile } from 'react-native-maps';
 import MenuHorizontalList from '../../components/Menu/MenuHorizontalList';
 import { interpolate } from 'react-native-reanimated';
-import { PinIcon } from '../../variables/Icons';
+import { PinIcon } from '../../components/Icons';
 import { createStackNavigator } from '@react-navigation/stack';
 import RestaurantMenu from './RestaurantMenu';
 import BookATable from './BookATable';
@@ -43,6 +43,7 @@ const RestaurantDetails = (props) => {
 
         const restaurantResponse = await axios.get(`Restaurant/Restaurant/${restaurantId}`)
 
+        
         setResaurant(restaurantResponse.data)
 
         setLocation({

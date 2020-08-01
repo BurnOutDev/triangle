@@ -11,7 +11,7 @@ import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import MapView, { MAP_TYPES, Marker, PROVIDER_DEFAULT, UrlTile } from 'react-native-maps';
 import MenuHorizontalList from '../../components/Menu/MenuHorizontalList';
 import Animated, { interpolate } from 'react-native-reanimated';
-import { PinIcon, CalendarIcon, PersonIcon, ClockIcon } from '../../variables/Icons';
+import { PinIcon, CalendarIcon, PersonIcon, ClockIcon } from '../../components/Icons';
 import { createStackNavigator } from '@react-navigation/stack';
 import RestaurantMenu from './RestaurantMenu';
 import moment from 'moment'

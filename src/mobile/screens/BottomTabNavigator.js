@@ -1,6 +1,6 @@
 import React from 'react';
 import { BottomNavigationTab, Divider, BottomNavigation } from '@ui-kitten/components';
-import { SearchIcon, PinIcon, HeartIcon, PersonIcon } from '../variables/Icons';
+import { SearchIcon, PinIcon, HeartIcon, PersonIcon } from '../components/Icons';
 import { SafeAreaView } from 'react-native';
 import { SafeAreaLayoutComponent } from '../components/SafeAreaLayout';
 
