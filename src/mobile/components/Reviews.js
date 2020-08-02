@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, ScrollView, ImageBackground } from 'react-native'
+import { View, ScrollView, ImageBackground, Text as RNText } from 'react-native'
 import MenuHorizontalList from './Menu/MenuHorizontalList'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Text, Divider, StyleService, Avatar } from '@ui-kitten/components'
@@ -7,6 +7,8 @@ import { colors } from '../variables/colors'
 import { material, systemWeights } from 'react-native-typography'
 import { avatar } from '../variables/temp'
 import { StarIcon } from './Icons'
+
+const allowedCharacterCount = 112
 
 const ReviewBar = ({ title, value }) => (
     <View style={styles.reviewContainer}>
@@ -28,6 +30,23 @@ const ReviewStars = ({ value }) => (
     </View>
 )
 
+const ReviewContent = ({ content }) => {
+    const [expanded, setExpanded] = React.useState(false)
+
+    let showReadMore = content.length > allowedCharacterCount
+    let text = content
+
+    if (showReadMore) {
+        text = content.substring(0, allowedCharacterCount)
+    }
+
+    return (
+        <Text style={styles.reviewText}>
+            {expanded ? content : text} {showReadMore && (!expanded ? <RNText onPress={() => setExpanded(true)} style={[styles.reviewText, { color: colors.green }]}>Read more</RNText> : <RNText onPress={() => setExpanded(false)} style={[styles.reviewText, { color: colors.green }]}>Show less</RNText>)}
+        </Text>
+    )
+}
+
 const Reviews = (props) => {
     const [data, setData] = React.useState({
         reviews: [
@@ -36,8 +55,8 @@ const Reviews = (props) => {
                 avatar: avatar,
                 followersCount: 300,
                 reviewsCount: 125,
-                review: 4.6,
-                reviewContent: `I enjoyed the foods of the restaurant. The dishes are really nice and awesome. nice space and great view. I will...`,
+                review: 4.3,
+                reviewContent: `I enjoyed the foods of the restaurant. The dishes are really nice and awesome. nice space and great view. I will come back here. Also I want to take more pictures`,
                 pictures: [
                     require('../Mock/Get/Restaurant/Restaurant.json').image,
                     require('../Mock/Get/Restaurant/Restaurant.json').image,
@@ -51,7 +70,7 @@ const Reviews = (props) => {
                 followersCount: 300,
                 reviewsCount: 125,
                 review: 4.6,
-                reviewContent: `I enjoyed the foods of the restaurant. The dishes are really nice and awesome. nice space and great view. I will...`,
+                reviewContent: `I enjoyed the foods of the restaurant. The dishes are really nice and awesome. nice space and great view. I will`,
             }
         ]
     })
@@ -78,9 +97,7 @@ const Reviews = (props) => {
                 </View>
                 <ReviewStars value={review.review} />
                 <View>
-                    <Text style={styles.reviewText}>
-                        {review.reviewContent} <Text style={[styles.reviewText, { color: colors.green }]}>Read more</Text>
-                    </Text>
+                    {<ReviewContent content={review.reviewContent} />}
                     <View style={styles.reviewPicturesContainer}>
                         {review.pictures?.slice(0, 4).map((picture, index) => (
                             <ImageBackground

@@ -10,7 +10,7 @@ axios.interceptors.request.use(async (config) => {
         'Content-Type': 'application/json'
     }
 
-    config.baseURL = 'http://192.168.43.70:5001/'
+    config.baseURL = 'http://192.168.100.7:5001/'
 
     return config;
 }, error => {
