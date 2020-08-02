@@ -2,14 +2,16 @@ import React from 'react'
 import { StyleService, Button } from '@ui-kitten/components'
 import { colors } from '../variables/colors'
 
-const SingleButton = ({ style, text, onPress, hasShadow }) => (
-    <Button
-        style={[styles.singleButton, hasShadow && { ...shadowStyle }, style]}
-        textStyle={{ fontWeight: 'normal' }}
-        onPress={onPress}>
-        {text}
-    </Button>
-)
+const SingleButton = ({ style, text, onPress, hasShadow }) => {
+    return (
+        <Button
+            style={[styles.singleButton, hasShadow && { ...shadowStyle }, style]}
+            textStyle={{ fontWeight: 'normal' }}
+            onPress={onPress}>
+            {text}
+        </Button>
+    )
+}
 
 const shadowStyle = {
     shadowColor: "#000",

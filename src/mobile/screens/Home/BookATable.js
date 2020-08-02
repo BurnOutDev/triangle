@@ -1,11 +1,11 @@
 import React from 'react'
 import Container from '../../components/Container';
 import { View, ImageBackground, Linking, Dimensions } from 'react-native';
-import { Text, StyleService, Icon, Button, Divider, ButtonGroup, TabBar, Tab, Calendar } from '@ui-kitten/components';
+import { Text, StyleService, Icon, Button, Divider, ButtonGroup, TabBar, Tab, Modal, Layout } from '@ui-kitten/components';
 import { Splash } from '../Screens';
 import axios from '../../axios'
 import { colors } from '../../variables/colors';
-import { Back, Filter, ShareIcon, PhotoIcon, Heart, PlusIcon, MinusIcon } from '../../components/Icons';
+import { Back, Filter, ShareIcon, PhotoIcon, Heart, PlusIcon, MinusIcon, CheckIcon } from '../../components/Icons';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 
 import MapView, { MAP_TYPES, Marker, PROVIDER_DEFAULT, UrlTile } from 'react-native-maps';
@@ -17,9 +17,17 @@ import RestaurantMenu from './RestaurantMenu';
 import moment from 'moment'
 
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { material } from 'react-native-typography';
+import { material, systemWeights } from 'react-native-typography';
 import SingleButton from '../../components/SingleButton';
 
+import { Calendar } from 'react-native-calendars'
+
+const formats = {
+    month: 'MMMM',
+    barDate: 'DD MMM',
+    default: 'YYYY-MM-DD',
+    hour: 'HH:mm'
+}
 
 const { Navigator, Screen } = createStackNavigator()
 
@@ -64,6 +72,10 @@ const BookATable = (props) => {
         children: 0
     })
 
+    const [buttonText, setButtonText] = React.useState('Continue');
+
+    const [visible, setVisible] = React.useState(false);
+
     React.useEffect(() => { if (restaurant == null) setRestaurant(props.route.params.restaurant) }, []);
 
     const PictureHeader = (props) => (
@@ -72,8 +84,8 @@ const BookATable = (props) => {
         </View>
     )
 
-    const selectDate = (nextDate) => {
-        setDate(nextDate)
+    const SelectDate = (nextDate) => {
+        setDate(moment(nextDate.timestamp))
         setDateIsSelected(true)
         setButtonVisible(true)
     }
@@ -85,7 +97,13 @@ const BookATable = (props) => {
     )
 
     const Continue = () => {
-        setCurrentStep(currentStep + 1)
+        if (dateIsSelected && timeIsSelected && partySize.adults > 0) {
+            setVisible(true)
+            console.log('asdadadas')
+        } else {
+
+            setCurrentStep(currentStep + 1)
+        }
 
         setButtonVisible(false)
     }
@@ -132,16 +150,27 @@ const BookATable = (props) => {
                 })
             }
         }
+
+        setButtonText('Book a table')
     }
 
-    const RenderDay = (info, style) => {
-        return info.date.toDateString() === date.toDateString() ? (
-            <TouchableOpacity style={styles.calendarDayActive}>
-                <Text style={{ textAlign: 'center', color: colors.white }}>{info.date.getDate()}</Text>
-            </TouchableOpacity>
-        ) : <TouchableOpacity style={styles.calendarDay}>
-                <Text style={{ textAlign: 'center', color: colors.black }}>{info.date.getDate()}</Text>
-            </TouchableOpacity>
+    const RenderDay = (state) => (
+        moment(state.date.timestamp).format(formats.default) === moment(date).format(formats.default) ? (
+            <View style={styles.calendarDayActive}>
+                <Text style={{ textAlign: 'center', color: colors.white }}>{state.date.day}</Text>
+            </View>
+        ) : <View style={styles.calendarDay} onTouchStart={() => SelectDate(state.date)}>
+                <Text style={{ textAlign: 'center', color: colors.black }}>{state.date.day}</Text>
+            </View>)
+
+    const RenderHeader = (date) => <Text category='h6'>{moment(date.toDateString()).format(formats.month)}</Text>
+
+    const StepBack = (step) => {
+        return false
+
+        if (dateIsSelected && timeIsSelected && partySize.adults > 0) {
+            setCurrentStep(step)
+        }
     }
 
     return (
@@ -155,19 +184,19 @@ const BookATable = (props) => {
             </ImageBackground>
 
             <View style={styles.tabContainer}>
-                <TouchableOpacity style={styles.tabButton2}>
+                <TouchableOpacity style={styles.tabButton2} onPress={() => StepBack(1)}>
                     <CalendarIcon width={16} height={16} fill={colors.green} />
-                    <Text style={[styles.barText, !dateIsSelected && { color: 'grey' }]}>{dateIsSelected ? moment(date).format('DD MMM') : nanSymbol}</Text>
+                    <Text style={[styles.barText, !dateIsSelected && { color: 'grey' }]}>{dateIsSelected ? moment(date).format(formats.barDate) : nanSymbol}</Text>
                 </TouchableOpacity>
                 <Divider style={styles.divider} />
-                <TouchableOpacity style={styles.tabButton2} >
+                <TouchableOpacity style={styles.tabButton2} onPress={() => StepBack(2)}>
                     <ClockIcon width={16} height={16} fill={colors.green} />
-                    <Text style={[styles.barText, !timeIsSelected && { color: 'grey' }]}>{timeIsSelected ? moment(date).format('HH:mm') : nanSymbol}</Text>
+                    <Text style={[styles.barText, !timeIsSelected && { color: 'grey' }]}>{timeIsSelected ? moment(date).format(formats.hour) : nanSymbol}</Text>
                 </TouchableOpacity>
                 <Divider style={styles.divider} />
-                <TouchableOpacity style={styles.tabButton2} onPress={() => setPersons(2)}>
+                <TouchableOpacity style={styles.tabButton2} onPress={() => StepBack(3)}>
                     <PersonIcon width={16} height={16} fill={colors.green} />
-                    <Text style={[styles.barText, persons === nanSymbol && { color: 'grey' }]}>{persons}</Text>
+                    <Text style={[styles.barText, partySize.adults === 0 && { color: 'grey' }]}>{partySize.adults > 0 ? partySize.adults + partySize.children : nanSymbol}</Text>
                 </TouchableOpacity>
             </View>
 
@@ -175,15 +204,39 @@ const BookATable = (props) => {
                 <Text category='h5' style={{ textAlign: 'center', ...material.title }}>Book a table</Text>
                 {currentStep === 1 && ( //{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' 
                     <View>
-                        <View style={styles.calendarContainer}>
-                            <Calendar
-                                date={date}
-                                onSelect={selectDate}
-                                style={styles.calendar}
-                                renderDay={RenderDay}
-                                renderFooter={() => <></>}
-                            />
-                        </View>
+                        <Calendar
+                            onDayPress={SelectDate}
+                            monthFormat='MMMM'
+                            renderArrow={(direction) => (<Icon name={direction === 'left' ? 'arrow-back-outline' : 'arrow-forward-outline'} height={24} width={24} fill={colors.grey} />)}
+                            renderHeader={RenderHeader}
+                            current={moment(date).format(formats.default)}
+                            style={styles.calendar}
+                            markedDates={{
+                                [moment(date).format(formats.default)]: {
+                                    selected: true, customStyles: {
+                                        container: {
+                                            backgroundColor: colors.active,
+                                            ...shadowStyle,
+                                            borderWidth: 2,
+                                            borderColor: colors.white,
+                                            margin: 0,
+                                            padding: 0
+                                        },
+                                        text: {
+                                            textAlign: 'center',
+                                            textAlignVertical: 'center',
+                                            padding: 0,
+                                            margin: 0,
+                                            marginTop: 2,
+                                        },
+                                    }
+                                }
+                            }}
+                            markingType='custom'
+                            theme={{
+                                todayTextColor: colors.caldendarDefaultDayColor
+                            }}
+                        />
                     </View>)}
                 {currentStep === 2 && (
                     <View>
@@ -240,7 +293,30 @@ const BookATable = (props) => {
                         </View>
                     </View>)}
             </ScrollView >
-            {buttonVisible && <SingleButton text='Continue' onPress={Continue} style={{ marginVertical: 24 }} />}
+            {buttonVisible && <SingleButton text={buttonText} onPress={Continue} style={{ marginVertical: 24 }} />}
+            <Modal
+                backdropStyle={styles.backdrop}
+                visible={visible}>
+                <Layout
+                    level='3'
+                    style={styles.modalContainer}>
+
+                    <View style={{ backgroundColor: colors.active, borderRadius: 64 }}>
+                        <CheckIcon height={64} width={64} fill={colors.white} />
+                    </View>
+
+                    <Text category='h3' style={{ fontWeight: 'bold', textAlign: 'center', ...systemWeights.semibold, paddingVertical: 16 }}>Your booking has been confirmed</Text>
+                    <Text style={{ textAlign: 'center', paddingHorizontal: 32, ...material.caption }}>You can manage your booking in "Manage Booking" section.</Text>
+                    <View style={{ width: '100%', paddingVertical: 24 }}>
+                        <Divider style={{ width: '100%', backgroundColor: colors.lightGrey, marginBottom: 16 }} />
+                        <Text style={{ ...material.headline, ...systemWeights.semibold, color: colors.green, textAlign: 'center', paddingBottom: 8 }}>Blackstarz Coffee</Text>
+                        <Text style={{ ...material.body1, color: colors.green, textAlign: 'center', paddingBottom: 8 }}>12:30 - 13 Jan, 2020 - 2 persons</Text>
+                        <Text style={{ ...material.body1, color: colors.green, textAlign: 'center' }}>Booking No. Ghf349da</Text>
+                        <Divider style={{ width: '100%', backgroundColor: colors.lightGrey, marginTop: 16 }} />
+                    </View>
+                    <SingleButton text='Share with friends' style={{ paddingHorizontal: 60 }} />
+                </Layout>
+            </Modal>
         </View > : <Splash />
     )
 }
@@ -298,7 +374,7 @@ const styles = StyleService.create({
         paddingHorizontal: 8
     },
     divider: {
-        borderRightColor: 'grey',
+        borderRightColor: colors.lightGrey,
         borderRightWidth: 1,
         height: '70%',
         alignSelf: 'center'
@@ -389,8 +465,17 @@ const styles = StyleService.create({
         justifyContent: 'center',
         borderWidth: 3,
         borderColor: colors.white,
-        ...shadowStyle
-    }
+        ...shadowStyle,
+    },
+    modalContainer: {
+        alignItems: 'center',
+        width: Dimensions.get('window').width - 32,
+        borderRadius: 32,
+        padding: 24
+    },
+    backdrop: {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
 });
 
 export default BookATable

@@ -146,3 +146,7 @@ export const CalendarIcon = (style: ImageStyle): IconElement => (
 export const ClockIcon = (style: ImageStyle): IconElement => (
   <Icon {...style} name='clock-outline' />
 );
+
+export const CheckIcon = (style: ImageStyle): IconElement => (
+  <Icon {...style} name='checkmark-outline' />
+);

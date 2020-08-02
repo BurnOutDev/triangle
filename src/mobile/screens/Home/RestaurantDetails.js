@@ -43,7 +43,7 @@ const RestaurantDetails = (props) => {
 
         const restaurantResponse = await axios.get(`Restaurant/Restaurant/${restaurantId}`)
 
-        
+
         setResaurant(restaurantResponse.data)
 
         setLocation({
@@ -147,7 +147,7 @@ const RestaurantDetails = (props) => {
                 </View>
                 <Divider style={{ backgroundColor: colors.transparent, paddingBottom: styles.bookButton.height + styles.bookButton.bottom * 2 }} />
             </ScrollView>
-            <Button onPress={() => props.navigation.navigate('BookATable', { restaurant })} style={styles.bookButton} size='large' textStyle={{ fontWeight: 'normal' }}>Book a table</Button>
+            <Button onPress={() => props.navigation.navigate('RestaurantMenu', { restaurant, restaurantId: restaurant.restaurantId })} style={styles.bookButton} size='large' textStyle={{ fontWeight: 'normal' }}>Book a table</Button>
         </View> : <Splash />
     )
 }
