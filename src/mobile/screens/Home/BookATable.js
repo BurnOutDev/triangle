@@ -296,7 +296,11 @@ const BookATable = (props) => {
             {buttonVisible && <SingleButton text={buttonText} onPress={Continue} style={{ marginVertical: 24 }} />}
             <Modal
                 backdropStyle={styles.backdrop}
-                visible={visible}>
+                visible={visible}
+                onBackdropPress={() => {
+                    props.navigation.navigate('RestaurantDetails')
+                    setVisible(false)
+                }}>
                 <Layout
                     level='3'
                     style={styles.modalContainer}>
@@ -309,8 +313,8 @@ const BookATable = (props) => {
                     <Text style={{ textAlign: 'center', paddingHorizontal: 32, ...material.caption }}>You can manage your booking in "Manage Booking" section.</Text>
                     <View style={{ width: '100%', paddingVertical: 24 }}>
                         <Divider style={{ width: '100%', backgroundColor: colors.lightGrey, marginBottom: 16 }} />
-                        <Text style={{ ...material.headline, ...systemWeights.semibold, color: colors.green, textAlign: 'center', paddingBottom: 8 }}>Blackstarz Coffee</Text>
-                        <Text style={{ ...material.body1, color: colors.green, textAlign: 'center', paddingBottom: 8 }}>12:30 - 13 Jan, 2020 - 2 persons</Text>
+                        <Text style={{ ...material.headline, ...systemWeights.semibold, color: colors.green, textAlign: 'center', paddingBottom: 8 }}>{props.route.params.restaurant.title}</Text>
+                        <Text style={{ ...material.body1, color: colors.green, textAlign: 'center', paddingBottom: 8 }}>{moment(date).format('HH:mm - DD MMM, YYYY')} - 2 persons</Text>
                         <Text style={{ ...material.body1, color: colors.green, textAlign: 'center' }}>Booking No. Ghf349da</Text>
                         <Divider style={{ width: '100%', backgroundColor: colors.lightGrey, marginTop: 16 }} />
                     </View>
@@ -471,7 +475,8 @@ const styles = StyleService.create({
         alignItems: 'center',
         width: Dimensions.get('window').width - 32,
         borderRadius: 32,
-        padding: 24
+        padding: 24,
+        backgroundColor: colors.white
     },
     backdrop: {
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
