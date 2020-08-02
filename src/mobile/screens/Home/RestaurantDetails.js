@@ -15,6 +15,7 @@ import { PinIcon } from '../../components/Icons';
 import { createStackNavigator } from '@react-navigation/stack';
 import RestaurantMenu from './RestaurantMenu';
 import BookATable from './BookATable';
+import Reviews from '../../components/Reviews';
 
 const { width, height } = Dimensions.get('window');
 
@@ -145,6 +146,7 @@ const RestaurantDetails = (props) => {
                     </View>
                     {menuItems ? <MenuHorizontalList menuItems={menuItems.menuItems} /> : <Splash />}
                 </View>
+                <Reviews />
                 <Divider style={{ backgroundColor: colors.transparent, paddingBottom: styles.bookButton.height + styles.bookButton.bottom * 2 }} />
             </ScrollView>
             <Button onPress={() => props.navigation.navigate('RestaurantMenu', { restaurant, restaurantId: restaurant.restaurantId })} style={styles.bookButton} size='large' textStyle={{ fontWeight: 'normal' }}>Book a table</Button>

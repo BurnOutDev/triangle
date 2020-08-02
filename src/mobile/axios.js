@@ -10,7 +10,7 @@ axios.interceptors.request.use(async (config) => {
         'Content-Type': 'application/json'
     }
 
-    config.baseURL = 'http://192.168.0.105:5001/'
+    config.baseURL = 'http://192.168.43.70:5001/'
 
     return config;
 }, error => {
@@ -21,9 +21,11 @@ axios.interceptors.request.use(async (config) => {
 axios.interceptors.response.use((response) => {
     return response;
 }, error => {
-    if (error.response.status === 401) {
+    if (error ?? error.response ?? error.response.status === 401) {
         AsyncStorage.removeItem('token').then(DevSettings.reload())
     }
+
+    console.log(error)
 
     return Promise.reject(error);
 });
@@ -33,7 +35,7 @@ const mock = new MockAdapter(axios, {onNoMatch:'passthrough'})
 mock.onGet('/Restaurant/Cuisines').reply(200, require('./Mock/Get/Restaurant/Cuisines.json'))
 mock.onPost('/Restaurant/RestaurantsPerCategory').reply(200, require('./Mock/Get/Restaurant/Restaurants.json'))
 mock.onGet('/Restaurant/Restaurants').reply(200, require('./Mock/Get/Restaurant/Restaurants.json'))
-mock.onGet('/Restaurant/Restaurant/').reply(200, require('./Mock/Get/Restaurant/Restaurant.json'))
+mock.onGet('/Restaurant/Restaurant/1').reply(200, require('./Mock/Get/Restaurant/Restaurant.json'))
 mock.onGet('/Menu/GetMenuItems/').reply(200, require('./Mock/Get/Restaurant/MenuItems.json'))
 
 export default axios
