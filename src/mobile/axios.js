@@ -36,6 +36,6 @@ mock.onGet('/Restaurant/Cuisines').reply(200, require('./Mock/Get/Restaurant/Cui
 mock.onPost('/Restaurant/RestaurantsPerCategory').reply(200, require('./Mock/Get/Restaurant/Restaurants.json'))
 mock.onGet('/Restaurant/Restaurants').reply(200, require('./Mock/Get/Restaurant/Restaurants.json'))
 mock.onGet('/Restaurant/Restaurant/1').reply(200, require('./Mock/Get/Restaurant/Restaurant.json'))
-mock.onGet('/Menu/GetMenuItems/').reply(200, require('./Mock/Get/Restaurant/MenuItems.json'))
+// mock.onGet('/Menu/GetMenuItems/1').reply(200, require('./Mock/Get/Restaurant/MenuItems.json'))
 
 export default axios
