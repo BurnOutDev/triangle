@@ -136,7 +136,7 @@ const RestaurantDetails = (props) => {
                     <DetailText name='Average Cost' value='$20 - $50' />
                     <DetailText name='Hours' value='Open now 7 am - 6 pm' />
                     <DetailText color={colors.green} name='Phone' value='(+995) 568 144 133' link='tel:568144133' />
-                    <DetailText color={colors.green} name='Website' value={restaurant.website} link='http://lolitarestaurant.ge' />
+                    <DetailText color={colors.green} name='Website' value={restaurant.website} link={restaurant.website} />
                 </View>
 
                 <View style={{ paddingVertical: 8, paddingHorizontal: 16 }}>
