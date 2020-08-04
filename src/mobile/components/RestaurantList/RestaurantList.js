@@ -38,7 +38,7 @@ const renderProductItem = (info) => (
     </View>
 );
 
-const RestaurantList = ({ restaurants, style, header }) => (
+const RestaurantList = ({ restaurants, style, header, filter }) => (
     <List
         contentContainerStyle={style}
         data={restaurants}

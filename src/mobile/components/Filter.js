@@ -11,6 +11,7 @@ import SingleButton from './SingleButton';
 import { material } from 'react-native-typography';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ClipPath } from 'react-native-svg';
+import { debounce } from 'lodash'
 
 const { Navigator, Screen } = createStackNavigator()
 
@@ -26,17 +27,31 @@ const Filter = (props) => {
 
     const [data, setData] = React.useState(null)
 
-    React.useEffect(() => { if (data == null) getData() }, []);
-
-    const getData = async () => {
-        const response = await axios.get('Restaurant/Restaurants')
-
-        setData(response.data)
+    const getData = async (text) => {
+        if (text) {
+            const response = await axios.get('Restaurant/Restaurants', {
+                params: {
+                    filter: text
+                }
+            })
+            setData(response.data)
+        } else {
+            setData(null)
+        }
     }
+
+    // using "useRef" so that React doesn't create
+    // debounced function on each render (after state update).
+    const doSearch = React.useRef(
+        // using debounce to delay request to backend
+        debounce((text) => getData(text), 300)
+    ).current
 
     const Disappear = () => {
         Keyboard.dismiss()
         setAppeared(false)
+        setValue('')
+        setData(null)
     }
 
     const CloseIcon = (style) => (
@@ -52,30 +67,17 @@ const Filter = (props) => {
 
     const SearchResults = (props) => {
 
-        const FilterIcon = (style) => (
-            <TouchableOpacity style={styles.filterButtonsContainer} onPress={FilterAppear}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Icon fill={colors.green} name='funnel-outline' width={24} height={24} />
-                    <Text style={styles.filterButton}>Filter</Text>
-                </View>
-                <Icon fill={colors.green} name='chevron-right' width={24} height={24} />
-            </TouchableOpacity>
-        )
-
-        const FilterAppear = () => {
-            props.navigation.navigate('Filter')
-        }
-
         return (
-            <RestaurantList title='Most popular' restaurants={data.restaurants} header={FilterIcon} />
+            <View style={{ marginTop: 8 }}>
+                <RestaurantList title='Most popular' restaurants={data.restaurants} />
+            </View>
         )
     }
 
-    const FilterContent = (props) => (
-        <View style={{ height: '100%', backgroundColor: 'green' }}>
-
-        </View>
-    )
+    const OnChange = (nextValue) => {
+        setValue(nextValue)
+        doSearch(nextValue)
+    }
 
     return (
         <View style={appeared && { height: '100%' }}>
@@ -83,7 +85,7 @@ const Filter = (props) => {
                 <Input
                     placeholder='Cuisine, restaurant name...'
                     value={value}
-                    onChangeText={nextValue => setValue(nextValue)}
+                    onChangeText={OnChange}
                     icon={appeared ? CloseIcon : SearchIcon}
                     style={styles.text}
                     onFocus={Appear}
@@ -91,12 +93,7 @@ const Filter = (props) => {
                 />
             </View>
 
-            {data && appeared && (
-                <Navigator screenOptions={{ headerShown: false }} mode='card'>
-                    <Screen name='SearchResults' component={SearchResults} />
-                    <Screen name='Filter' component={FilterContent} />
-                </Navigator>
-            )}
+            {data && appeared && <SearchResults />}
         </View>
     )
 }

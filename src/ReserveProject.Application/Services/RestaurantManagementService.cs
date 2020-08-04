@@ -233,9 +233,16 @@ namespace ReserveProject.Application.Services
             return queryResult;
         }
 
-        public RestaurantsQueryResult Restaurants()
+        public RestaurantsQueryResult Restaurants(RestaurantsQuery restaurantsQuery)
         {
-            var restaurants = Context.Set<Restaurant>().Select(restaurant => new RestaurantsQueryResult.RestaurantItem
+            var restaurants = Context.Set<Restaurant>().AsQueryable();
+
+            if (restaurantsQuery != null && !string.IsNullOrWhiteSpace(restaurantsQuery.Filter))
+            {
+                restaurants = restaurants.Where(_ => _.Name.Contains(restaurantsQuery.Filter));
+            }
+
+            var filtered = restaurants.Select(restaurant => new RestaurantsQueryResult.RestaurantItem
             {
                 Title = restaurant.Name,
                 Cuisine = restaurant.Cuisine.Name,
@@ -248,7 +255,7 @@ namespace ReserveProject.Application.Services
 
             var queryResult = new RestaurantsQueryResult
             {
-                Restaurants = restaurants.ToList()
+                Restaurants = filtered.ToList()
             };
 
             return queryResult;

@@ -83,9 +83,9 @@ namespace ReserveProject.Api.Controllers
         }
 
         [HttpGet("[action]")]
-        public RestaurantsQueryResult Restaurants()
+        public RestaurantsQueryResult Restaurants([FromQuery] RestaurantsQuery restaurantsQuery)
         {
-            return RestaurantReservationService.Restaurants();
+            return RestaurantReservationService.Restaurants(restaurantsQuery);
         }
 
         [HttpGet("[action]")]

@@ -2,6 +2,11 @@
 
 namespace ReserveProject.Domain.Queries
 {
+    public class RestaurantsQuery
+    {
+        public string Filter { get; set; }
+    }
+
     public class RestaurantsQueryResult
     {
         public ICollection<RestaurantItem> Restaurants { get; set; }
