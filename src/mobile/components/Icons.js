@@ -72,7 +72,7 @@ export const ColorPaletteIcon = (style: ImageStyle): IconElement => (
 );
 
 export const CloseIcon = (style: ImageStyle): IconElement => (
-  <Icon {...style} name='close' />
+  <Icon width='16' height='16' fill={colors.green} {...style} name='close-outline' />
 );
 
 export const GithubIcon = (style: ImageStyle): IconElement => (

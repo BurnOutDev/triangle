@@ -19,7 +19,7 @@ import MostPopular from './MostPopular'
 
 const { Navigator, Screen } = createStackNavigator();
 
-const header = () => (
+const Header = () => (
     <Filter statusBarPadding />
 )
 
@@ -27,6 +27,7 @@ const Explore = (props) => {
 
     return (
         <Container>
+            <Filter statusBarPadding />
             <ScrollView>
                 <Address />
                 <Promo />
@@ -42,7 +43,7 @@ const Explore = (props) => {
 }
 
 export default (props) => (
-    <Navigator>
-        <Screen name="Home" component={Explore} options={{ header }} {...props} />
+    <Navigator screenOptions={{ headerShown: false }}>
+        <Screen name="Home" component={Explore} {...props} />
     </Navigator>
 )

@@ -12,7 +12,7 @@ const renderItemHeader = (info) => (
     <>
         <ImageBackground
             style={styles.itemHeader}
-            source={{uri: info.item.image}}
+            source={{ uri: info.item.image }}
             imageStyle={{ borderRadius: 9 }}
         />
     </>
@@ -38,13 +38,12 @@ const renderProductItem = (info) => (
     </View>
 );
 
-const RestaurantList = (props) => (
+const RestaurantList = ({ restaurants, style, header }) => (
     <List
-        contentContainerStyle={props.style}
-        data={props.restaurants}
+        contentContainerStyle={style}
+        data={restaurants}
         renderItem={renderProductItem}
-        style={{flex: 1}}
-        ListHeaderComponent={props.header}
+        ListHeaderComponent={header}
     />
 )
 
