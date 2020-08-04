@@ -13,7 +13,7 @@ import CategoryList from '../../components/Category/CategoryList';
 import axios from '../../axios';
 import { Splash } from '../Screens';
 import MenuHorizontalList from '../../components/Menu/MenuHorizontalList';
-import MenuVerticalList from '../../components/Menu/MenuVerticalList';
+import MenuVerticalList, { Addon } from '../../components/Menu/MenuVerticalList';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import SingleButton from '../../components/SingleButton';
 import { material } from 'react-native-typography';
@@ -23,18 +23,40 @@ const RestaurantMenu = (props) => {
     const [checkoutSum, setCheckoutSum] = React.useState(0)
 
     React.useEffect(() => { if (data == null) getData() }, []);
-
+    const [showSelected, setShowSelected] = React.useState(false)
     const getData = async () => {
 
         const response = await axios.get(`Menu/GetMenuItems/${props.route.params.restaurantId}`)
 
-        setData(response.data)
+        setData({
+            ...response.data,
+            menuItems: response.data.menuItems.map(_ => ({
+                ..._,
+                visible: true
+            }))
+        })
     }
 
     const updateCheckoutSum = () => {
         let sum = data.menuItems.map(item => item.count > 0 ? item.count * item.price : 0).reduce((a, b) => a + b, 0)
 
+        if (sum === 0 && showSelected) {
+            ShowSelected()
+        } 
+
         setCheckoutSum(sum)
+    }
+
+    const ShowSelected = () => {
+        setShowSelected(!showSelected)
+
+        setData({
+            ...data,
+            menuItems: data.menuItems.map(_ => ({
+                ..._,
+                visible: showSelected || _.count > 0
+            }))
+        })
     }
 
     return (
@@ -42,9 +64,14 @@ const RestaurantMenu = (props) => {
             <Header />
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Text category='h3' style={{ fontWeight: 'bold', paddingHorizontal: 16, paddingBottom: 16, backgroundColor: colors.white }}>Menu</Text>
-                {checkoutSum > 0 && <Text style={{ ...material.headline, textAlignVertical: 'center', color: colors.green, paddingHorizontal: 8 }}>{`$${checkoutSum}`}</Text>}
+                {checkoutSum > 0 && <TouchableOpacity
+                    style={[styles.addonButton, showSelected && { backgroundColor: colors.active }]}
+                    onPress={ShowSelected}>
+                    <Text style={showSelected ? styles.addonTextActive : styles.addonText}>{showSelected ? 'Show All' : 'Show Selected Only'}</Text>
+                </TouchableOpacity>}
+                {checkoutSum > 0 && <Text style={{ ...material.headline, color: colors.green, paddingHorizontal: 8 }}>{`$${checkoutSum}`}</Text>}
             </View>
-            {data ? <MenuVerticalList title='Most popular' menuItems={data.menuItems} onChange={updateCheckoutSum} /> : <Splash />}
+            {data ? <MenuVerticalList title='Most popular' menuItems={data.menuItems} onChange={updateCheckoutSum} style={{}} /> : <Splash />}
             {checkoutSum > 0 &&
                 <SingleButton text={`Go to checkout`} onPress={() => {
                     props.navigation.navigate('BookATable', { restaurant: props.route.params.restaurant, menuItems: data.menuItems })
@@ -103,7 +130,28 @@ const styles = StyleService.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         paddingHorizontal: 16
-    }
+    },
+    addonButton: {
+        backgroundColor: colors.lightGrey,
+        borderRadius: 32,
+        height: 40,
+        width: 150,
+        paddingHorizontal: 16,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        marginBottom: 16,
+        marginRight: 4
+    },
+    addonText: {
+        ...material.caption,
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+    addonTextActive: {
+        ...material.captionWhite,
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
 })
 
 export default RestaurantMenu

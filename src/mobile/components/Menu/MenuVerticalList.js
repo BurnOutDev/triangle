@@ -115,12 +115,12 @@ const RenderProductItem = ({ item, onUpdate }) => {
         </ListItem >)
 }
 
-const Addon = ({ text, selected }) => {
+export const Addon = ({ text, selected, style }) => {
     const [isSelected, setIsSelected] = React.useState(selected)
 
     return (
         <TouchableOpacity
-            style={[styles.addonButton, isSelected && { backgroundColor: colors.active }]}
+            style={[styles.addonButton, isSelected && { backgroundColor: colors.active }, style]}
             onPress={() => setIsSelected(!isSelected)}>
             <Text style={isSelected ? styles.addonTextActive : styles.addonText}>{text}</Text>
         </TouchableOpacity>
@@ -153,7 +153,7 @@ const MenuVerticalList = (props) => {
     return (<List
         contentContainerStyle={props.style}
         data={props.menuItems}
-        renderItem={nfo => <RenderProductItem item={nfo} onUpdate={onUpdate} />}
+        renderItem={nfo => nfo.item.visible ? <RenderProductItem item={nfo} onUpdate={onUpdate} /> : <></>}
         style={{ flex: 1, backgroundColor: colors.white }}
         ListHeaderComponent={props.header}
         ItemSeparatorComponent={Divider}
