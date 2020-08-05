@@ -12,6 +12,7 @@ import { material } from 'react-native-typography';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ClipPath } from 'react-native-svg';
 import { debounce } from 'lodash'
+import api from '../variables/api';
 
 const { Navigator, Screen } = createStackNavigator()
 
@@ -29,7 +30,7 @@ const Filter = (props) => {
 
     const getData = async (text) => {
         if (text) {
-            const response = await axios.get('Restaurant/Restaurants', {
+            const response = await axios.get(api.restaurant.restaurants, {
                 params: {
                     filter: text
                 }

@@ -12,6 +12,7 @@ import RestaurantList from '../../components/RestaurantList/RestaurantList'
 import Container from '../../components/Container'
 import axios from '../../axios'
 import { Splash } from '../Screens'
+import api from '../../variables/api'
 
 const CategoryAll = (props) => {
     const [data, setData] = React.useState(null)
@@ -19,7 +20,7 @@ const CategoryAll = (props) => {
     React.useEffect(() => { if (data == null) getData() }, []);
 
     const getData = async () => {
-        const response = await axios.get('Restaurant/Restaurants')
+        const response = await axios.get(api.restaurant.restaurants)
 
         setData(response.data)
     }

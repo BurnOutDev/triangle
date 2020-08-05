@@ -12,6 +12,7 @@ import RestaurantList from '../../components/RestaurantList/RestaurantList'
 import Container from '../../components/Container'
 import axios from '../../axios'
 import { Splash } from '../Screens'
+import api from '../../variables/api'
 
 const StarIcon = (style) => (
     <Icon {...style} name='star' fill='#FFB700' />
@@ -23,7 +24,7 @@ const MostPopular = (props) => {
     React.useEffect(() => { if (data == null) getData() }, []);
 
     const getData = async () => {
-        const response = await axios.get('Restaurant/Restaurants')
+        const response = await axios.get(api.restaurant.restaurants)
 
         setData(response.data)
     }
@@ -32,7 +33,7 @@ const MostPopular = (props) => {
         <Container>
             <PageHeader title='Most popular' />
             <Filter />
-            {data ? <RestaurantList title='Most popular' restaurants={data.restaurants} header={<Header { ...data.restaurants[0] } />} /> : <Splash />}
+            {data ? <RestaurantList title='Most popular' restaurants={data.restaurants} header={<Header {...data.restaurants[0]} />} /> : <Splash />}
         </Container>
     )
 }

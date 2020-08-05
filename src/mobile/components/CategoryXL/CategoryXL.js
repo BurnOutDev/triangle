@@ -3,6 +3,7 @@ import { View } from 'react-native'
 import { Text } from '@ui-kitten/components'
 import CategoryXLList from './CategoryXLList'
 import axios from '../../axios'
+import api from '../../variables/api'
 
 const CategoryXL = (props) => {
     const [data, setData] = React.useState(null)
@@ -10,7 +11,7 @@ const CategoryXL = (props) => {
     React.useEffect(() => { if (data == null) getData() }, []);
 
     const getData = async () => {
-        const response = await axios.post('Restaurant/RestaurantsPerCategory', {
+        const response = await axios.post(api.restaurant.restaurantsPerCategory, {
             categoryName: props.title
         })
 

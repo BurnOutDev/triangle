@@ -17,6 +17,7 @@ import MenuVerticalList, { Addon } from '../../components/Menu/MenuVerticalList'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import SingleButton from '../../components/SingleButton';
 import { material } from 'react-native-typography';
+import api from '../../variables/api';
 
 const RestaurantMenu = (props) => {
     const [data, setData] = React.useState(null)
@@ -42,7 +43,7 @@ const RestaurantMenu = (props) => {
 
         if (sum === 0 && showSelected) {
             ShowSelected()
-        } 
+        }
 
         setCheckoutSum(sum)
     }
@@ -92,7 +93,7 @@ const MenuSpecial = (props) => {
     React.useEffect(() => { if (data == null) getData() }, []);
 
     const getData = async () => {
-        const response = await axios.get('Menu/GetMenuItems')
+        const response = await axios.get(api.menu.menuItems)
 
         setData(response.data)
     }

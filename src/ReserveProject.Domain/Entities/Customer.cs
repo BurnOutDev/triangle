@@ -5,6 +5,7 @@ namespace ReserveProject.Domain
 {
     public class Customer : BaseEntity
     {
+        public string IdentityUserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Gender { get; set; }
@@ -13,6 +14,7 @@ namespace ReserveProject.Domain
         public DateTime BithDate { get; set; }
         public bool IsActivated { get; set; }
         public string FacebookId { get; set; }
+        public string Avatar { get; set; }
 
         public string FullName
         {

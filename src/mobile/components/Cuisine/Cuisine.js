@@ -3,6 +3,7 @@ import { View } from 'react-native'
 import { Text } from '@ui-kitten/components'
 import CuisineList from './CuisineList'
 import Axios from '../../axios'
+import api from '../../variables/api'
 
 const Cuisine = (props) => {
     const [data, setData] = React.useState(null)
@@ -10,7 +11,7 @@ const Cuisine = (props) => {
     React.useEffect(() => { if (data == null) getData() }, []);
 
     const getData = async () => {
-        const response = await Axios.get('Restaurant/Cuisines')
+        const response = await Axios.get(api.restaurant.cuisines)
 
         setData(response.data)
     }

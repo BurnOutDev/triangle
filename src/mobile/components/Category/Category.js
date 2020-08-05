@@ -5,6 +5,7 @@ import CategoryList from './CategoryList'
 import { AuthContext } from '../../screens/context'
 import axios from '../../axios'
 import { Splash } from '../../screens/Screens'
+import api from '../../variables/api'
 
 const Category = (props) => {
     const [data, setData] = React.useState(null)
@@ -12,7 +13,7 @@ const Category = (props) => {
     React.useEffect(() => { if (data == null) getData() }, []);
 
     const getData = async () => {
-        const response = await axios.post('Restaurant/RestaurantsPerCategory', {
+        const response = await axios.post(api.restaurant.restaurantsPerCategory, {
             categoryName: props.title
         })
 

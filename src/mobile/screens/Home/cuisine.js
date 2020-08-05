@@ -14,6 +14,7 @@ import axios from '../../axios'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SafeAreaLayoutComponent } from '../../components/SafeAreaLayout'
 import { Splash } from '../Screens'
+import api from '../../variables/api'
 
 const Cuisine = () => {
 
@@ -22,7 +23,7 @@ const Cuisine = () => {
     React.useEffect(() => { if (data == null) getData() }, []);
 
     const getData = async () => {
-        const response = await axios.get('Restaurant/Cuisines')
+        const response = await axios.get(api.restaurant.cuisines)
 
         setData(response.data)
     }
