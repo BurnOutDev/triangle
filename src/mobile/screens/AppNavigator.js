@@ -30,6 +30,7 @@ import { Icon } from "@ui-kitten/components";
 import RestaurantMenu from "./Home/RestaurantMenu";
 import RestaurantDetails from "./Home/RestaurantDetails";
 import BookATable from "./Home/BookATable";
+import { Account } from "./Account/Index";
 
 const AuthStack = createStackNavigator();
 const AuthStackScreen = () => (
@@ -74,7 +75,7 @@ const TabsScreen = (props) => (
     <Tabs.Screen name='Home' component={Explore} />
     <Tabs.Screen name='CategoryAll' component={RestaurantDetails} />
     <Tabs.Screen name='Cuisine' component={Cuisine} />
-    <Tabs.Screen name='Most Popular' component={MostPopular} />
+    <Tabs.Screen name='Account' component={Account} />
   </Tabs.Navigator>
 );
 
@@ -129,7 +130,6 @@ export default () => {
             authorize(openIdConfig).then(result => {
               AsyncStorage.setItem('token', result.accessToken)
               setUserToken(result.accessToken)
-              console.log(result.accessToken)
               setIsLoading(false)
             })
           }
