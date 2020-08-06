@@ -10,11 +10,11 @@ using System.Text;
 
 namespace ReserveProject.Application.Services
 {
-    public class RestaurantManagementService : IRestaurantManagementService
+    public class RestaurantService : IRestaurantService
     {
         public ReserveDbContext Context { get; }
 
-        public RestaurantManagementService(ReserveDbContext context)
+        public RestaurantService(ReserveDbContext context)
         {
             Context = context;
         }
@@ -478,6 +478,44 @@ namespace ReserveProject.Application.Services
             }
 
             Context.Update(mi);
+        }
+
+        public RestaurantReservationsQueryResult GetReservations(string userId)
+        {
+            var restaurant = GetRestaurantByUserId(userId);
+
+            var reservations = Context.Set<Reservation>().Where(x => x.Restaurant.Id == restaurant.Id)
+                .Select(x => new ReservationsQueryResult.ReservationItem
+                {
+                    CustomerId = x.Customer.Id,
+                    Comment = x.Comment,
+                    DateAndTime = x.DateAndTime,
+                    MenuItems = x.MenuItems.Select(y => new ReservationsQueryResult.ReservationItem.MenuItem
+                    {
+                        MenuItemId = y.MenuItem.Id,
+                        Quantity = y.Quantity,
+                        Price = y.Price
+                    }).ToList(),
+                    PaidAmount = x.PaidAmount,
+                    Price = x.Price,
+                    PartySize = x.PartySize,
+                    PromoId = x.Promo.Id,
+                    RestaurantId = x.Restaurant.Id,
+                    SeatTypeId = x.SeatType.Id,
+                    Status = x.Status.ToString(),
+                    CustomerName = x.Customer.FullName,
+                    CustomerPhoneNumber = x.Customer.PhoneNumber,
+                    PromoName = x.Promo == null ? null : x.Promo.Name,
+                    SeatType = x.SeatType.Name
+                }).ToList();
+
+            var queryResult = new RestaurantReservationsQueryResult
+            {
+                RestaurantId = restaurant.Id,
+                Reservations = reservations
+            };
+
+            return queryResult;
         }
     }
 }

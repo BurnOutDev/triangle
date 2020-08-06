@@ -17,10 +17,10 @@ namespace ReserveProject.Application.Services
             Context = context;
         }
 
-        public void Reserve(ReserveCommand reserveCommand)
+        public void Reserve(string userId, ReserveCommand reserveCommand)
         {
             var restaurant = Context.Find<Restaurant>(reserveCommand.RestaurantId);
-            var customer = Context.Find<Customer>(reserveCommand.CustomerId);
+            var customer = Context.Set<Customer>().Where(_ => _.IdentityUserId == userId).FirstOrDefault();
             var seatType = Context.Find<SeatType>(reserveCommand.SeatTypeId);
 
             var discount = Context.Set<Promo>().Where(promo => promo.Code == reserveCommand.PromoCode).FirstOrDefault();
@@ -35,7 +35,7 @@ namespace ReserveProject.Application.Services
                 Promo = discount,
                 Status = PaymentStatus.NotPaid,
                 Restaurant = restaurant,
-                SeatType = seatType
+                SeatType = seatType,
             };
 
             var selectedMenuItemIds = reserveCommand.MenuItems.Select(item => item.MenuItemId);
@@ -66,11 +66,9 @@ namespace ReserveProject.Application.Services
             Context.SaveChanges();
         }
 
-        public ReservationsQueryResult GetReservations(string userId)
+        public ReservationsQueryResult Reservations()
         {
-            var restaurant = GetRestaurantByUserId(userId);
-
-            var reservations = Context.Set<Reservation>().Where(x => x.Restaurant.Id == restaurant.Id)
+            var reservations = Context.Set<Reservation>()
                 .Select(x => new ReservationsQueryResult.ReservationItem
                 {
                     CustomerId = x.Customer.Id,
@@ -97,16 +95,10 @@ namespace ReserveProject.Application.Services
 
             var queryResult = new ReservationsQueryResult
             {
-                RestaurantId = restaurant.Id,
                 Reservations = reservations
             };
 
             return queryResult;
-        }
-
-        private Restaurant GetRestaurantByUserId(string userId)
-        {
-            return Context.Set<IdentityUserRestaurant>().Where(user => user.IdentityUserId == userId).FirstOrDefault().Restaurant;
         }
     }
 }

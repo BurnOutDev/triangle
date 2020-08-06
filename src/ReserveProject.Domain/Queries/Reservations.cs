@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace ReserveProject.Domain.Queries
 {
+
     public class ReservationsQueryResult
     {
-        public int RestaurantId { get; set; }
         public ICollection<ReservationItem> Reservations { get; set; }
 
         public class ReservationItem

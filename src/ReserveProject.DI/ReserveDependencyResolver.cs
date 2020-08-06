@@ -38,8 +38,9 @@ namespace ReserveProject.DI
 
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddScoped<IRestaurantManagementService, RestaurantManagementService>();
+            services.AddScoped<IRestaurantService, RestaurantService>();
             services.AddScoped<IReservationService, ReservationService>();
+            services.AddScoped<ICustomerService, CustomerService>();
 
             return this;
         }

@@ -21,6 +21,7 @@ import { material, systemWeights } from 'react-native-typography';
 import SingleButton from '../../components/SingleButton';
 
 import { Calendar } from 'react-native-calendars'
+import api from '../../variables/api';
 
 const formats = {
     month: 'MMMM',
@@ -47,6 +48,7 @@ const shadowStyle = {
 
 const BookATable = (props) => {
     const [restaurant, setRestaurant] = React.useState(null)
+    const [menuItems, setMenuItems] = React.useState(null)
     const [selectedIndex, setSelectedIndex] = React.useState(0);
 
     const [dateIsSelected, setDateIsSelected] = React.useState(false)
@@ -77,6 +79,7 @@ const BookATable = (props) => {
     const [visible, setVisible] = React.useState(false);
 
     React.useEffect(() => { if (restaurant == null) setRestaurant(props.route.params.restaurant) }, []);
+    React.useEffect(() => { if (menuItems == null) setMenuItems(props.route.params.menuItems) }, []);
 
     const PictureHeader = (props) => (
         <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
@@ -98,8 +101,16 @@ const BookATable = (props) => {
 
     const Continue = () => {
         if (dateIsSelected && timeIsSelected && partySize.adults > 0) {
-            setVisible(true)
-            console.log('asdadadas')
+            axios.post(api.reservation.reserve, {
+                restaurantId: restaurant.restaurantId,
+                dateAndTime: date,
+                partySizeChildren: partySize.children,
+                partySizeAdults: partySize.adults,
+                menuItems: menuItems.map(i => ({
+                    menuItemId: i.menuItemId,
+                    quantity: i.count
+                }))
+            })
         } else {
 
             setCurrentStep(currentStep + 1)

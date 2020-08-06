@@ -23,13 +23,7 @@ namespace ReserveProject.Api.Controllers
         [HttpPost("[action]")]
         public void Reserve(ReserveCommand reserveCommand)
         {
-            ReservationService.Reserve(reserveCommand);
-        }
-
-        [HttpGet("[action]")]
-        public ReservationsQueryResult GetReservations()
-        {
-            return ReservationService.GetReservations(UserId);
+            ReservationService.Reserve(UserId, reserveCommand);
         }
 
         public string UserId { get { return User.FindFirst("sub").Value; } }

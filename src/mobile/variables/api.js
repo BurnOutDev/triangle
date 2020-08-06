@@ -6,5 +6,11 @@ export default api = {
     },
     menu: {
         menuItems: 'Menu/GetMenuItems'
+    },
+    customer: {
+        profile: 'Customer/Profile'
+    },
+    reservation: {
+        reserve: 'Reservation/Reserve'
     }
 }

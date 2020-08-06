@@ -22,32 +22,32 @@ namespace ReserveProject.Api.Controllers
     [Route("[controller]")]
     public class RestaurantController : ControllerBase
     {
-        public IRestaurantManagementService RestaurantReservationService { get; }
+        public IRestaurantService RestaurantService { get; }
 
         private readonly ILogger<ReservationController> _logger;
 
-        public RestaurantController(IRestaurantManagementService restaurantReservationService, ILogger<ReservationController> logger)
+        public RestaurantController(IRestaurantService restaurantReservationService, ILogger<ReservationController> logger)
         {
-            RestaurantReservationService = restaurantReservationService;
+            RestaurantService = restaurantReservationService;
             _logger = logger;
         }
 
         [HttpPost("[action]")]
         public void Create(AddRestaurantCommand addRestaurantCommand)
         {
-            RestaurantReservationService.AddRestaurant(addRestaurantCommand);
+            RestaurantService.AddRestaurant(addRestaurantCommand);
         }
 
         [HttpPatch("[action]")]
         public void ChangeBusinessHours(ChangeBusinessHoursCommand changeBusinessHoursCommand)
         {
-            RestaurantReservationService.ChangeBusinessHours(changeBusinessHoursCommand);
+            RestaurantService.ChangeBusinessHours(changeBusinessHoursCommand);
         }
 
         [HttpPost("[action]")]
         public void AddCuisine(AddCuisineCommand addCuisineCommand)
         {
-            RestaurantReservationService.AddCuisine(addCuisineCommand);
+            RestaurantService.AddCuisine(addCuisineCommand);
         }
 
         [HttpGet("[action]")]
@@ -79,37 +79,43 @@ namespace ReserveProject.Api.Controllers
         [HttpPost("[action]")]
         public RestaurantsPerCategoryQueryResult RestaurantsPerCategory(RestaurantsPerCategoryQuery restaurantsPerCategoryQuery)
         {
-            return RestaurantReservationService.RestaurantsPerCategory(restaurantsPerCategoryQuery);
+            return RestaurantService.RestaurantsPerCategory(restaurantsPerCategoryQuery);
         }
 
         [HttpGet("[action]")]
         public RestaurantsQueryResult Restaurants([FromQuery] RestaurantsQuery restaurantsQuery)
         {
-            return RestaurantReservationService.Restaurants(restaurantsQuery);
+            return RestaurantService.Restaurants(restaurantsQuery);
         }
 
         [HttpGet("[action]")]
         public CuisinesQueryResult Cuisines()
         {
-            return RestaurantReservationService.Cuisines();
+            return RestaurantService.Cuisines();
         }
 
         [HttpGet("[action]")]
         public RestaurantProfileQueryResult Profile()
         {
-            return RestaurantReservationService.RestaurantProfile(UserId);
+            return RestaurantService.RestaurantProfile(UserId);
         }
 
         [HttpGet("[action]/{restaurantId}")]
         public RestaurantQueryResult Restaurant(int restaurantId)
         {
-            return RestaurantReservationService.Restaurant(new RestaurantQuery { RestaurantId = restaurantId });
+            return RestaurantService.Restaurant(new RestaurantQuery { RestaurantId = restaurantId });
         }
 
         [HttpPost("[action]")]
         public void Update(UpdateRestaurantCommand updateRestaurantCommand)
         {
-            RestaurantReservationService.UpdateRestaurant(UserId, updateRestaurantCommand);
+            RestaurantService.UpdateRestaurant(UserId, updateRestaurantCommand);
+        }
+
+        [HttpGet("[action]")]
+        public RestaurantReservationsQueryResult GetReservations()
+        {
+            return RestaurantService.GetReservations(UserId);
         }
 
         public string UserId { get { return User.FindFirst("sub").Value; } }

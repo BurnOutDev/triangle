@@ -1,5 +1,7 @@
-﻿using ReserveProject.Domain.Entities.Shared;
+﻿using ReserveProject.Domain.Entities;
+using ReserveProject.Domain.Entities.Shared;
 using System;
+using System.Collections.Generic;
 
 namespace ReserveProject.Domain
 {
@@ -23,5 +25,7 @@ namespace ReserveProject.Domain
                 return $"{FirstName} {LastName}";
             }
         }
+
+        public virtual ICollection<CustomerFavoriteRestaurants> FavoriteRestaurants { get; set; }
     }
 }

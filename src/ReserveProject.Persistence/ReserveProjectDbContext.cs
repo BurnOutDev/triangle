@@ -36,6 +36,8 @@ namespace ReserveProject.Persistence
             builder.AddConfiguration(new ReviewConfiguration());
             builder.AddConfiguration(new SeatTypeConfiguration());
             builder.AddConfiguration(new UserConfiguration());
+            builder.AddConfiguration(new CustomerFavoriteRestaurantsConfiguration());
+            builder.AddConfiguration(new MobileAppSettingsConfiguration());
         }
     }
 }

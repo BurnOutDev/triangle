@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ReserveProject.Application.Services
 {
-    public interface IRestaurantManagementService
+    public interface IRestaurantService
     {
         ReserveDbContext Context { get; }
 
@@ -28,5 +28,6 @@ namespace ReserveProject.Application.Services
         RestaurantsQueryResult Restaurants(RestaurantsQuery restaurantsQuery);
         RestaurantQueryResult Restaurant(RestaurantQuery restaurantQuery);
         RestaurantMenuItemsQueryResult GetMenuItems(int restaurantId);
+        RestaurantReservationsQueryResult GetReservations(string userId);
     }
 }

@@ -16,11 +16,11 @@ namespace ReserveProject.Api.Controllers
     [Route("[controller]")]
     public class MenuController : ControllerBase
     {
-        public IRestaurantManagementService RestaurantReservationService { get; }
+        public IRestaurantService RestaurantReservationService { get; }
 
         private readonly ILogger<ReservationController> _logger;
 
-        public MenuController(IRestaurantManagementService restaurantReservationService, ILogger<ReservationController> logger)
+        public MenuController(IRestaurantService restaurantReservationService, ILogger<ReservationController> logger)
         {
             RestaurantReservationService = restaurantReservationService;
             _logger = logger;
