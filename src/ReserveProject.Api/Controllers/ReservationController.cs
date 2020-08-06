@@ -21,9 +21,9 @@ namespace ReserveProject.Api.Controllers
         }
 
         [HttpPost("[action]")]
-        public void Reserve(ReserveCommand reserveCommand)
+        public ReserveCommandResult Reserve(ReserveCommand reserveCommand)
         {
-            ReservationService.Reserve(UserId, reserveCommand);
+            return ReservationService.Reserve(UserId, reserveCommand);
         }
 
         public string UserId { get { return User.FindFirst("sub").Value; } }

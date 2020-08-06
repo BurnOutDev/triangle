@@ -99,9 +99,9 @@ const BookATable = (props) => {
         </View>
     )
 
-    const Continue = () => {
+    const Continue = async () => {
         if (dateIsSelected && timeIsSelected && partySize.adults > 0) {
-            axios.post(api.reservation.reserve, {
+            let response = await axios.post(api.reservation.reserve, {
                 restaurantId: restaurant.restaurantId,
                 dateAndTime: date,
                 partySizeChildren: partySize.children,
@@ -111,6 +111,12 @@ const BookATable = (props) => {
                     quantity: i.count
                 }))
             })
+
+            debugger
+
+            console.log(response.data)
+
+            setVisible(true)
         } else {
 
             setCurrentStep(currentStep + 1)
@@ -256,8 +262,8 @@ const BookATable = (props) => {
                                 <Text style={{ marginVertical: 16, textAlign: 'center', ...material.subheading }}>{_.category}</Text>
                                 {_.times.map(times => (
                                     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-                                        {times.map(time => (
-                                            <TouchableOpacity
+                                        {times.map((time, index) => (
+                                            <TouchableOpacity key={index}
                                                 style={[styles.timeButton, time === selectedTime && { backgroundColor: colors.active }]}
                                                 onPress={() => SelectTime(time)}>
                                                 <Text style={time === selectedTime ? styles.timeTextActive : styles.timeText}>{time}</Text>

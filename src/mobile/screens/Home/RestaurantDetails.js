@@ -149,7 +149,7 @@ const RestaurantDetails = (props) => {
                 <Reviews />
                 <Divider style={{ backgroundColor: colors.transparent, paddingBottom: styles.bookButton.height + styles.bookButton.bottom * 2 }} />
             </ScrollView>
-            <Button onPress={() => props.navigation.navigate('RestaurantMenu', { restaurant, restaurantId: restaurant.restaurantId })} style={styles.bookButton} size='large' textStyle={{ fontWeight: 'normal' }}>Book a table</Button>
+            <Button onPress={() => props.navigation.navigate('BookingScreen', { restaurant, restaurantId: restaurant.restaurantId })} style={styles.bookButton} size='large' textStyle={{ fontWeight: 'normal' }}>Book a table</Button>
         </View> : <Splash />
     )
 }

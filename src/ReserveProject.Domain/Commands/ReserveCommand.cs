@@ -21,4 +21,9 @@ namespace ReserveProject.Domain.Commands
             public int Quantity { get; set; }
         }
     }
+
+    public class ReserveCommandResult
+    {
+        public bool IsReserved { get; set; }
+    }
 }

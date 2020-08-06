@@ -9,6 +9,6 @@ namespace ReserveProject.Application.Services
         ReserveDbContext Context { get; }
 
         ReservationsQueryResult Reservations();
-        void Reserve(string userId, ReserveCommand reserveCommand);
+        ReserveCommandResult Reserve(string userId, ReserveCommand reserveCommand);
     }
 }

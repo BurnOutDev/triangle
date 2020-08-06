@@ -18,6 +18,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import SingleButton from '../../components/SingleButton';
 import { material } from 'react-native-typography';
 import api from '../../variables/api';
+import AsyncStorage from '@react-native-community/async-storage';
+import { BookingContext } from '../context';
 
 const RestaurantMenu = (props) => {
     const [data, setData] = React.useState(null)
@@ -27,7 +29,8 @@ const RestaurantMenu = (props) => {
     const [showSelected, setShowSelected] = React.useState(false)
     const getData = async () => {
 
-        const response = await axios.get(`Menu/GetMenuItems/${props.route.params.restaurantId}`)
+        debugger
+        const response = await axios.get(`Menu/GetMenuItems/${restaurantId}`)
 
         setData({
             ...response.data,
@@ -37,6 +40,8 @@ const RestaurantMenu = (props) => {
             }))
         })
     }
+
+    const { restaurantId } = React.useContext(BookingContext);
 
     const updateCheckoutSum = () => {
         let sum = data.menuItems.map(item => item.count > 0 ? item.count * item.price : 0).reduce((a, b) => a + b, 0)
@@ -60,6 +65,15 @@ const RestaurantMenu = (props) => {
         })
     }
 
+    const Checkout = () => {
+        props.navigation.navigate('BookATable', {
+            restaurant: props.route.params.restaurant,
+            menuItems: data.menuItems
+        })
+
+        AsyncStorage.setItem()
+    }
+
     return (
         <Container style={{ backgroundColor: colors.white }}>
             <Header />
@@ -74,9 +88,7 @@ const RestaurantMenu = (props) => {
             </View>
             {data ? <MenuVerticalList title='Most popular' menuItems={data.menuItems} onChange={updateCheckoutSum} style={{}} /> : <Splash />}
             {checkoutSum > 0 &&
-                <SingleButton text={`Go to checkout`} onPress={() => {
-                    props.navigation.navigate('BookATable', { restaurant: props.route.params.restaurant, menuItems: data.menuItems })
-                }}
+                <SingleButton text={`Go to checkout`} onPress={Checkout}
                     style={{ marginVertical: 24 }} />}
         </Container>
     )

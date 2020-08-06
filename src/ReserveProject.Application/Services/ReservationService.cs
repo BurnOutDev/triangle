@@ -17,7 +17,7 @@ namespace ReserveProject.Application.Services
             Context = context;
         }
 
-        public void Reserve(string userId, ReserveCommand reserveCommand)
+        public ReserveCommandResult Reserve(string userId, ReserveCommand reserveCommand)
         {
             var restaurant = Context.Find<Restaurant>(reserveCommand.RestaurantId);
             var customer = Context.Set<Customer>().Where(_ => _.IdentityUserId == userId).FirstOrDefault();
@@ -31,7 +31,8 @@ namespace ReserveProject.Application.Services
                 Comment = reserveCommand.Comment,
                 DateAndTime = reserveCommand.DateAndTime,
                 PaidAmount = 0,
-                PartySize = reserveCommand.PartySize,
+                PartySizeAdults = reserveCommand.PartySizeAdults,
+                PartySizeChildren = reserveCommand.PartySizeChildren,
                 Promo = discount,
                 Status = PaymentStatus.NotPaid,
                 Restaurant = restaurant,
@@ -64,6 +65,11 @@ namespace ReserveProject.Application.Services
             Context.AddRange(menuItemsCalculated);
 
             Context.SaveChanges();
+
+            return new ReserveCommandResult
+            {
+                IsReserved = true
+            };
         }
 
         public ReservationsQueryResult Reservations()
@@ -82,7 +88,8 @@ namespace ReserveProject.Application.Services
                     }).ToList(),
                     PaidAmount = x.PaidAmount,
                     Price = x.Price,
-                    PartySize = x.PartySize,
+                    PartySizeChildren = x.PartySizeChildren,
+                    PartySizeAdults = x.PartySizeAdults,
                     PromoId = x.Promo.Id,
                     RestaurantId = x.Restaurant.Id,
                     SeatTypeId = x.SeatType.Id,

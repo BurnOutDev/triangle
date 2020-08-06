@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { AsyncStorage, DevSettings } from 'react-native';
+import { DevSettings } from 'react-native';
 import MockAdapter from 'axios-mock-adapter'
+import AsyncStorage from '@react-native-community/async-storage'
 
 axios.interceptors.request.use(async (config) => {
     const token = await AsyncStorage.getItem('token')

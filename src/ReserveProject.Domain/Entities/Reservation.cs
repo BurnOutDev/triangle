@@ -15,7 +15,8 @@ namespace ReserveProject.Domain
         public decimal Price { get; set; }
         public virtual SeatType SeatType { get; set; }
         public DateTime DateAndTime { get; set; }
-        public int PartySize { get; set; }
+        public int PartySizeAdults { get; set; }
+        public int PartySizeChildren { get; set; }
         public string Comment { get; set; }
 
         public virtual ICollection<ReservationMenuItem> MenuItems { get; set; }

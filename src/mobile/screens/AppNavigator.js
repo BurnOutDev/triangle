@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import { HomeBottomNavigation } from './BottomTabNavigator';
 import MostPopular from './Home/MostPopular';
 
@@ -31,6 +31,7 @@ import RestaurantMenu from "./Home/RestaurantMenu";
 import RestaurantDetails from "./Home/RestaurantDetails";
 import BookATable from "./Home/BookATable";
 import { Account } from "./Account/Index";
+import api from "../variables/api";
 
 const AuthStack = createStackNavigator();
 const AuthStackScreen = () => (

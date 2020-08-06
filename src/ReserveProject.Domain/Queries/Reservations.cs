@@ -28,7 +28,8 @@ namespace ReserveProject.Domain.Queries
             public int SeatTypeId { get; set; }
 
             public DateTime DateAndTime { get; set; }
-            public int PartySize { get; set; }
+            public int PartySizeAdults { get; set; }
+            public int PartySizeChildren { get; set; }
             public string Comment { get; set; }
 
             public ICollection<MenuItem> MenuItems { get; set; }
