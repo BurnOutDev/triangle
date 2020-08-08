@@ -36,7 +36,7 @@
     "react-native-screens": "^2.7.0",
     "react-native-svg": "^12.1.0",
     "react-native-typography": "^1.4.1",
-    "unstated": "^2.1.1"
+    "unstated-next": "^1.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",

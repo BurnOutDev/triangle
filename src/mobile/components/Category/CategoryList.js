@@ -5,6 +5,7 @@ import { products } from '../../mock-data/products'
 import { Layout, Text, Input, Button, List, ListItem, Card, Icon, useStyleSheet, StyleService } from '@ui-kitten/components'
 import { ImageBackground, StyleSheet, View, Dimensions } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 
 const AvailableIcon = (style) => (
     <Icon {...style} name='bookmark-outline' />
@@ -29,10 +30,13 @@ const renderItemHeader = (info) => (
 );
 
 const CategoryList = (props) => {
+
+    const { navigate } = useNavigation()
+
     const renderProductItem = (info) => (
         <TouchableOpacity
             style={styles.productItem}
-            onPress={() => props.navigation.navigate('Explore')}>
+            onPress={() => navigate('RestaurantDetails', { restaurantId: 1 })}>
             {renderItemHeader(info)}
 
             <Text category='s1' style={{ fontWeight: 'bold' }}>{info.item.title}</Text>

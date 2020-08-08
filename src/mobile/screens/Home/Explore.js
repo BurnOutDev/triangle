@@ -31,10 +31,10 @@ const Explore = (props) => {
             <ScrollView>
                 <Address />
                 <Promo />
-                <Category navigation={props.navigation} title='Nearby' />
-                <CategoryXL navigation={props.navigation} title='Best offers' />
-                <Category navigation={props.navigation} title='Best rated' />
-                <Category navigation={props.navigation} title='Featured' />
+                <Category title='Nearby' />
+                <CategoryXL title='Best offers' />
+                <Category title='Best rated' />
+                <Category title='Featured' />
                 <Cuisine />
                 <ReferalPromo />
             </ScrollView>
@@ -42,8 +42,4 @@ const Explore = (props) => {
     )
 }
 
-export default (props) => (
-    <Navigator screenOptions={{ headerShown: false }}>
-        <Screen name="Home" component={Explore} {...props} />
-    </Navigator>
-)
+export default Explore

@@ -54,12 +54,8 @@ const BookATable = (props) => {
     const [dateIsSelected, setDateIsSelected] = React.useState(false)
     const [timeIsSelected, setTimesIsSelected] = React.useState(false)
 
-    const [date, setDate] = React.useState(new Date())
-    const [selectedTime, setSelectedTime] = React.useState(null)
-    const [persons, setPersons] = React.useState(nanSymbol)
-
-    const [range, setRange] = React.useState({});
-
+    const [date, setDate] = React.useState({ value: new Date(), selected: false })
+    const [selectedTime, setSelectedTime] = React.useState({ value: null, selected: false })
     const [currentStep, setCurrentStep] = React.useState(1)
 
     const [times, setTimes] = React.useState([
@@ -71,10 +67,9 @@ const BookATable = (props) => {
 
     const [partySize, setPartySize] = React.useState({
         adults: 0,
-        children: 0
+        children: 0,
+        selected: false
     })
-
-    const [buttonText, setButtonText] = React.useState('Continue');
 
     const [visible, setVisible] = React.useState(false);
 
@@ -167,8 +162,6 @@ const BookATable = (props) => {
                 })
             }
         }
-
-        setButtonText('Book a table')
     }
 
     const RenderDay = (state) => (
@@ -310,7 +303,7 @@ const BookATable = (props) => {
                         </View>
                     </View>)}
             </ScrollView >
-            {buttonVisible && <SingleButton text={buttonText} onPress={Continue} style={{ marginVertical: 24 }} />}
+            {buttonVisible && <SingleButton text='Continue' onPress={Continue} style={{ marginVertical: 24 }} />}
             <Modal
                 backdropStyle={styles.backdrop}
                 visible={visible}

@@ -74,7 +74,7 @@ const StarIcon = (style) => (
 const TabsScreen = (props) => (
   <Tabs.Navigator tabBar={props => <HomeBottomNavigation {...props} />}>
     <Tabs.Screen name='Home' component={Explore} />
-    <Tabs.Screen name='CategoryAll' component={RestaurantDetails} />
+    <Tabs.Screen name='CategoryAll' component={Account} />
     <Tabs.Screen name='Cuisine' component={Cuisine} />
     <Tabs.Screen name='Account' component={Account} />
   </Tabs.Navigator>
@@ -84,6 +84,7 @@ const Drawer = createStackNavigator();
 const DrawerScreen = () => (
   <Drawer.Navigator screenOptions={{ headerShown: false }}>
     <Drawer.Screen name="Home" component={TabsScreen} />
+    <Drawer.Screen name='RestaurantDetails' component={RestaurantDetails} />
     <Drawer.Screen name='RestaurantMenu' component={RestaurantMenu} />
     <Drawer.Screen name='BookATable' component={BookATable} />
   </Drawer.Navigator>

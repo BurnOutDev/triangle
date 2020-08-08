@@ -11,7 +11,7 @@ axios.interceptors.request.use(async (config) => {
         'Content-Type': 'application/json'
     }
 
-    config.baseURL = 'http://192.168.5.12:5001/'
+    config.baseURL = 'http://192.168.5.17:5001/'
 
     return config;
 }, error => {

@@ -19,7 +19,6 @@ import SingleButton from '../../components/SingleButton';
 import { material } from 'react-native-typography';
 import api from '../../variables/api';
 import AsyncStorage from '@react-native-community/async-storage';
-import { BookingContext } from '../context';
 
 const RestaurantMenu = (props) => {
     const [data, setData] = React.useState(null)
@@ -30,7 +29,7 @@ const RestaurantMenu = (props) => {
     const getData = async () => {
 
         debugger
-        const response = await axios.get(`Menu/GetMenuItems/${restaurantId}`)
+        const response = await axios.get(`Menu/GetMenuItems/${props.route.params.restaurantId}`)
 
         setData({
             ...response.data,
@@ -40,8 +39,6 @@ const RestaurantMenu = (props) => {
             }))
         })
     }
-
-    const { restaurantId } = React.useContext(BookingContext);
 
     const updateCheckoutSum = () => {
         let sum = data.menuItems.map(item => item.count > 0 ? item.count * item.price : 0).reduce((a, b) => a + b, 0)

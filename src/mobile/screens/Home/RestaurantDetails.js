@@ -40,9 +40,7 @@ const RestaurantDetails = (props) => {
     React.useEffect(() => { if (restaurant == null) getData() }, []);
 
     const getData = async () => {
-        const restaurantId = 1
-
-        const restaurantResponse = await axios.get(`Restaurant/Restaurant/${restaurantId}`)
+        const restaurantResponse = await axios.get(`Restaurant/Restaurant/${props.route.params.restaurantId}`)
 
 
         setResaurant(restaurantResponse.data)
@@ -54,7 +52,7 @@ const RestaurantDetails = (props) => {
             longitudeDelta: 0
         })
 
-        const menuItemsResponse = await axios.get(`Menu/GetMenuItems/${restaurantId}`)
+        const menuItemsResponse = await axios.get(`Menu/GetMenuItems/${props.route.params.restaurantId}`)
 
         setMenuItems(menuItemsResponse.data)
     }
@@ -149,7 +147,7 @@ const RestaurantDetails = (props) => {
                 <Reviews />
                 <Divider style={{ backgroundColor: colors.transparent, paddingBottom: styles.bookButton.height + styles.bookButton.bottom * 2 }} />
             </ScrollView>
-            <Button onPress={() => props.navigation.navigate('BookingScreen', { restaurant, restaurantId: restaurant.restaurantId })} style={styles.bookButton} size='large' textStyle={{ fontWeight: 'normal' }}>Book a table</Button>
+            <Button onPress={() => props.navigation.navigate('RestaurantMenu', { restaurant, restaurantId: restaurant.restaurantId })} style={styles.bookButton} size='large' textStyle={{ fontWeight: 'normal' }}>Book a table</Button>
         </View> : <Splash />
     )
 }
@@ -212,8 +210,4 @@ const styles = StyleService.create({
     }
 });
 
-export default (props) => (
-    <Navigator headerMode='none'>
-        <Screen name='RestaurantDetails' component={RestaurantDetails} />
-    </Navigator>
-)
+export default RestaurantDetails
