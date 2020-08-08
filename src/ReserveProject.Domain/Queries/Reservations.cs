@@ -16,8 +16,6 @@ namespace ReserveProject.Domain.Queries
             public string CustomerName { get; set; }
             public string CustomerPhoneNumber { get; set; }
 
-            public int RestaurantId { get; set; }
-
             public string Status { get; set; }
             public decimal PaidAmount { get; set; }
             public int? PromoId { get; set; }
@@ -32,13 +30,18 @@ namespace ReserveProject.Domain.Queries
             public int PartySizeChildren { get; set; }
             public string Comment { get; set; }
 
+            public int RestaurantId { get; set; }
+            public string RestaurantImage { get; set; }
+
+
             public ICollection<MenuItem> MenuItems { get; set; }
 
             public class MenuItem
             {
                 public int MenuItemId { get; set; }
                 public int Quantity { get; set; }
-                public decimal Price { get; set; }
+                public string Name { get; set; }
+                public decimal Price { get; set; } public string Description { get; set; }
             }
         }
     }

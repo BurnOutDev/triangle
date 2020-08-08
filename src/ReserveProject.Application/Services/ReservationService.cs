@@ -48,18 +48,22 @@ namespace ReserveProject.Application.Services
             if (unavailable)
                 throw new Exception("Error, menu item is not available!");
 
-            var menuItemsCalculated = reserveCommand.MenuItems.Select(item =>
-            {
-                var menuItem = Context.Find<MenuItem>(item.MenuItemId);
-
-                return new ReservationMenuItem
+            var menuItemsCalculated = reserveCommand.MenuItems
+                .Where(x => x.Quantity > 0)
+                .Select(item =>
                 {
-                    MenuItem = menuItem,
-                    Price = menuItem.Price,
-                    Quantity = item.Quantity,
-                    Reservation = reservation
-                };
-            });
+                    var menuItem = Context.Find<MenuItem>(item.MenuItemId);
+
+                    return new ReservationMenuItem
+                    {
+                        MenuItem = menuItem,
+                        Price = menuItem.Price,
+                        Quantity = item.Quantity,
+                        Reservation = reservation
+                    };
+                });
+
+            reservation.Price = menuItemsCalculated.Sum(p => p.Price);
 
             Context.Add(reservation);
             Context.AddRange(menuItemsCalculated);
@@ -84,7 +88,8 @@ namespace ReserveProject.Application.Services
                     {
                         MenuItemId = y.MenuItem.Id,
                         Quantity = y.Quantity,
-                        Price = y.Price
+                        Price = y.Price,
+                        Name = y.MenuItem.Name
                     }).ToList(),
                     PaidAmount = x.PaidAmount,
                     Price = x.Price,
@@ -97,7 +102,9 @@ namespace ReserveProject.Application.Services
                     CustomerName = x.Customer.FullName,
                     CustomerPhoneNumber = x.Customer.PhoneNumber,
                     PromoName = x.Promo == null ? null : x.Promo.Name,
-                    SeatType = x.SeatType.Name
+                    SeatType = x.SeatType.Name,
+                    RestaurantImage = x.Restaurant.ImageUrl,
+                    ReservationId = x.Id
                 }).ToList();
 
             var queryResult = new ReservationsQueryResult
@@ -121,10 +128,24 @@ namespace ReserveProject.Application.Services
                 Stars = addReviewCommand.Stars
             };
 
-            if (addReviewCommand.MediaItems?.Count > 0)
+            var entityCollection = addReviewCommand.MediaItems?.Select(i => new ReviewMedia
             {
+                Review = review,
+                Media = new Media
+                {
+                    Format = Enum.Parse<MediaFormat>(i.Format),
+                    Url = i.Base64
+                }
+            });
 
-            }
+            Context.Add(review);
+            Context.AddRange(entityCollection);
+            Context.SaveChanges();
+
+            return new AddReviewCommandResult
+            {
+                IsError = false
+            };
         }
     }
 }

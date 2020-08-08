@@ -3,11 +3,11 @@ import { Text } from '@ui-kitten/components'
 import { View } from 'react-native'
 import { colors } from '../variables/colors'
 
-const PriceTag = (props) => {
-    let price = props.price
-    
-    if (props.count > 0) {
-        price = props.price * props.count
+const PriceTag = ({ price, count }) => {
+    let priceCalculated = price
+
+    if (count > 0) {
+        priceCalculated = price * count
     }
 
     return (

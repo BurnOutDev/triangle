@@ -73,7 +73,9 @@ namespace ReserveProject.Application.Services
                 {
                     MenuItemId = y.MenuItem.Id,
                     Quantity = y.Quantity,
-                    Price = y.Price
+                    Price = y.Price,
+                    Name = y.MenuItem.Name,
+                    Description = y.MenuItem.Description
                 }).ToList(),
                 PaidAmount = x.PaidAmount,
                 Price = x.Price,
@@ -86,7 +88,9 @@ namespace ReserveProject.Application.Services
                 CustomerName = x.Customer.FullName,
                 CustomerPhoneNumber = x.Customer.PhoneNumber,
                 PromoName = x.Promo == null ? null : x.Promo.Name,
-                SeatType = x.SeatType.Name
+                SeatType = x.SeatType.Name,
+                ReservationId = x.Id,
+                RestaurantImage = x.Restaurant.ImageUrl
             }).ToList();
 
             var queryResult = new CustomerReservationsQueryResult

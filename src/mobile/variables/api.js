@@ -11,6 +11,7 @@ export default api = {
         profile: 'Customer/Profile'
     },
     reservation: {
-        reserve: 'Reservation/Reserve'
+        reserve: 'Reservation/Reserve',
+        reservations: 'Customer/Reservations'
     }
 }

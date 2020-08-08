@@ -30,7 +30,7 @@ import { Icon } from "@ui-kitten/components";
 import RestaurantMenu from "./Home/RestaurantMenu";
 import RestaurantDetails from "./Home/RestaurantDetails";
 import BookATable from "./Home/BookATable";
-import { Account } from "./Account/Index";
+import Account from "./Account/Index";
 import api from "../variables/api";
 
 const AuthStack = createStackNavigator();
