@@ -38,6 +38,7 @@ namespace ReserveProject.Persistence
             builder.AddConfiguration(new UserConfiguration());
             builder.AddConfiguration(new CustomerFavoriteRestaurantsConfiguration());
             builder.AddConfiguration(new MobileAppSettingsConfiguration());
+            builder.AddConfiguration(new ReviewMediaConfiguration());
         }
     }
 }
