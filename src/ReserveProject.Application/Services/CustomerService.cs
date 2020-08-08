@@ -1,4 +1,5 @@
 ﻿using ReserveProject.Domain;
+using ReserveProject.Domain.Converters;
 using ReserveProject.Domain.Queries;
 using ReserveProject.Persistence;
 using System;
@@ -21,18 +22,7 @@ namespace ReserveProject.Application.Services
         {
             var customer = CustomerByIdentityUserId(userId);
 
-            var queryResult = new CustomerProfileQueryResult
-            {
-                Avatar = customer.Avatar,
-                BithDate = customer.BithDate,
-                Email = customer.Email,
-                FacebookId = customer.FacebookId,
-                FirstName = customer.FirstName,
-                Gender = customer.Gender,
-                IsActivated = customer.IsActivated,
-                LastName = customer.LastName,
-                PhoneNumber = customer.LastName
-            };
+            var queryResult = customer.ToQueryResult();
 
             return queryResult;
         }
@@ -42,16 +32,7 @@ namespace ReserveProject.Application.Services
             var customer = CustomerByIdentityUserId(userId);
             var restaurants = customer.FavoriteRestaurants
                 .Select(_ => _.Restaurant)
-                .Select(restaurant => new RestaurantsQueryResult.RestaurantItem
-                {
-                    Title = restaurant.Name,
-                    Cuisine = restaurant.Cuisine.Name,
-                    PriceRange = (int)restaurant.PriceRange,
-                    Image = restaurant.ImageUrl,
-                    Address = restaurant.Address,
-                    Rating = $"4.{new Random().Next(0, 9)}",
-                    ReviewsCount = new Random().Next(24, 90)
-                });
+                .Select(restaurant => restaurant.ToQueryResult());
             var queryResult = new CustomerFavoriteRestaurantsQueryResult
             {
                 CustomerId = customer.Id,
@@ -64,34 +45,7 @@ namespace ReserveProject.Application.Services
         public CustomerReservationsQueryResult Reservations(string userId)
         {
             var customer = CustomerByIdentityUserId(userId);
-            var reservations = Context.Set<Reservation>().Where(_ => _.Customer.Id == customer.Id).Select(x => new ReservationsQueryResult.ReservationItem
-            {
-                CustomerId = x.Customer.Id,
-                Comment = x.Comment,
-                DateAndTime = x.DateAndTime,
-                MenuItems = x.MenuItems.Select(y => new ReservationsQueryResult.ReservationItem.MenuItem
-                {
-                    MenuItemId = y.MenuItem.Id,
-                    Quantity = y.Quantity,
-                    Price = y.Price,
-                    Name = y.MenuItem.Name,
-                    Description = y.MenuItem.Description
-                }).ToList(),
-                PaidAmount = x.PaidAmount,
-                Price = x.Price,
-                PartySizeChildren = x.PartySizeChildren,
-                PartySizeAdults = x.PartySizeAdults,
-                PromoId = x.Promo.Id,
-                RestaurantId = x.Restaurant.Id,
-                SeatTypeId = x.SeatType.Id,
-                Status = x.Status.ToString(),
-                CustomerName = x.Customer.FullName,
-                CustomerPhoneNumber = x.Customer.PhoneNumber,
-                PromoName = x.Promo == null ? null : x.Promo.Name,
-                SeatType = x.SeatType.Name,
-                ReservationId = x.Id,
-                RestaurantImage = x.Restaurant.ImageUrl
-            }).ToList();
+            var reservations = Context.Set<Reservation>().Where(_ => _.Customer.Id == customer.Id).Select(x => x.ToQueryResult()).ToList();
 
             var queryResult = new CustomerReservationsQueryResult
             {
