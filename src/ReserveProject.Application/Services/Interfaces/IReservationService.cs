@@ -8,6 +8,7 @@ namespace ReserveProject.Application.Services
     {
         ReserveDbContext Context { get; }
 
+        AddReviewCommandResult AddReview(string userId, AddReviewCommand addReviewCommand);
         ReservationsQueryResult Reservations();
         ReserveCommandResult Reserve(string userId, ReserveCommand reserveCommand);
     }

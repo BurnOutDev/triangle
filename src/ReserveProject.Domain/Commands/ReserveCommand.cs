@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReserveProject.Domain.Commands.Shared;
+using System;
 using System.Collections.Generic;
 
 namespace ReserveProject.Domain.Commands
@@ -22,8 +23,8 @@ namespace ReserveProject.Domain.Commands
         }
     }
 
-    public class ReserveCommandResult
+    public class ReserveCommandResult : CommandResult
     {
-        public bool IsReserved { get; set; }
+
     }
 }

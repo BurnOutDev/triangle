@@ -8,6 +8,5 @@ namespace ReserveProject.Domain
         public string Name { get; set; }
         public string Url { get; set; }
         public MediaFormat Format { get; set; }
-        public virtual Restaurant Restaurant { get; set; }
     }
 }

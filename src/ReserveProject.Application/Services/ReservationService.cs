@@ -68,7 +68,7 @@ namespace ReserveProject.Application.Services
 
             return new ReserveCommandResult
             {
-                IsReserved = true
+                IsError = false
             };
         }
 
@@ -106,6 +106,25 @@ namespace ReserveProject.Application.Services
             };
 
             return queryResult;
+        }
+
+        public AddReviewCommandResult AddReview(string userId, AddReviewCommand addReviewCommand)
+        {
+            var customer = Context.Set<Customer>().Where(c => c.IdentityUserId == userId).FirstOrDefault();
+            var reservation = Context.Find<Reservation>(addReviewCommand.ReservationId);
+
+            var review = new Review
+            {
+                Content = addReviewCommand.Content,
+                Customer = customer,
+                Reservation = reservation,
+                Stars = addReviewCommand.Stars
+            };
+
+            if (addReviewCommand.MediaItems?.Count > 0)
+            {
+
+            }
         }
     }
 }

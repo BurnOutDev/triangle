@@ -26,6 +26,12 @@ namespace ReserveProject.Api.Controllers
             return ReservationService.Reserve(UserId, reserveCommand);
         }
 
+        [HttpPost("[action]")]
+        public AddReviewCommandResult AddReview(AddReviewCommand addReviewCommand)
+        {
+            return ReservationService.AddReview(UserId, addReviewCommand);
+        }
+
         public string UserId { get { return User.FindFirst("sub").Value; } }
     }
 }
