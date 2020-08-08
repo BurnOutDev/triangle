@@ -1,5 +1,6 @@
 ﻿using ReserveProject.Domain;
 using ReserveProject.Domain.Commands;
+using ReserveProject.Domain.Converters;
 using ReserveProject.Domain.Enums;
 using ReserveProject.Domain.Queries;
 using ReserveProject.Persistence;
@@ -208,28 +209,13 @@ namespace ReserveProject.Application.Services
 
         public RestaurantsPerCategoryQueryResult RestaurantsPerCategory(RestaurantsPerCategoryQuery restaurantsPerCategoryQuery)
         {
-            var restaurants = Context.Set<Restaurant>().Select(restaurant => new RestaurantsPerCategoryQueryResult.RestaurantItem
-            {
-                Title = restaurant.Name,
-                Cuisine = restaurant.Cuisine.Name,
-                PriceRange = (int)restaurant.PriceRange,
-                Image = restaurant.ImageUrl,
-                Address = restaurant.Address,
-                Rating = $"4.{new Random().Next(0, 9)}",
-                ReviewsCount = new Random().Next(24, 90),
-                RestaurantId = restaurant.Id
-            });
+            var restaurants = Context.Set<Restaurant>().Select(restaurant => restaurant.ToQueryResult());
 
             var queryResult = new RestaurantsPerCategoryQueryResult
             {
                 CategoryName = restaurantsPerCategoryQuery.CategoryName,
                 Restaurants = restaurants.ToList()
             };
-
-            //Image = restaurant.Media
-            //                .Where(x => x.Format == MediaFormat.Picture)
-            //                .Select(x => x.Url)
-            //                .FirstOrDefault(),
 
             return queryResult;
         }
@@ -243,17 +229,7 @@ namespace ReserveProject.Application.Services
                 restaurants = restaurants.Where(_ => _.Name.Contains(restaurantsQuery.Filter));
             }
 
-            var filtered = restaurants.Select(restaurant => new RestaurantsQueryResult.RestaurantItem
-            {
-                Title = restaurant.Name,
-                Cuisine = restaurant.Cuisine.Name,
-                PriceRange = (int)restaurant.PriceRange,
-                Image = restaurant.ImageUrl,
-                Address = restaurant.Address,
-                Rating = $"4.{new Random().Next(0, 9)}",
-                ReviewsCount = new Random().Next(24, 90),
-                RestaurantId = restaurant.Id
-            });
+            var filtered = restaurants.Select(restaurant => restaurant.ToQueryResult());
 
             var queryResult = new RestaurantsQueryResult
             {
@@ -265,13 +241,7 @@ namespace ReserveProject.Application.Services
 
         public CuisinesQueryResult Cuisines()
         {
-            var cuisines = Context.Set<Cuisine>().Select(cuisine => new CuisinesQueryResult.CuisineItem
-            {
-                CuisineId = cuisine.Id,
-                Title = cuisine.Name,
-                RestaurantQuantity = cuisine.Restaurants.Count,
-                Image = cuisine.Icon
-            });
+            var cuisines = Context.Set<Cuisine>().Select(cuisine => cuisine.ToQueryResult());
 
             var queryResult = new CuisinesQueryResult
             {
@@ -285,24 +255,7 @@ namespace ReserveProject.Application.Services
         {
             var restaurant = GetRestaurantByUserId(userId);
 
-            var queryResult = new RestaurantProfileQueryResult
-            {
-                Name = restaurant.Name,
-                Description = restaurant.Description,
-                Address = restaurant.Address,
-                AddressLatitude = restaurant.AddressLatitude,
-                AddressLongtitude = restaurant.AddressLongtitude,
-                BusinessId = restaurant.BusinessId,
-                Email = restaurant.Email,
-                FacebookId = restaurant.FacebookId,
-                HasParking = restaurant.HasParking,
-                ImageUrl = restaurant.ImageUrl,
-                IsCardPaymentAvailable = restaurant.IsCardPaymentAvailable,
-                PhoneNumber = restaurant.PhoneNumber,
-                PriceRange = (int)restaurant.PriceRange,
-                WebsiteUrl = restaurant.WebsiteUrl,
-                CuisineId = restaurant.Cuisine.Id
-            };
+            var queryResult = restaurant.ToProfileQueryResult();
 
             return queryResult;
         }
@@ -360,18 +313,7 @@ namespace ReserveProject.Application.Services
         {
             var restaurant = GetRestaurantByUserId(userId);
 
-            var menuItems = restaurant.MenuItems.Select(x => new RestaurantMenuItemsQueryResult.RestaurantMenuItem
-            {
-                CategoryId = x.Category.Id,
-                Description = x.Description,
-                ImageUrl = x.ImageUrl,
-                IngredientIds = x.MenuItemIngredients.Select(ingredient => ingredient.Id).ToArray(),
-                Name = x.Name,
-                Price = x.Price,
-                Unavailable = x.Unavailable,
-                MenuItemId = x.Id,
-                CategoryName = x.Category.Name
-            }).ToList();
+            var menuItems = restaurant.MenuItems.Select(x => x.ToQueryResult()).ToList();
 
             var queryResult = new RestaurantMenuItemsQueryResult
             {
@@ -386,18 +328,7 @@ namespace ReserveProject.Application.Services
         {
             var restaurant = Context.Set<Restaurant>().Find(restaurantId);
 
-            var menuItems = restaurant.MenuItems.Select(x => new RestaurantMenuItemsQueryResult.RestaurantMenuItem
-            {
-                CategoryId = x.Category.Id,
-                Description = x.Description,
-                ImageUrl = x.ImageUrl,
-                IngredientIds = x.MenuItemIngredients.Select(ingredient => ingredient.Id).ToArray(),
-                Name = x.Name,
-                Price = x.Price,
-                Unavailable = x.Unavailable,
-                MenuItemId = x.Id,
-                CategoryName = x.Category.Name
-            }).ToList();
+            var menuItems = restaurant.MenuItems.Select(x => x.ToQueryResult()).ToList();
 
             var queryResult = new RestaurantMenuItemsQueryResult
             {
@@ -410,18 +341,7 @@ namespace ReserveProject.Application.Services
 
         public RestaurantMenuItemQueryResult Get(int id)
         {
-            var queryResult = Context.Set<MenuItem>().Where(x => x.Id == id).Select(x => new RestaurantMenuItemQueryResult
-            {
-                CategoryId = x.Category.Id,
-                Description = x.Description,
-                ImageUrl = x.ImageUrl,
-                IngredientIds = x.MenuItemIngredients.Select(ingredient => ingredient.Id).ToArray(),
-                Name = x.Name,
-                Price = x.Price,
-                Unavailable = x.Unavailable,
-                MenuItemId = x.Id,
-                CategoryName = x.Category.Name
-            }).FirstOrDefault();
+            var queryResult = Context.Set<MenuItem>().Where(x => x.Id == id).Select(x => x.ToMenuItemQueryResult()).FirstOrDefault();
 
             return queryResult;
         }
@@ -430,21 +350,7 @@ namespace ReserveProject.Application.Services
         {
             var restaurant = Context.Set<Restaurant>().Find(restaurantQuery.RestaurantId);
 
-            var queryResult = new RestaurantQueryResult
-            {
-                RestaurantId = restaurant.Id,
-                Address = restaurant.Address,
-                Cuisine = restaurant.Cuisine.Name,
-                Image = restaurant.ImageUrl,
-                PriceRange = (int)restaurant.PriceRange,
-                Rating = "5.3",
-                Title = restaurant.Name,
-                Description = restaurant.Description,
-                ReviewsCount = 98,
-                AddressLatitude = restaurant.AddressLatitude,
-                AddressLongtitude = restaurant.AddressLongtitude,
-                Website = restaurant.WebsiteUrl
-            };
+            var queryResult = restaurant.ToRestaurantQueryResult();
 
             return queryResult;
         }
@@ -487,30 +393,7 @@ namespace ReserveProject.Application.Services
             var restaurant = GetRestaurantByUserId(userId);
 
             var reservations = Context.Set<Reservation>().Where(x => x.Restaurant.Id == restaurant.Id)
-                .Select(x => new ReservationsQueryResult.ReservationItem
-                {
-                    CustomerId = x.Customer.Id,
-                    Comment = x.Comment,
-                    DateAndTime = x.DateAndTime,
-                    MenuItems = x.MenuItems.Select(y => new ReservationsQueryResult.ReservationItem.MenuItem
-                    {
-                        MenuItemId = y.MenuItem.Id,
-                        Quantity = y.Quantity,
-                        Price = y.Price
-                    }).ToList(),
-                    PaidAmount = x.PaidAmount,
-                    Price = x.Price,
-                    PartySizeChildren = x.PartySizeChildren,
-                    PartySizeAdults = x.PartySizeAdults,
-                    PromoId = x.Promo.Id,
-                    RestaurantId = x.Restaurant.Id,
-                    SeatTypeId = x.SeatType.Id,
-                    Status = x.Status.ToString(),
-                    CustomerName = x.Customer.FullName,
-                    CustomerPhoneNumber = x.Customer.PhoneNumber,
-                    PromoName = x.Promo == null ? null : x.Promo.Name,
-                    SeatType = x.SeatType.Name
-                }).ToList();
+                .Select(x => x.ToQueryResult()).ToList();
 
             var queryResult = new RestaurantReservationsQueryResult
             {

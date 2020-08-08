@@ -1,5 +1,6 @@
 ﻿using ReserveProject.Domain;
 using ReserveProject.Domain.Commands;
+using ReserveProject.Domain.Converters;
 using ReserveProject.Domain.Enums;
 using ReserveProject.Domain.Queries;
 using ReserveProject.Persistence;
@@ -79,33 +80,7 @@ namespace ReserveProject.Application.Services
         public ReservationsQueryResult Reservations()
         {
             var reservations = Context.Set<Reservation>()
-                .Select(x => new ReservationsQueryResult.ReservationItem
-                {
-                    CustomerId = x.Customer.Id,
-                    Comment = x.Comment,
-                    DateAndTime = x.DateAndTime,
-                    MenuItems = x.MenuItems.Select(y => new ReservationsQueryResult.ReservationItem.MenuItem
-                    {
-                        MenuItemId = y.MenuItem.Id,
-                        Quantity = y.Quantity,
-                        Price = y.Price,
-                        Name = y.MenuItem.Name
-                    }).ToList(),
-                    PaidAmount = x.PaidAmount,
-                    Price = x.Price,
-                    PartySizeChildren = x.PartySizeChildren,
-                    PartySizeAdults = x.PartySizeAdults,
-                    PromoId = x.Promo.Id,
-                    RestaurantId = x.Restaurant.Id,
-                    SeatTypeId = x.SeatType.Id,
-                    Status = x.Status.ToString(),
-                    CustomerName = x.Customer.FullName,
-                    CustomerPhoneNumber = x.Customer.PhoneNumber,
-                    PromoName = x.Promo == null ? null : x.Promo.Name,
-                    SeatType = x.SeatType.Name,
-                    RestaurantImage = x.Restaurant.ImageUrl,
-                    ReservationId = x.Id
-                }).ToList();
+                .Select(x => x.ToQueryResult()).ToList();
 
             var queryResult = new ReservationsQueryResult
             {
