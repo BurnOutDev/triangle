@@ -6,7 +6,6 @@ import { colors } from '../../variables/colors'
 import PageHeader from '../../components/PageHeader'
 import CuisineListVertical from '../../components/Cuisine/CuisineListVertical'
 import { Search, Star } from '../../components/Icons'
-import CategoryXL from '../../components/CategoryXL/CategoryXL'
 
 export const Location = (style) => (
     <Icon {...style} fill={colors.green} name='pin-outline' />
@@ -47,7 +46,7 @@ const Category = (props) => (
     <>
         <Layout>
             <Header />
-            <CategoryXL title='Most popular' />
+            <Category title='Most popular' horizontal />
         </Layout>
     </>
 )

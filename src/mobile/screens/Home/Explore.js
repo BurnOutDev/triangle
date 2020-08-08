@@ -9,7 +9,6 @@ import Category from '../../components/Category/Category'
 import ReferalPromo from '../../components/ReferalPromo'
 import Promo from '../../components/Promo'
 import { colors } from '../../variables/colors'
-import CategoryXL from '../../components/CategoryXL/CategoryXL'
 import Cuisine from '../../components/Cuisine/Cuisine'
 import Address from '../../components/Address'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -32,7 +31,7 @@ const Explore = (props) => {
                 <Address />
                 <Promo />
                 <Category title='Nearby' />
-                <CategoryXL title='Best offers' />
+                <Category title='Best offers' horizontal />
                 <Category title='Best rated' />
                 <Category title='Featured' />
                 <Cuisine />

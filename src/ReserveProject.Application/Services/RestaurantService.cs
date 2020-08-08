@@ -216,7 +216,8 @@ namespace ReserveProject.Application.Services
                 Image = restaurant.ImageUrl,
                 Address = restaurant.Address,
                 Rating = $"4.{new Random().Next(0, 9)}",
-                ReviewsCount = new Random().Next(24, 90)
+                ReviewsCount = new Random().Next(24, 90),
+                RestaurantId = restaurant.Id
             });
 
             var queryResult = new RestaurantsPerCategoryQueryResult
@@ -250,7 +251,8 @@ namespace ReserveProject.Application.Services
                 Image = restaurant.ImageUrl,
                 Address = restaurant.Address,
                 Rating = $"4.{new Random().Next(0, 9)}",
-                ReviewsCount = new Random().Next(24, 90)
+                ReviewsCount = new Random().Next(24, 90),
+                RestaurantId = restaurant.Id
             });
 
             var queryResult = new RestaurantsQueryResult

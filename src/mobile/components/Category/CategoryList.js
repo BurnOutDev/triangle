@@ -29,14 +29,14 @@ const renderItemHeader = (info) => (
     </>
 );
 
-const CategoryList = (props) => {
+const CategoryList = ({ restaurants }) => {
 
     const { navigate } = useNavigation()
 
     const renderProductItem = (info) => (
         <TouchableOpacity
             style={styles.productItem}
-            onPress={() => navigate('RestaurantDetails', { restaurantId: 1 })}>
+            onPress={() => navigate('RestaurantDetails', { restaurantId: info.item.restaurantId })}>
             {renderItemHeader(info)}
 
             <Text category='s1' style={{ fontWeight: 'bold' }}>{info.item.title}</Text>
@@ -54,7 +54,7 @@ const CategoryList = (props) => {
     return (
         <List
             contentContainerStyle={styles.productList}
-            data={props.restaurants}
+            data={restaurants}
             horizontal
             renderItem={renderProductItem}
             style={{ backgroundColor: 'transparent', marginRight: -16, marginLeft: -16, paddingLeft: 16 }}

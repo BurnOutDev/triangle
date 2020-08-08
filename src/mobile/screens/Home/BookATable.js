@@ -328,7 +328,7 @@ const BookATable = (props) => {
                         <Text style={{ ...material.body1, color: colors.green, textAlign: 'center' }}>Booking No. Ghf349da</Text>
                         <Divider style={{ width: '100%', backgroundColor: colors.lightGrey, marginTop: 16 }} />
                     </View>
-                    <SingleButton text='Share with friends' style={{ paddingHorizontal: 60 }} />
+                    <SingleButton text='Return to restaurant' style={{ paddingHorizontal: 60 }} />
                 </Layout>
             </Modal>
         </View > : <Splash />

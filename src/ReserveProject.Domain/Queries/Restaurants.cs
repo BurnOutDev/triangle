@@ -13,6 +13,7 @@ namespace ReserveProject.Domain.Queries
 
         public class RestaurantItem
         {
+            public int RestaurantId { get; set; }
             public string Title { get; set; }
             public string Address { get; set; }
             public string Cuisine { get; set; }

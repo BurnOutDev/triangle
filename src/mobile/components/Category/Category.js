@@ -6,15 +6,16 @@ import { AuthContext } from '../../screens/context'
 import axios from '../../axios'
 import { Splash } from '../../screens/Screens'
 import api from '../../variables/api'
+import CategoryXLList from '../CategoryXL/CategoryXLList'
 
-const Category = (props) => {
+const Category = ({ title, horizontal }) => {
     const [data, setData] = React.useState(null)
 
     React.useEffect(() => { if (data == null) getData() }, []);
 
     const getData = async () => {
         const response = await axios.post(api.restaurant.restaurantsPerCategory, {
-            categoryName: props.title
+            categoryName: title
         })
 
         setData(response.data)
@@ -24,7 +25,9 @@ const Category = (props) => {
         <View style={{ margin: 15 }}>
             {data ? <>
                 <Text category='h3'>{data.categoryName}</Text>
-                <CategoryList restaurants={data.restaurants} />
+                {horizontal ?
+                    <CategoryXLList restaurants={data.restaurants} />
+                    : <CategoryList restaurants={data.restaurants} />}
             </> : <Splash />}
         </View>
     )
