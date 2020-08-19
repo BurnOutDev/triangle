@@ -2,6 +2,12 @@
 > Added ip-config.js (running separately in npm start) which is updating IP in config.json (used in axios.js to connect to server)
 
 ## Tasks
-> [ ] Use better approach to ensure same padding and status bar visibility in all screens
+> [X] Use better approach to ensure same padding and status bar visibility in all screens
 
-> [x] Automate updating server IP when network is changed for packager host, where server should be running
+> [&check;] Automate updating server IP when network is changed for packager host, where server should be running
+
+> [X] Readme automation software which is creating components and duplicating content of components
+
+> [X] Separate components in another way to make them more useful
+
+> [X] Create shared data fetching code
