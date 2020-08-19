@@ -2,6 +2,7 @@ import axios from 'axios';
 import { DevSettings } from 'react-native';
 import MockAdapter from 'axios-mock-adapter'
 import AsyncStorage from '@react-native-community/async-storage'
+import { ip } from './config.json'
 
 axios.interceptors.request.use(async (config) => {
     const token = await AsyncStorage.getItem('token')
@@ -11,7 +12,7 @@ axios.interceptors.request.use(async (config) => {
         'Content-Type': 'application/json'
     }
 
-    config.baseURL = 'http://192.168.5.17:5001/'
+    config.baseURL = `http://${ip}:5001/`
 
     return config;
 }, error => {

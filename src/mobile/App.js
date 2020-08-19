@@ -25,14 +25,14 @@ import SignUp from './screens/Authentication/SignUp';
 import IntroLayout from './screens/Intro/IntroLayout';
 import Explore from './screens/Home/Explore';
 
-const App: () => React$Node = () => {
-  return (<>
+const App: () => React$Node = () => (
+  <>
     <StatusBar backgroundColor='transparent' translucent barStyle='dark-content' />
     <IconRegistry icons={EvaIconsPack} />
     <ApplicationProvider mapping={mapping} theme={lightTheme}>
       <AppNavigator />
     </ApplicationProvider>
-  </>);
-};
+  </>
+)
 
 export default App;

@@ -5,7 +5,7 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "start": "react-native run-android",
+    "start": "node config-ip.js && react-native run-android",
     "test": "jest",
     "lint": "eslint ."
   },
@@ -34,6 +34,7 @@
     "react-native-reanimated": "^1.8.0",
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.7.0",
+    "react-native-statusbar-enhancer": "0.0.2",
     "react-native-svg": "^12.1.0",
     "react-native-typography": "^1.4.1",
     "unstated-next": "^1.1.0"
