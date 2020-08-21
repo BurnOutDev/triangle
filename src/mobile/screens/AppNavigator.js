@@ -2,12 +2,8 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import AsyncStorage from '@react-native-community/async-storage';
 import { HomeBottomNavigation } from './BottomTabNavigator';
 import MostPopular from './Home/MostPopular';
-
-import { AuthContext } from "./context";
 
 import {
   SignIn,
@@ -31,23 +27,7 @@ import RestaurantMenu from "./Home/RestaurantMenu";
 import RestaurantDetails from "./Home/RestaurantDetails";
 import BookATable from "./Home/BookATable";
 import Account from "./Account/Index";
-import api from "../variables/api";
-
-const AuthStack = createStackNavigator();
-const AuthStackScreen = () => (
-  <AuthStack.Navigator>
-    <AuthStack.Screen
-      name="Authentication"
-      component={Authentication}
-      options={{ headerShown: false }}
-    />
-    <AuthStack.Screen
-      name="CreateAccount"
-      component={CreateAccount}
-      options={{ title: "Create Account" }}
-    />
-  </AuthStack.Navigator>
-);
+import { AuthContextProvider, AuthContext } from "../contexts/AuthProvider";
 
 const Tabs = createBottomTabNavigator();
 
@@ -80,93 +60,22 @@ const TabsScreen = (props) => (
   </Tabs.Navigator>
 );
 
-const Drawer = createStackNavigator();
-const DrawerScreen = () => (
-  <Drawer.Navigator screenOptions={{ headerShown: false }}>
-    <Drawer.Screen name="Home" component={TabsScreen} />
-    <Drawer.Screen name='RestaurantDetails' component={RestaurantDetails} />
-    <Drawer.Screen name='RestaurantMenu' component={RestaurantMenu} />
-    <Drawer.Screen name='BookATable' component={BookATable} />
-  </Drawer.Navigator>
-);
-
 const RootStack = createStackNavigator();
-const RootStackScreen = ({ userToken }) => (
-  <RootStack.Navigator headerMode="none">
-    {userToken ? (
-      <RootStack.Screen
-        name="App"
-        component={DrawerScreen}
-        options={{
-          animationEnabled: false,
-
-        }}
-      />
-    ) : (
-        <RootStack.Screen
-          name="Auth"
-          component={AuthStackScreen}
-          options={{
-            animationEnabled: false
-          }}
-        />
-      )}
-  </RootStack.Navigator>
-);
-
-export default () => {
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [userToken, setUserToken] = React.useState(null);
-
-  const authContext = React.useMemo(() => {
-    return {
-      signIn: async () => {
-        setIsLoading(true);
-
-        AsyncStorage.getItem('token', (err, res) => {
-
-          if (res) {
-            setUserToken(res)
-            setIsLoading(false)
-          } else {
-            authorize(openIdConfig).then(result => {
-              AsyncStorage.setItem('token', result.accessToken)
-              setUserToken(result.accessToken)
-              setIsLoading(false)
-            })
-          }
-        })
-
-      },
-      signUp: () => {
-        setIsLoading(false);
-        setUserToken("asdf");
-      },
-      signOut: () => {
-        setIsLoading(false);
-        setUserToken(null);
-
-        revoke(openIdConfig, { tokenToRevoke: userToken })
-      },
-      getToken: () => userToken
-    };
-  }, []);
-
-  React.useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-  }, []);
-
-  if (isLoading) {
-    return <Splash />;
-  }
+const RootStackScreen = () => {
+  let { token } = React.useContext(AuthContext)
 
   return (
-    <AuthContext.Provider value={authContext}>
-      <NavigationContainer>
-        <RootStackScreen userToken={userToken} />
-      </NavigationContainer>
-    </AuthContext.Provider>
-  );
-};
+    <RootStack.Navigator headerMode="none">
+      <RootStack.Screen name="Home" component={TabsScreen} />
+      <RootStack.Screen name='RestaurantDetails' component={RestaurantDetails} />
+      <RootStack.Screen name='RestaurantMenu' component={RestaurantMenu} />
+      <RootStack.Screen name='BookATable' component={BookATable} />
+    </RootStack.Navigator>
+  )
+}
+
+export default () => (
+  <AuthContextProvider>
+    <RootStackScreen />
+  </AuthContextProvider>
+)

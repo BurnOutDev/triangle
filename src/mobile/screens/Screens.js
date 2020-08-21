@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Button, ActivityIndicator } from "react-native";
 
-import { AuthContext } from "./context";
+import { AuthContext } from "../contexts/AuthProvider";
 
 const styles = StyleSheet.create({
   container: {

@@ -2,16 +2,31 @@ const fs = require('fs')
 const config = require('./config.json')
 const { networkInterfaces } = require('os')
 const moment = require('moment')
+const { red, blue } = require('chalk')
 
 const configIp = () => {
-    let net = networkInterfaces()["Wi-Fi"].filter(x => x.family === 'IPv4')[0].address
+    const name = "Wi-Fi";
+    const interfaces = networkInterfaces()[name]
 
-    if (net !== config.ip) {
-        config.ip = net
+    if (interfaces) {
+        let net = interfaces.filter(x => x.family === 'IPv4')[0].address
 
-        fs.writeFileSync('./config.json', JSON.stringify(config, null, 4))
-        fs.appendFileSync('./logs/config-ip.log', `IP Updated: ${net} Date: ${moment().format('DD/MM/YYYY - HH:mm')}\n`)
+        if (net !== config.ip) {
+            config.ip = net
+
+            const data = `IP Updated: ${net} Date: ${moment().format('DD/MM/YYYY - HH:mm')}\n`
+
+            fs.writeFileSync('./config.json', JSON.stringify(config, null, 4))
+            fs.appendFileSync('./logs/config-ip.log', data)
+
+            console.log(blue(data))
+        }
+    } else {
+        console.warn(red("No internet connection to get IP!"))
     }
 }
 
-configIp()
+// startup
+(() => {
+    configIp()
+})()

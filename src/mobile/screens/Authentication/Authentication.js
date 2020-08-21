@@ -4,7 +4,8 @@ import { Text, Card, Layout, Input, Icon, Button, Divider } from '@ui-kitten/com
 import { authorize } from 'react-native-app-auth';
 import openIdConfig from '../../openIdConfig';
 import axios, { accessToken } from '../../axios';
-import { AuthContext } from '../context';
+import { AuthContext } from '../../contexts/AuthProvider';
+import log from '../../log';
 
 const FacebookIcon = (props) => (
     <Icon {...props} name='facebook' />
@@ -14,9 +15,7 @@ const Authentication = ({ navigation }) => {
 
     const [value, setValue] = React.useState('');
 
-    const { signIn } = React.useContext(AuthContext);
-
-    signIn()
+    const { signIn, isLoading } = React.useContext(AuthContext);
 
     return (
         <ImageBackground resizeMode='cover' source={require('../../assets/background.jpg')} style={styles.imageBg}>

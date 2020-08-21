@@ -107,10 +107,6 @@ const BookATable = (props) => {
                 }))
             })
 
-            debugger
-
-            console.log(response.data)
-
             setVisible(true)
         } else {
 

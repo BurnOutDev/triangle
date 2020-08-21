@@ -2,9 +2,12 @@ import axios from 'axios';
 import { DevSettings } from 'react-native';
 import MockAdapter from 'axios-mock-adapter'
 import AsyncStorage from '@react-native-community/async-storage'
-import { ip } from './config.json'
+import { axiosLog, ip } from './config.json'
+import { logger } from 'react-native-logs'
+import { colorConsoleSync } from 'react-native-logs/dist/transports/colorConsoleSync';
+import log from './log'
 
-axios.interceptors.request.use(async (config) => {
+axios.interceptors.request.use(async (config) => {  
     const token = await AsyncStorage.getItem('token')
 
     config.headers = {
@@ -13,6 +16,8 @@ axios.interceptors.request.use(async (config) => {
     }
 
     config.baseURL = `http://${ip}:5001/`
+
+    log.apiRequest(config.url)
 
     return config;
 }, error => {
@@ -27,12 +32,17 @@ axios.interceptors.response.use((response) => {
         AsyncStorage.removeItem('token').then(DevSettings.reload())
     }
 
-    console.log(error)
+    log.error(error)
 
     return Promise.reject(error);
 });
 
-const mock = new MockAdapter(axios, {onNoMatch:'passthrough'})
+const logRequest = ({ url }) => {
+    !fs.existsSync(`./logs/${axiosLog}`) && fs.writeFileSync(`./logs/${axiosLog}`)
+    fs.appendFileSync(`./logs/${axiosLog}`, `Url: ${url} Date: ${moment().format('DD/MM/YYYY - HH:mm')}\n`)
+}
+
+const mock = new MockAdapter(axios, { onNoMatch: 'passthrough' })
 
 // mock.onGet('/Restaurant/Cuisines').reply(200, require('./Mock/Get/Restaurant/Cuisines.json'))
 // mock.onPost('/Restaurant/RestaurantsPerCategory').reply(200, require('./Mock/Get/Restaurant/Restaurants.json'))

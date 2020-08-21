@@ -33,7 +33,7 @@ const CategoryXLList = ({ restaurants }) => {
     const renderProductItem = (info) => (
         <TouchableOpacity
             style={styles.productItem}
-            onPress={() => {navigate('RestaurantDetails', { restaurantId: info.item.restaurantId }); console.log(info)}}>
+            onPress={() => navigate('RestaurantDetails', { restaurantId: info.item.restaurantId })}>
             {renderItemHeader(info)}
 
             <Text category='s1' style={{ fontWeight: 'bold' }}>{info.item.title}</Text>
