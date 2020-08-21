@@ -76,7 +76,7 @@ const TabsScreen = (props) => (
     <Tabs.Screen name='Home' component={Explore} />
     <Tabs.Screen name='CategoryAll' component={Account} />
     <Tabs.Screen name='Cuisine' component={Cuisine} />
-    <Tabs.Screen name='Account' component={Account} />
+    <Tabs.Screen name='Account' component={CategoryAll} />
   </Tabs.Navigator>
 );
 

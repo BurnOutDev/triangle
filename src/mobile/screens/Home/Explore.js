@@ -15,6 +15,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { AuthContext } from '../context'
 import Container from '../../components/Container'
 import MostPopular from './MostPopular'
+import PageHeader from '../../components/PageHeader'
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -26,7 +27,7 @@ const Explore = (props) => {
 
     return (
         <Container>
-            <Filter statusBarPadding />
+            <PageHeader statusBarPadding showFilter />
             <ScrollView>
                 <Address />
                 <Promo />

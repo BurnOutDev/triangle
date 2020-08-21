@@ -5,7 +5,6 @@ import { colors } from '../../variables/colors'
 import PageHeader from '../../components/PageHeader'
 import CuisineListVertical from '../../components/Cuisine/CuisineListVertical'
 import { Search, Star, Location } from '../../components/Icons'
-import Filter from '../../components/Filter'
 import RestaurantList from '../../components/RestaurantList/RestaurantList'
 import Container from '../../components/Container'
 import axios from '../../axios'
@@ -25,10 +24,8 @@ const CategoryAll = (props) => {
 
     return (
         <Container>
-            <PageHeader title='Coffee shop' />
-            <Filter />
-            <Header />
-            {data ? <RestaurantList title='Most popular' restaurants={data.restaurants} /> : <Splash />}
+            <PageHeader title='Coffee shop' showFilter />
+            {data ? <RestaurantList title='Most popular' restaurants={data.restaurants.concat(data.restaurants).concat(data.restaurants).concat(data.restaurants).concat(data.restaurants).concat(data.restaurants).concat(data.restaurants).concat(data.restaurants).concat(data.restaurants)} header={Header} /> : <Splash />}
         </Container>
     )
 }

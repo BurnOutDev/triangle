@@ -1,6 +1,6 @@
 import React from 'react'
 import Container from '../../components/Container';
-import { View, ImageBackground, Linking, Dimensions } from 'react-native';
+import { View, ImageBackground, Linking, Dimensions, StatusBar } from 'react-native';
 import { Text, StyleService, Icon, Button, Divider } from '@ui-kitten/components';
 import { Splash } from '../Screens';
 import axios from '../../axios'
@@ -89,6 +89,7 @@ const RestaurantDetails = (props) => {
 
     return (
         restaurant ? <View>
+            <StatusBar hidden />
             <ScrollView style={{ backgroundColor: colors.white }}>
                 <ImageBackground
                     style={styles.itemHeader}

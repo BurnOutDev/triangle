@@ -30,8 +30,7 @@ const Cuisine = () => {
 
     return (
         <Container>
-            <PageHeader title='Cuisine' />
-            <Filter />
+            <PageHeader title='Cuisine' showFilter />
             {data ? <CuisineListVertical cuisines={data.cuisines} /> : <Splash />}
         </Container>
     )
