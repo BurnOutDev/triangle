@@ -1,8 +1,11 @@
 ## Notes
-> Added ip-config.js (running separately in npm start) which is updating IP in config.json (used in axios.js to connect to server)
+> Added ip-config.js (running separately in `npm start`) which is updating IP in `config.json` (used in `axios.js` to connect to server)
 
 ## Tasks
-> [X] Use better approach to ensure same padding and status bar visibility in all screens
+> [P] Use better approach to ensure same padding and status bar visibility in all screens
+>- `<Filter>` moved to `<PageHeader>` component.
+>   - You can pass `showFilter` to `<PageHeader>` as prop to make it visible.
+>   - If `title` props is not available `StatusBar` won't have padding and navigation buttons.
 
 > [&check;] Automate updating server IP when network is changed for packager host, where server should be running
 
