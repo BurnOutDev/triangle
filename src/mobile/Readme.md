@@ -11,3 +11,5 @@
 > [X] Separate components in another way to make them more useful
 
 > [X] Create shared data fetching code
+
+> [X] Resource owner password authentication from app without redirecting to server
