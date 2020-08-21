@@ -10,7 +10,7 @@ const configIp = () => {
         config.ip = net
 
         fs.writeFileSync('./config.json', JSON.stringify(config, null, 4))
-        fs.appendFileSync('./config-ip.log', `IP Updated: ${net} Date: ${moment().format('DD/MM/YYYY - HH:mm')}\n`)
+        fs.appendFileSync('./logs/config-ip.log', `IP Updated: ${net} Date: ${moment().format('DD/MM/YYYY - HH:mm')}\n`)
     }
 }
 

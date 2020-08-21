@@ -1,12 +1,8 @@
 import React, { useState } from 'react'
 
-import { products } from '../../mock-data/products'
-
 import { Layout, Text, Input, Button, List, ListItem, Card, Icon, useStyleSheet, StyleService } from '@ui-kitten/components'
 import { ImageBackground, StyleSheet, View, Dimensions } from 'react-native'
 import { Star } from '../Icons'
-
-const displayProducts = products
 
 const renderItemHeader = (info) => (
     <>

@@ -1,12 +1,8 @@
 import React, { useState } from 'react'
 
-import { cuisines } from '../../mock-data/cuisines'
-
 import { Layout, Text, Input, Button, List, ListItem, Card, Icon, useStyleSheet, StyleService } from '@ui-kitten/components'
 import { ImageBackground, StyleSheet, View, Dimensions } from 'react-native'
 import { colors } from '../../variables/colors';
-
-const displayCuisine = cuisines
 
 const renderItemHeader = (info) => (
     <>

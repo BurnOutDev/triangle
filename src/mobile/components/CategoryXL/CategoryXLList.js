@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
 
-import { products } from '../../mock-data/products'
-
 import { Layout, Text, Input, Button, List, ListItem, Card, Icon, useStyleSheet, StyleService } from '@ui-kitten/components'
 import { ImageBackground, StyleSheet, View, Dimensions } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -18,8 +16,6 @@ const NotAvailableIcon = (style) => (
 const StarIcon = (style) => (
     <Icon {...style} name='star' fill='#FFB700' />
 );
-
-const displayProducts = [...products.filter((x, index) => index > 1)]
 
 const renderItemHeader = (info) => (
     <>
