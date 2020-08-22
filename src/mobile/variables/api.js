@@ -1,5 +1,6 @@
 export default api = {
     restaurant: {
+        restaurant: 'Restaurant/Restaurant',
         restaurants: 'Restaurant/Restaurants',
         restaurantsPerCategory: 'Restaurant/RestaurantsPerCategory',
         cuisines: 'Restaurant/Cuisines'

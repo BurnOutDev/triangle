@@ -16,6 +16,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import RestaurantMenu from './RestaurantMenu';
 import BookATable from './BookATable';
 import Reviews from '../../components/Reviews';
+import { ReservationContext } from '../../contexts/ReservationProvider';
 
 const { width, height } = Dimensions.get('window');
 
@@ -33,29 +34,7 @@ const StarIcon = (style) => (
 
 const RestaurantDetails = (props) => {
 
-    const [restaurant, setResaurant] = React.useState(null)
-    const [menuItems, setMenuItems] = React.useState(null)
-    const [location, setLocation] = React.useState(null)
-
-    React.useEffect(() => { if (restaurant == null) getData() }, []);
-
-    const getData = async () => {
-        const restaurantResponse = await axios.get(`Restaurant/Restaurant/${props.route.params.restaurantId}`)
-
-
-        setResaurant(restaurantResponse.data)
-
-        setLocation({
-            latitude: parseFloat(restaurantResponse.data.addressLatitude),
-            longitude: parseFloat(restaurantResponse.data.addressLongtitude),
-            latitudeDelta: 0,
-            longitudeDelta: 0
-        })
-
-        const menuItemsResponse = await axios.get(`Menu/GetMenuItems/${props.route.params.restaurantId}`)
-
-        setMenuItems(menuItemsResponse.data)
-    }
+    const { restaurantId, restaurant, location, menuItems } = React.useContext(ReservationContext)
 
     const PictureHeader = (props) => (
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -86,6 +65,10 @@ const RestaurantDetails = (props) => {
             {link ? <TouchableOpacity onPress={() => Linking.openURL(link)}><Text style={{ color: colors.green }}>{value}</Text></TouchableOpacity> : <Text>{value}</Text>}
         </View>
     )
+
+    const navigateToMenu = () => {
+        props.navigation.navigate('RestaurantMenu')
+    }
 
     return (
         restaurant ? <View>
@@ -141,14 +124,14 @@ const RestaurantDetails = (props) => {
                 <View style={{ paddingVertical: 8, paddingHorizontal: 16 }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <Text category='h4' style={{ fontWeight: 'bold' }}>Menu</Text>
-                        <TouchableOpacity onPress={() => props.navigation.navigate('RestaurantMenu', { restaurantId: restaurant.restaurantId })}><Text style={{ color: colors.green }}>View all</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={navigateToMenu}><Text style={{ color: colors.green }}>View all</Text></TouchableOpacity>
                     </View>
                     {menuItems ? <MenuHorizontalList menuItems={menuItems.menuItems} /> : <Splash />}
                 </View>
                 <Reviews />
                 <Divider style={{ backgroundColor: colors.transparent, paddingBottom: styles.bookButton.height + styles.bookButton.bottom * 2 }} />
             </ScrollView>
-            <Button onPress={() => props.navigation.navigate('RestaurantMenu', { restaurant, restaurantId: restaurant.restaurantId })} style={styles.bookButton} size='large' textStyle={{ fontWeight: 'normal' }}>Book a table</Button>
+            <Button onPress={navigateToMenu} style={styles.bookButton} size='large' textStyle={{ fontWeight: 'normal' }}>Book a table</Button>
         </View> : <Splash />
     )
 }

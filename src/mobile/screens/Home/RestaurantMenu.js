@@ -19,29 +19,16 @@ import SingleButton from '../../components/SingleButton';
 import { material } from 'react-native-typography';
 import api from '../../variables/api';
 import AsyncStorage from '@react-native-community/async-storage';
+import { ReservationContext } from '../../contexts/ReservationProvider';
+import log from '../../log';
 
 const RestaurantMenu = (props) => {
-    const [data, setData] = React.useState(null)
     const [checkoutSum, setCheckoutSum] = React.useState(0)
 
-    React.useEffect(() => { if (data == null) getData() }, []);
     const [showSelected, setShowSelected] = React.useState(false)
-    const getData = async () => {
 
-        debugger
-        const response = await axios.get(`Menu/GetMenuItems/${props.route.params.restaurantId}`)
-
-        setData({
-            ...response.data,
-            menuItems: response.data.menuItems.map(_ => ({
-                ..._,
-                visible: true
-            }))
-        })
-    }
-
-    const updateCheckoutSum = () => {
-        let sum = data.menuItems.map(item => item.count > 0 ? item.count * item.price : 0).reduce((a, b) => a + b, 0)
+    const updateCheckoutSum = () => {        
+        let sum = menuItems.menuItems.map(item => item.count > 0 ? item.count * item.price : 0).reduce((a, b) => a + b, 0)
 
         if (sum === 0 && showSelected) {
             ShowSelected()
@@ -49,13 +36,15 @@ const RestaurantMenu = (props) => {
 
         setCheckoutSum(sum)
     }
+    
+    const { menuItems, setMenuItems } = React.useContext(ReservationContext)
 
     const ShowSelected = () => {
         setShowSelected(!showSelected)
 
-        setData({
-            ...data,
-            menuItems: data.menuItems.map(_ => ({
+        setMenuItems({
+            ...menuItems,
+            menuItems: menuItems.menuItems.map(_ => ({
                 ..._,
                 visible: showSelected || _.count > 0
             }))
@@ -63,12 +52,7 @@ const RestaurantMenu = (props) => {
     }
 
     const Checkout = () => {
-        props.navigation.navigate('BookATable', {
-            restaurant: props.route.params.restaurant,
-            menuItems: data.menuItems
-        })
-
-        AsyncStorage.setItem()
+        props.navigation.navigate('BookATable')
     }
 
     return (
@@ -83,7 +67,7 @@ const RestaurantMenu = (props) => {
                 </TouchableOpacity>}
                 {checkoutSum > 0 && <Text style={{ ...material.headline, color: colors.green, paddingHorizontal: 8 }}>{`$${checkoutSum}`}</Text>}
             </View>
-            {data ? <MenuVerticalList title='Most popular' menuItems={data.menuItems} onChange={updateCheckoutSum} style={{}} /> : <Splash />}
+            {menuItems ? <MenuVerticalList title='Most popular' menuItems={menuItems.menuItems} onChange={updateCheckoutSum} style={{}} /> : <Splash />}
             {checkoutSum > 0 &&
                 <SingleButton text={`Go to checkout`} onPress={Checkout}
                     style={{ marginVertical: 24 }} />}
@@ -118,7 +102,7 @@ const MenuSpecial = (props) => {
                     <Line x1="0" y1="0" x2="200" y2="0" stroke="#FFB700" strokeWidth="3" />
                 </Svg>
             </View>
-            {data ? <MenuHorizontalList menuItems={data.menuItems} /> : <Splash />}
+            {data ? <MenuHorizontalList menuItems={menuItems.menuItems} /> : <Splash />}
         </View>
     )
 }

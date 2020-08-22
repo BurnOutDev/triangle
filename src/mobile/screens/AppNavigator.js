@@ -23,11 +23,10 @@ import axios from 'axios';
 import CategoryAll from "./Home/CategoryAll";
 import Cuisine from "../screens/Home/Cuisine";
 import { Icon } from "@ui-kitten/components";
-import RestaurantMenu from "./Home/RestaurantMenu";
-import RestaurantDetails from "./Home/RestaurantDetails";
-import BookATable from "./Home/BookATable";
 import Account from "./Account/Index";
-import { AuthContextProvider, AuthContext } from "../contexts/AuthProvider";
+import { AuthContextProvider, AuthContext } from "../contexts/AuthProvider"
+import { ReservationProvider, ReservationContext, ReservationStackScreen } from '../contexts/ReservationProvider'
+import RestaurantDetails from "./Home/RestaurantDetails";
 
 const Tabs = createBottomTabNavigator();
 
@@ -61,18 +60,12 @@ const TabsScreen = (props) => (
 );
 
 const RootStack = createStackNavigator();
-const RootStackScreen = () => {
-  let { token } = React.useContext(AuthContext)
-
-  return (
-    <RootStack.Navigator headerMode="none">
-      <RootStack.Screen name="Home" component={TabsScreen} />
-      <RootStack.Screen name='RestaurantDetails' component={RestaurantDetails} />
-      <RootStack.Screen name='RestaurantMenu' component={RestaurantMenu} />
-      <RootStack.Screen name='BookATable' component={BookATable} />
-    </RootStack.Navigator>
-  )
-}
+const RootStackScreen = () => (
+  <RootStack.Navigator headerMode="none">
+    <RootStack.Screen name="Home" component={TabsScreen} />
+    <RootStack.Screen name='RestaurantDetails' component={ReservationStackScreen} />
+  </RootStack.Navigator>
+)
 
 export default () => (
   <AuthContextProvider>

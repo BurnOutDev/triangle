@@ -22,6 +22,7 @@ import SingleButton from '../../components/SingleButton';
 
 import { Calendar } from 'react-native-calendars'
 import api from '../../variables/api';
+import { ReservationContext } from '../../contexts/ReservationProvider';
 
 const formats = {
     month: 'MMMM',
@@ -47,8 +48,6 @@ const shadowStyle = {
 }
 
 const BookATable = (props) => {
-    const [restaurant, setRestaurant] = React.useState(null)
-    const [menuItems, setMenuItems] = React.useState(null)
     const [selectedIndex, setSelectedIndex] = React.useState(0);
 
     const [dateIsSelected, setDateIsSelected] = React.useState(false)
@@ -73,8 +72,7 @@ const BookATable = (props) => {
 
     const [visible, setVisible] = React.useState(false);
 
-    React.useEffect(() => { if (restaurant == null) setRestaurant(props.route.params.restaurant) }, []);
-    React.useEffect(() => { if (menuItems == null) setMenuItems(props.route.params.menuItems) }, []);
+    const { menuItems, restaurant } = React.useContext(ReservationContext) 
 
     const PictureHeader = (props) => (
         <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
@@ -319,7 +317,7 @@ const BookATable = (props) => {
                     <Text style={{ textAlign: 'center', paddingHorizontal: 32, ...material.caption }}>You can manage your booking in "Manage Booking" section.</Text>
                     <View style={{ width: '100%', paddingVertical: 24 }}>
                         <Divider style={{ width: '100%', backgroundColor: colors.lightGrey, marginBottom: 16 }} />
-                        <Text style={{ ...material.headline, ...systemWeights.semibold, color: colors.green, textAlign: 'center', paddingBottom: 8 }}>{props.route.params.restaurant.title}</Text>
+                        <Text style={{ ...material.headline, ...systemWeights.semibold, color: colors.green, textAlign: 'center', paddingBottom: 8 }}>{restaurant.title}</Text>
                         <Text style={{ ...material.body1, color: colors.green, textAlign: 'center', paddingBottom: 8 }}>{moment(date).format('HH:mm - DD MMM, YYYY')} - 2 persons</Text>
                         <Text style={{ ...material.body1, color: colors.green, textAlign: 'center' }}>Booking No. Ghf349da</Text>
                         <Divider style={{ width: '100%', backgroundColor: colors.lightGrey, marginTop: 16 }} />

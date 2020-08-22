@@ -7,6 +7,7 @@ import PriceTag from '../PriceTag'
 import { colors } from '../../variables/colors'
 import { material, systemWeights } from 'react-native-typography'
 import SingleButton from '../SingleButton'
+import log from '../../log'
 
 const RenderProductItem = ({ item, onUpdate }) => {
     const [clicked, setClicked] = React.useState(false)
@@ -149,6 +150,8 @@ const MenuVerticalList = (props) => {
         setUpdate(!update)
         props.onChange()
     }
+
+    log.variable({ menuItems: props.menuItems[0]['visible'] })
 
     return (<List
         contentContainerStyle={props.style}
