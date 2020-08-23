@@ -5,7 +5,7 @@ import { colors } from '../variables/colors'
 import { TouchableWithoutFeedback, ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import MenuVerticalList from './Menu/MenuVerticalList';
 import axios from '../axios';
-import { Splash } from '../screens/Screens';
+import { Splash } from '../screens/Splash';
 import RestaurantList from './RestaurantList/RestaurantList';
 import SingleButton from './SingleButton';
 import { material } from 'react-native-typography';

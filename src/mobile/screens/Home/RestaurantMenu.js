@@ -11,7 +11,7 @@ import { Svg, Line } from 'react-native-svg';
 import Category from '../../components/Category/Category';
 import CategoryList from '../../components/Category/CategoryList';
 import axios from '../../axios';
-import { Splash } from '../Screens';
+import { Splash } from '../Splash';
 import MenuHorizontalList from '../../components/Menu/MenuHorizontalList';
 import MenuVerticalList, { Addon } from '../../components/Menu/MenuVerticalList';
 import { TouchableOpacity } from 'react-native-gesture-handler';

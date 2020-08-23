@@ -2,7 +2,7 @@ import React from 'react'
 import Container from '../../components/Container';
 import { View, ImageBackground, Linking, Dimensions } from 'react-native';
 import { Text, StyleService, Icon, Button, Divider, ButtonGroup, TabBar, Tab, Modal, Layout } from '@ui-kitten/components';
-import { Splash } from '../Screens';
+import { Splash } from '../Splash';
 import axios from '../../axios'
 import { colors } from '../../variables/colors';
 import { Back, Filter, ShareIcon, PhotoIcon, Heart, PlusIcon, MinusIcon, CheckIcon } from '../../components/Icons';

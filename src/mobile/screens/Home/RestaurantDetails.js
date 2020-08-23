@@ -2,7 +2,7 @@ import React from 'react'
 import Container from '../../components/Container';
 import { View, ImageBackground, Linking, Dimensions, StatusBar } from 'react-native';
 import { Text, StyleService, Icon, Button, Divider } from '@ui-kitten/components';
-import { Splash } from '../Screens';
+import { Splash } from '../Splash';
 import axios from '../../axios'
 import { colors } from '../../variables/colors';
 import { Back, Filter, ShareIcon, PhotoIcon, Heart } from '../../components/Icons';
@@ -21,12 +21,6 @@ import { ReservationContext } from '../../contexts/ReservationProvider';
 const { width, height } = Dimensions.get('window');
 
 const { Navigator, Screen } = createStackNavigator();
-
-const ASPECT_RATIO = width / height; //,
-const LATITUDE = 41.7057911;
-const LONGITUDE = 44.7870449;
-const LATITUDE_DELTA = 0.0922;
-const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 const StarIcon = (style) => (
     <Icon {...style} name='star' fill='#FFB700' />

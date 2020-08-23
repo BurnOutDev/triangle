@@ -5,16 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { HomeBottomNavigation } from './BottomTabNavigator';
 import MostPopular from './Home/MostPopular';
 
-import {
-  SignIn,
-  CreateAccount,
-  Search,
-  Home,
-  Details,
-  Search2,
-  Profile,
-  Splash
-} from "./Screens";
+import { Splash } from "./Splash";
 import Authentication from "./Authentication/Authentication";
 import { authorize, revoke } from "react-native-app-auth";
 import openIdConfig from "../openIdConfig";

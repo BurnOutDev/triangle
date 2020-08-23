@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 import { authorize } from "react-native-app-auth";
 import { createStackNavigator } from "@react-navigation/stack";
 import Authentication from "../screens/Authentication/Authentication";
-import { CreateAccount, Splash } from "../screens/Screens";
+import { Splash } from "../screens/Splash";
 import { NavigationContainer } from "@react-navigation/native";
 import openIdConfig from "../openIdConfig";
 import log from "../log";
@@ -18,11 +18,6 @@ const AuthStackScreen = () => (
             name="Authentication"
             component={Authentication}
             options={{ headerShown: false }}
-        />
-        <AuthStack.Screen
-            name="CreateAccount"
-            component={CreateAccount}
-            options={{ title: "Create Account" }}
         />
     </AuthStack.Navigator>
 );

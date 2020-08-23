@@ -8,7 +8,7 @@ import { Search, Star, Location } from '../../components/Icons'
 import RestaurantList from '../../components/RestaurantList/RestaurantList'
 import Container from '../../components/Container'
 import axios from '../../axios'
-import { Splash } from '../Screens'
+import { Splash } from '../Splash'
 import api from '../../variables/api'
 
 const CategoryAll = (props) => {

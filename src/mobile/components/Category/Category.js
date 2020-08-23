@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { Text } from '@ui-kitten/components'
 import CategoryList from './CategoryList'
 import axios from '../../axios'
-import { Splash } from '../../screens/Screens'
+import { Splash } from '../../screens/Splash'
 import api from '../../variables/api'
 import CategoryXLList from '../CategoryXL/CategoryXLList'
 

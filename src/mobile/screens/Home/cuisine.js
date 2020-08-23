@@ -13,7 +13,7 @@ import Container from '../../components/Container'
 import axios from '../../axios'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SafeAreaLayoutComponent } from '../../components/SafeAreaLayout'
-import { Splash } from '../Screens'
+import { Splash } from '../Splash'
 import api from '../../variables/api'
 
 const Cuisine = () => {

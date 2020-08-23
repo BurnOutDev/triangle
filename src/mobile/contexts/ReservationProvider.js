@@ -6,7 +6,7 @@ import BookATable from "../screens/Home/BookATable";
 import api from "../variables/api";
 import axios from "../axios";
 import log from "../log";
-import { Splash } from "../screens/Screens";
+import { Splash } from "../screens/Splash";
 
 // Create Context Object
 export const ReservationContext = React.createContext({
