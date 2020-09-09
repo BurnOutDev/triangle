@@ -33,7 +33,7 @@ namespace ReserveProject.DI
             string connectionString = Configuration.GetConnectionString("ReserveDbContext");
             services.AddSingleton(Configuration);
             services.AddDbContext<ReserveDbContext>(options => options.UseLazyLoadingProxies()
-                                                                      .UseSqlServer(connectionString, x => x.UseNetTopologySuite())
+                                                                      .UseNpgsql(connectionString)
                                                                       .UseLoggerFactory(new LoggerFactory(new[] { new DebugLoggerProvider() })));
 
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();

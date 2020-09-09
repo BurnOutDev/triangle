@@ -14,7 +14,7 @@ namespace ReserveProject.Persistence
 
         public ReserveDbContext(DbContextOptions<ReserveDbContext> options) : base(options)
         {
-            Database.Migrate();
+            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
