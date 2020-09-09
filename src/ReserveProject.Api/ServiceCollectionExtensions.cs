@@ -56,10 +56,10 @@ namespace ReserveProject.Api
                     options.Authority = authoriy;
                     options.ApiName = "reservationapi";
                     options.RequireHttpsMetadata = false;
-                    options.JwtBearerEvents.OnAuthenticationFailed = async (error) =>
-                    {
-                        string er = error.Result.Ticket.AuthenticationScheme;
-                    };
+                    // options.JwtBearerEvents.OnAuthenticationFailed = async (error) =>
+                    // {
+                    //     string er = error.Result.Ticket.AuthenticationScheme;
+                    // };
                 });
 
             return serviceCollection;

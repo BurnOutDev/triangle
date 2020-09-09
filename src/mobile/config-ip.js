@@ -5,7 +5,7 @@ const moment = require('moment')
 const { red, blue } = require('chalk')
 
 const configIp = () => {
-    const name = "Wi-Fi";
+    const name = "wlp2s0";
     const interfaces = networkInterfaces()[name]
 
     if (interfaces) {

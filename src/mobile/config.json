@@ -1,5 +1,5 @@
 {
-    "ip": "192.168.100.7",
+    "ip": "192.168.0.106",
     "configIpLog": "config-ip.log",
     "axiosLog": "axios.log"
 }
