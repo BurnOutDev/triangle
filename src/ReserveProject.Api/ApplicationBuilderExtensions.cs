@@ -39,7 +39,7 @@ namespace ReserveProject.Api
             using (var serviceScope = applicationBuilder.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
                 .CreateScope())
             {
-                serviceScope.ServiceProvider.GetService<ReserveDbContext>().Database.Migrate();
+                serviceScope.ServiceProvider.GetService<ReserveDbContext>().Database.EnsureCreated();
             }
 
             //DapperNamingMapperExtensions.DefineDapperNameMapping();
