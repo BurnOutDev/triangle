@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Layout, Text, Input, Button, List, ListItem, Card, Icon, useStyleSheet, StyleService } from '@ui-kitten/components'
-import { ImageBackground, StyleSheet, View, Dimensions, StatusBar, Image, ScrollView } from 'react-native'
+import { ImageBackground, StyleSheet, View, Dimensions, StatusBar, Image, ScrollView, Linking, TouchableOpacity, Alert } from 'react-native'
 import CategoryList from '../../components/Category/CategoryList'
 import CuisineList from '../../components/Cuisine/CuisineList'
 import Filter from '../../components/Filter'
@@ -14,21 +14,78 @@ import { createStackNavigator } from '@react-navigation/stack'
 import Container from '../../components/Container'
 import MostPopular from './MostPopular'
 import PageHeader from '../../components/PageHeader'
-
-const { Navigator, Screen } = createStackNavigator();
-
-const Header = () => (
-    <Filter statusBarPadding />
-)
+import axios from '../../axios'
+import InAppBrowser from 'react-native-inappbrowser-reborn'
 
 const Explore = (props) => {
+
+    const payment = () => {
+        debugger
+        const items = [
+            { product_id: "123456789", quantity: 1, amount: 1.00, description: "product description text 1" },
+        ];
+
+        const ip = require('../../config.json').ip
+
+        axios.post(`http://${ip}:3000/pay`, items).then(res => {
+            openLink(res.data.links[1].href)
+            axios.post(`http://${ip}:3000/view-log`, res.data)
+        }).catch(err => {
+            debugger
+            Alert.alert('Error')
+        })
+    }
+
+    const openLink = async (url) => {
+        try {
+            if (await InAppBrowser.isAvailable()) {
+                debugger
+                const result = await InAppBrowser.openAuth(url, 'net.azurewebsites.idpserverirakli:/oauthredirect', {
+                    // iOS Properties
+                    dismissButtonStyle: 'cancel',
+                    preferredBarTintColor: '#453AA4',
+                    preferredControlTintColor: 'white',
+                    readerMode: false,
+                    animated: true,
+                    modalPresentationStyle: 'fullScreen',
+                    modalTransitionStyle: 'partialCurl',
+                    modalEnabled: true,
+                    enableBarCollapsing: false,
+                    // Android Properties
+                    showTitle: true,
+                    toolbarColor: '#6200EE',
+                    secondaryToolbarColor: 'black',
+                    enableUrlBarHiding: true,
+                    enableDefaultShare: true,
+                    forceCloseOnRedirection: true,
+                    // Specify full animation resource identifier(package:anim/name)
+                    // or only resource name(in case of animation bundled with app).
+                    animations: {
+                        startEnter: 'slide_in_right',
+                        startExit: 'slide_out_left',
+                        endEnter: 'slide_in_left',
+                        endExit: 'slide_out_right'
+                    },
+                    headers: {
+                        'my-custom-header': 'my custom header value'
+                    }
+                })
+                Alert.alert(JSON.stringify(result))
+            }
+            else Linking.openURL(url)
+        } catch (error) {
+            Alert.alert(error.message)
+        }
+    }
 
     return (
         <Container>
             <PageHeader statusBarPadding showFilter />
             <ScrollView>
-                <Address />
-                <Promo />
+                <TouchableOpacity onPress={payment}>
+                    <Address />
+                    <Promo />
+                </TouchableOpacity>
                 <Category title='Nearby' />
                 <Category title='Best offers' horizontal />
                 <Category title='Best rated' />

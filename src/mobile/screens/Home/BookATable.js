@@ -72,7 +72,7 @@ const BookATable = (props) => {
 
     const [visible, setVisible] = React.useState(false);
 
-    const { menuItems, restaurant } = React.useContext(ReservationContext) 
+    const { menuItems, restaurant } = React.useContext(ReservationContext)
 
     const PictureHeader = (props) => (
         <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
@@ -99,7 +99,7 @@ const BookATable = (props) => {
                 dateAndTime: date,
                 partySizeChildren: partySize.children,
                 partySizeAdults: partySize.adults,
-                menuItems: menuItems.map(i => ({
+                menuItems: menuItems.menuItems.map(i => ({
                     menuItemId: i.menuItemId,
                     quantity: i.count
                 }))
