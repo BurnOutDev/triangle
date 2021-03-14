@@ -27,6 +27,8 @@ namespace ReserveProject.Api.Controllers
         }
 
         [HttpPost("[action]")]
+
+        [HttpPost("[action]")]
         public AddReviewCommandResult AddReview(AddReviewCommand addReviewCommand)
         {
             return ReservationService.AddReview(UserId, addReviewCommand);

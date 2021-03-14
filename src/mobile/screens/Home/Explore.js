@@ -40,7 +40,7 @@ const Explore = (props) => {
         try {
             if (await InAppBrowser.isAvailable()) {
                 debugger
-                const result = await InAppBrowser.openAuth(url, 'net.azurewebsites.idpserverirakli:/oauthredirect', {
+                const result = await InAppBrowser.openAuth(url, 'com.reserveapp:/paymentredirect', {
                     // iOS Properties
                     dismissButtonStyle: 'cancel',
                     preferredBarTintColor: '#453AA4',
@@ -57,7 +57,6 @@ const Explore = (props) => {
                     secondaryToolbarColor: 'black',
                     enableUrlBarHiding: true,
                     enableDefaultShare: true,
-                    forceCloseOnRedirection: true,
                     // Specify full animation resource identifier(package:anim/name)
                     // or only resource name(in case of animation bundled with app).
                     animations: {
@@ -65,12 +64,8 @@ const Explore = (props) => {
                         startExit: 'slide_out_left',
                         endEnter: 'slide_in_left',
                         endExit: 'slide_out_right'
-                    },
-                    headers: {
-                        'my-custom-header': 'my custom header value'
                     }
                 })
-                Alert.alert(JSON.stringify(result))
             }
             else Linking.openURL(url)
         } catch (error) {
